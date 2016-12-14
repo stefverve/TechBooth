@@ -12,12 +12,14 @@ import CoreText
 class SinglePageViewController: UIViewController {
     
     var page: CGPDFPage!
+    var pageNum: Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
-        // Do any additional setup after loading the view.
+        let label = UILabel(frame: CGRect(x: 10, y: 10, width: 300, height: 44))
+        label.text = "Page \(pageNum)"
+        view.addSubview(label)
     }
 
     override func didReceiveMemoryWarning() {
