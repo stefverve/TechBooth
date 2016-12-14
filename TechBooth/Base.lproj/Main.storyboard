@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Uqf-f9-GDE">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vp0-B0-Il7">
     <device id="ipad12_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -45,13 +45,23 @@
             </objects>
             <point key="canvasLocation" x="454" y="-745"/>
         </scene>
-        <!--Page View Controller-->
-        <scene sceneID="JpA-WW-6oP">
+        <!--Project View Controller-->
+        <scene sceneID="hXz-aA-6No">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="vertical" spineLocation="none" id="Uqf-f9-GDE" customClass="PDFPageViewController" customModule="TechBooth" customModuleProvider="target" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lEv-7c-jNq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="vp0-B0-Il7" customClass="ProjectViewController" customModule="TechBooth" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="bEW-nE-s6l"/>
+                        <viewControllerLayoutGuide type="bottom" id="OHZ-Aq-8mT"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="fDt-Fl-P7u">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="X1O-g7-lL0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="497" y="-94"/>
+            <point key="canvasLocation" x="501" y="-45"/>
         </scene>
         <!--Sound View Controller-->
         <scene sceneID="1GJ-N1-Qut">
@@ -176,7 +186,7 @@
         <!--Single Page View Controller-->
         <scene sceneID="qXm-WE-OQo">
             <objects>
-                <viewController storyboardIdentifier="pdfPage" id="lLR-ub-j8g" customClass="SinglePageViewController" customModule="TechBooth" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SinglePageViewController" id="lLR-ub-j8g" customClass="SinglePageViewController" customModule="TechBooth" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="TYk-1V-xPT"/>
                         <viewControllerLayoutGuide type="bottom" id="F1M-oE-pxZ"/>

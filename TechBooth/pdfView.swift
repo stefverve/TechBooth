@@ -51,7 +51,10 @@ class pdfView: UIView {
         ctx?.scaleBy(x: 1, y: -1)
         ctx?.translateBy(x: 0, y: -rect.size.height)
         
-        let mediaRect = CGPDFPageGetBoxRect(page, kCGPDFCropBox)
+    //    let mediaRect = page.getBoxRect(CGPDFBox.mediaBox)
+        
+        ctx?.drawPDFPage(page)
+        
         
     }
     
