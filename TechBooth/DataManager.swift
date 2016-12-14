@@ -20,7 +20,7 @@ class DataManager {
 	static let share = DataManager()
 	var document: CGPDFDocument!
 	var pageCount = 0
-	var pageSize = CGSize(width: 0, height: 0)
+    var pageRect = CGRect(x: 0, y: 0, width: 0, height: 0)
 	
 	private init() {	}
 	

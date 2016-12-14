@@ -21,6 +21,9 @@ class SinglePageViewController: UIViewController {
         let label = UILabel(frame: CGRect(x: 10, y: 10, width: 300, height: 44))
         label.text = "Page \(pageNum)"
         view.addSubview(label)
+        self.pdfView.page = DataManager.share.document.page(at: pageNum+1)
+        
+        
     }
 
     override func didReceiveMemoryWarning() {

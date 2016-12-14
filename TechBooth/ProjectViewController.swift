@@ -21,7 +21,7 @@ class ProjectViewController: UIViewController {
         
         DataManager.share.document = document
         DataManager.share.pageCount = document.numberOfPages
-        DataManager.share.pageSize = (document.page(at: 1)?.getBoxRect(CGPDFBox.mediaBox).size)!
+        DataManager.share.pageRect = (document.page(at: 1)?.getBoxRect(CGPDFBox.mediaBox))!
         
         self.pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .vertical, options: nil)
         
@@ -43,10 +43,6 @@ class ProjectViewController: UIViewController {
         
         self.pageViewController!.didMove(toParentViewController: self)
         
-        
-        
-        
-        // Do any additional setup after loading the view.
     }
     
     var modelController: ModelController {
@@ -65,41 +61,7 @@ class ProjectViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-  /*
-    
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController?
-    {
-        let pageContent: SinglePageViewController = viewController as! SinglePageViewController
-        var index = pageContent.pageIndex
-        if ((index == 0) || (index == NSNotFound))
-        {
-            return nil
-        }
-        index--;
-        return getViewControllerAtIndex(index)
-    }
-    
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController?
-    {
-        let pageContent: SinglePageViewController = viewController as! SinglePageViewController
-        var index = pageContent.pageIndex
-        if (index == NSNotFound)
-        {
-            return nil;
-        }
-        index++;
-        if (index == DataManager.share.pageCount + 1)
-        {
-            return nil;
-        }
-        return getViewControllerAtIndex(index)
-    }
-    
-    func getViewControllerAtIndex(index: NSInteger) -> SinglePageViewController {
-        
-    }
-    
-    */
+  
     
     private func newColoredViewController(color: String) -> SinglePageViewController {
         return UIStoryboard(name: "Main", bundle: nil) .
