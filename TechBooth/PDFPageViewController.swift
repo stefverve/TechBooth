@@ -10,11 +10,6 @@ import UIKit
 
 class PDFPageViewController: UIPageViewController, UIPageViewControllerDataSource {
     
-    var document: CGPDFDocument!
-    var pageCount = 0
-    var pageSize = CGSize(width: 0, height: 0)
-    
-    
     
  //   var orderedViewControllers: [SinglePageViewController]
 
@@ -24,9 +19,9 @@ class PDFPageViewController: UIPageViewController, UIPageViewControllerDataSourc
         // temp code to load pdf from bundle.main
         let document: CGPDFDocument = CGPDFDocument(Bundle.main.url(forResource: "Fyi", withExtension: "pdf")! as CFURL)!
         
-        self.document = document
-        self.pageCount = document.numberOfPages
-        self.pageSize = (document.page(at: 1)?.getBoxRect(CGPDFBox.mediaBox).size)!
+        DataManager.share.document = document
+        DataManager.share.pageCount = document.numberOfPages
+        DataManager.share.pageSize = (document.page(at: 1)?.getBoxRect(CGPDFBox.mediaBox).size)!
         
 //        for page in 1...self.pageCount {
 //        

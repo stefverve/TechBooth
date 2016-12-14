@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class DataManager: NSObject {
+class DataManager {
 	
 	
 	//Make a new Project
@@ -17,9 +17,12 @@ class DataManager: NSObject {
 //	newProject.pdf = "Fyi.pdf"
 	
 	//Singleton
-	static let service = DataManager()
-		
-	private override init() {	}
+	static let share = DataManager()
+	var document: CGPDFDocument!
+	var pageCount = 0
+	var pageSize = CGSize(width: 0, height: 0)
+	
+	private init() {	}
 	
 	// MARK: - Core Data stack
 	
