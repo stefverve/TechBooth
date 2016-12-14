@@ -10,6 +10,8 @@ import UIKit
 
 class MainMenuView: UIViewController {
 
+    @IBOutlet weak var importButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
