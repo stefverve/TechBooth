@@ -53,7 +53,7 @@ class DataManager {
 		return container
 	}()
 	
-	// MARK: - Core Data Saving support
+	// MARK: - Core Data Saving
 	
 	func saveContext () {
 		let context = persistentContainer.viewContext
@@ -68,4 +68,26 @@ class DataManager {
 			}
 		}
 	}
+	
+	
+	// MARK: - Core Data Fetching
+	func fetchEntityArray(name:String) -> [AnyObject]{
+
+		let context = persistentContainer.viewContext
+		let request = NSFetchRequest<NSFetchRequestResult>(entityName: name)
+		
+		do {
+			let results = try context.fetch(request) as [AnyObject]
+			return results
+			
+		} catch {
+			print("Error with request: \(error)")
+			return []
+		}
+	}
+	
+	//func fetchPDFAnnotations(name:String) -> [AnyObject]{
+	//
+	//}
+
 }
