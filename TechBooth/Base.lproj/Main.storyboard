@@ -6,15 +6,190 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Main Menu View-->
+        <scene sceneID="5Oo-Jo-CiQ">
+            <objects>
+                <viewController id="lWp-5R-be8" customClass="MainMenuView" customModule="TechBooth" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="cPi-SU-Pa6"/>
+                        <viewControllerLayoutGuide type="bottom" id="VLh-a4-kLS"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="W6w-9r-EoF">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="l6X-6I-32J" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-533" y="-745"/>
+        </scene>
+        <!--Settings View Controller-->
+        <scene sceneID="c31-C1-Bya">
+            <objects>
+                <viewController id="vEi-2c-QYu" customClass="SettingsViewController" customModule="TechBooth" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="q5H-m2-T5P"/>
+                        <viewControllerLayoutGuide type="bottom" id="bPw-vd-mr8"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="bU4-zP-x7a">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WqU-zS-ZvN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="454" y="-745"/>
+        </scene>
         <!--Page View Controller-->
         <scene sceneID="JpA-WW-6oP">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="Uqf-f9-GDE" sceneMemberID="viewController"/>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="vertical" spineLocation="none" id="Uqf-f9-GDE" customClass="PDFPageViewController" customModule="TechBooth" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lEv-7c-jNq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="497" y="-94"/>
+        </scene>
+        <!--Sound View Controller-->
+        <scene sceneID="1GJ-N1-Qut">
+            <objects>
+                <viewController id="ty8-nl-YQm" customClass="SoundViewController" customModule="TechBooth" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="pFx-XZ-XG6"/>
+                        <viewControllerLayoutGuide type="bottom" id="5YE-1S-LGd"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Htn-5s-77H">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="MaM-Uv-ISQ">
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="k11-TI-pmh">
+                                        <rect key="frame" x="0.0" y="28" width="1024" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="k11-TI-pmh" id="6Kk-Hk-Zs0">
+                                            <rect key="frame" x="0.0" y="0.0" width="1024" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="5YE-1S-LGd" firstAttribute="top" secondItem="MaM-Uv-ISQ" secondAttribute="bottom" id="0FE-c9-ZDA"/>
+                            <constraint firstItem="MaM-Uv-ISQ" firstAttribute="width" secondItem="Htn-5s-77H" secondAttribute="width" id="Ni3-Yc-mwc"/>
+                            <constraint firstItem="MaM-Uv-ISQ" firstAttribute="leading" secondItem="Htn-5s-77H" secondAttribute="leading" id="j9q-tY-udL"/>
+                            <constraint firstItem="MaM-Uv-ISQ" firstAttribute="height" secondItem="Htn-5s-77H" secondAttribute="height" id="q1h-Rd-xC3"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HK5-h4-xyJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1202" y="34"/>
+        </scene>
+        <!--Presentation View Controller-->
+        <scene sceneID="Tp6-uJ-beo">
+            <objects>
+                <viewController id="5IR-gC-vLL" customClass="PresentationViewController" customModule="TechBooth" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="kDb-sm-OOu"/>
+                        <viewControllerLayoutGuide type="bottom" id="ug8-BU-2ek"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Bar-mV-EhY">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4wE-mn-gTz">
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="1002"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <connections>
+                                    <segue destination="6al-pK-sWG" kind="embed" id="pbA-Ge-p6h"/>
+                                </connections>
+                            </containerView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="udx-BQ-q08">
+                                <rect key="frame" x="392" y="1126" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="via-pK-z8f" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2201.953125" y="-86.090775988286964"/>
+        </scene>
+        <!--Page View Controller-->
+        <scene sceneID="Fm7-33-1qV">
+            <objects>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="6al-pK-sWG" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qsa-ag-mvd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2835" y="-48"/>
+        </scene>
+        <!--Lights View Controller-->
+        <scene sceneID="GVc-qp-PbI">
+            <objects>
+                <viewController id="R7P-ll-eWU" customClass="LightsViewController" customModule="TechBooth" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="JSX-T6-kWR"/>
+                        <viewControllerLayoutGuide type="bottom" id="6tD-2h-waf"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="k4c-gA-14o">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="JAA-aZ-FxX">
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="4r5-vd-fAE">
+                                        <rect key="frame" x="0.0" y="28" width="1024" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4r5-vd-fAE" id="H5K-O5-q3i">
+                                            <rect key="frame" x="0.0" y="0.0" width="1024" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="JAA-aZ-FxX" firstAttribute="width" secondItem="k4c-gA-14o" secondAttribute="width" id="Ljc-31-T8L"/>
+                            <constraint firstItem="6tD-2h-waf" firstAttribute="top" secondItem="JAA-aZ-FxX" secondAttribute="bottom" id="Xwc-W5-Qql"/>
+                            <constraint firstItem="JAA-aZ-FxX" firstAttribute="leading" secondItem="k4c-gA-14o" secondAttribute="leading" id="fM9-4J-kOw"/>
+                            <constraint firstItem="JAA-aZ-FxX" firstAttribute="height" secondItem="k4c-gA-14o" secondAttribute="height" id="tI7-kH-5mB"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ib2-ME-Oom" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-226" y="12"/>
+        </scene>
+        <!--Single Page View Controller-->
+        <scene sceneID="qXm-WE-OQo">
+            <objects>
+                <viewController storyboardIdentifier="pdfPage" id="lLR-ub-j8g" customClass="SinglePageViewController" customModule="TechBooth" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="TYk-1V-xPT"/>
+                        <viewControllerLayoutGuide type="bottom" id="F1M-oE-pxZ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="2qk-c5-C2L">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bqx-fs-HiH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="497" y="657"/>
         </scene>
     </scenes>
 </document>

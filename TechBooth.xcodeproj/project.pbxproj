@@ -14,6 +14,14 @@
 		E281E9BD1E01B32B00CC8E74 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E281E9BB1E01B32B00CC8E74 /* LaunchScreen.storyboard */; };
 		E281E9C61E01B33E00CC8E74 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E281E9C51E01B33E00CC8E74 /* CoreText.framework */; };
 		E281E9C81E01B70000CC8E74 /* Fyi.pdf in Resources */ = {isa = PBXBuildFile; fileRef = E281E9C71E01B70000CC8E74 /* Fyi.pdf */; };
+		E281E9CC1E01BAD600CC8E74 /* PDFPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E281E9CB1E01BAD600CC8E74 /* PDFPageViewController.swift */; };
+		E281E9CE1E01C13C00CC8E74 /* SinglePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E281E9CD1E01C13C00CC8E74 /* SinglePageViewController.swift */; };
+		E281E9D01E01D8A000CC8E74 /* pdfView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E281E9CF1E01D8A000CC8E74 /* pdfView.swift */; };
+		E281E9D21E01DDA900CC8E74 /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E281E9D11E01DDA900CC8E74 /* MainMenuView.swift */; };
+		E281E9D41E01DE8A00CC8E74 /* LightsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E281E9D31E01DE8A00CC8E74 /* LightsViewController.swift */; };
+		E281E9D61E01DED600CC8E74 /* SoundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E281E9D51E01DED600CC8E74 /* SoundViewController.swift */; };
+		E281E9D81E01DFB100CC8E74 /* PresentationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E281E9D71E01DFB100CC8E74 /* PresentationViewController.swift */; };
+		E281E9DA1E01E10A00CC8E74 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E281E9D91E01E10A00CC8E74 /* SettingsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +34,14 @@
 		E281E9BE1E01B32B00CC8E74 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E281E9C51E01B33E00CC8E74 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		E281E9C71E01B70000CC8E74 /* Fyi.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Fyi.pdf; sourceTree = "<group>"; };
+		E281E9CB1E01BAD600CC8E74 /* PDFPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFPageViewController.swift; sourceTree = "<group>"; };
+		E281E9CD1E01C13C00CC8E74 /* SinglePageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SinglePageViewController.swift; sourceTree = "<group>"; };
+		E281E9CF1E01D8A000CC8E74 /* pdfView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = pdfView.swift; sourceTree = "<group>"; };
+		E281E9D11E01DDA900CC8E74 /* MainMenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
+		E281E9D31E01DE8A00CC8E74 /* LightsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LightsViewController.swift; sourceTree = "<group>"; };
+		E281E9D51E01DED600CC8E74 /* SoundViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundViewController.swift; sourceTree = "<group>"; };
+		E281E9D71E01DFB100CC8E74 /* PresentationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentationViewController.swift; sourceTree = "<group>"; };
+		E281E9D91E01E10A00CC8E74 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,8 +76,16 @@
 		E281E9AE1E01B32B00CC8E74 /* TechBooth */ = {
 			isa = PBXGroup;
 			children = (
-				E281E9AF1E01B32B00CC8E74 /* AppDelegate.swift */,
 				E281E9B31E01B32B00CC8E74 /* Main.storyboard */,
+				E281E9D11E01DDA900CC8E74 /* MainMenuView.swift */,
+				E281E9D31E01DE8A00CC8E74 /* LightsViewController.swift */,
+				E281E9D51E01DED600CC8E74 /* SoundViewController.swift */,
+				E281E9CB1E01BAD600CC8E74 /* PDFPageViewController.swift */,
+				E281E9D71E01DFB100CC8E74 /* PresentationViewController.swift */,
+				E281E9D91E01E10A00CC8E74 /* SettingsViewController.swift */,
+				E281E9CD1E01C13C00CC8E74 /* SinglePageViewController.swift */,
+				E281E9CF1E01D8A000CC8E74 /* pdfView.swift */,
+				E281E9AF1E01B32B00CC8E74 /* AppDelegate.swift */,
 				E281E9B91E01B32B00CC8E74 /* Assets.xcassets */,
 				E281E9C71E01B70000CC8E74 /* Fyi.pdf */,
 				E281E9BB1E01B32B00CC8E74 /* LaunchScreen.storyboard */,
@@ -151,8 +175,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E281E9D21E01DDA900CC8E74 /* MainMenuView.swift in Sources */,
 				E281E9B81E01B32B00CC8E74 /* TechBooth.xcdatamodeld in Sources */,
 				E281E9B01E01B32B00CC8E74 /* AppDelegate.swift in Sources */,
+				E281E9DA1E01E10A00CC8E74 /* SettingsViewController.swift in Sources */,
+				E281E9CC1E01BAD600CC8E74 /* PDFPageViewController.swift in Sources */,
+				E281E9D81E01DFB100CC8E74 /* PresentationViewController.swift in Sources */,
+				E281E9D61E01DED600CC8E74 /* SoundViewController.swift in Sources */,
+				E281E9D01E01D8A000CC8E74 /* pdfView.swift in Sources */,
+				E281E9D41E01DE8A00CC8E74 /* LightsViewController.swift in Sources */,
+				E281E9CE1E01C13C00CC8E74 /* SinglePageViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
