@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A0A239FD1E01C49B00FC2588 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A239FC1E01C49B00FC2588 /* DataManager.swift */; };
 		E281E9B01E01B32B00CC8E74 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E281E9AF1E01B32B00CC8E74 /* AppDelegate.swift */; };
 		E281E9B51E01B32B00CC8E74 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E281E9B31E01B32B00CC8E74 /* Main.storyboard */; };
 		E281E9B81E01B32B00CC8E74 /* TechBooth.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E281E9B61E01B32B00CC8E74 /* TechBooth.xcdatamodeld */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A0A239FC1E01C49B00FC2588 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		E281E9AC1E01B32B00CC8E74 /* TechBooth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TechBooth.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E281E9AF1E01B32B00CC8E74 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E281E9B41E01B32B00CC8E74 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -61,6 +63,7 @@
 			isa = PBXGroup;
 			children = (
 				E281E9AF1E01B32B00CC8E74 /* AppDelegate.swift */,
+				A0A239FC1E01C49B00FC2588 /* DataManager.swift */,
 				E281E9B31E01B32B00CC8E74 /* Main.storyboard */,
 				E281E9B91E01B32B00CC8E74 /* Assets.xcassets */,
 				E281E9C71E01B70000CC8E74 /* Fyi.pdf */,
@@ -110,6 +113,7 @@
 				TargetAttributes = {
 					E281E9AB1E01B32B00CC8E74 = {
 						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = A337N9L862;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -152,6 +156,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E281E9B81E01B32B00CC8E74 /* TechBooth.xcdatamodeld in Sources */,
+				A0A239FD1E01C49B00FC2588 /* DataManager.swift in Sources */,
 				E281E9B01E01B32B00CC8E74 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -275,10 +280,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = A337N9L862;
 				INFOPLIST_FILE = TechBooth/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = DMSV.TechBooth;
+				PRODUCT_BUNDLE_IDENTIFIER = DMSV.TechBooth.Me;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -288,10 +293,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = A337N9L862;
 				INFOPLIST_FILE = TechBooth/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = DMSV.TechBooth;
+				PRODUCT_BUNDLE_IDENTIFIER = DMSV.TechBooth.Me;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -316,6 +321,7 @@
 				E281E9C31E01B32B00CC8E74 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
