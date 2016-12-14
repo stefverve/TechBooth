@@ -20,12 +20,23 @@
                     <view key="view" contentMode="scaleToFill" id="W6w-9r-EoF">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v2S-p6-bhc">
+                                <rect key="frame" x="200" y="485" width="624" height="159"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="100"/>
+                                <state key="normal" title="Button"/>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="importButton" destination="v2S-p6-bhc" id="7TF-5u-xeK"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l6X-6I-32J" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-533" y="-745"/>
+            <point key="canvasLocation" x="-533.203125" y="-745.38799414348455"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="c31-C1-Bya">
@@ -88,6 +99,10 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="ty8-nl-YQm" id="OXR-25-I9w"/>
+                                    <outlet property="delegate" destination="ty8-nl-YQm" id="hfO-nB-HM0"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -168,6 +183,10 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="R7P-ll-eWU" id="oEt-Z1-zar"/>
+                                    <outlet property="delegate" destination="R7P-ll-eWU" id="aTu-93-lT5"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -191,11 +210,14 @@
                         <viewControllerLayoutGuide type="top" id="TYk-1V-xPT"/>
                         <viewControllerLayoutGuide type="bottom" id="F1M-oE-pxZ"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="2qk-c5-C2L">
+                    <view key="view" contentMode="scaleToFill" id="2qk-c5-C2L" customClass="pdfView" customModule="TechBooth" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="pdfView" destination="2qk-c5-C2L" id="zsW-9w-ndw"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bqx-fs-HiH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

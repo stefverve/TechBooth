@@ -80,17 +80,17 @@
 		E281E9AE1E01B32B00CC8E74 /* TechBooth */ = {
 			isa = PBXGroup;
 			children = (
-				A0A239FC1E01C49B00FC2588 /* DataManager.swift */,
 				E281E9B31E01B32B00CC8E74 /* Main.storyboard */,
+				A0A239FC1E01C49B00FC2588 /* DataManager.swift */,
 				E281E9D11E01DDA900CC8E74 /* MainMenuView.swift */,
-				E281E9D31E01DE8A00CC8E74 /* LightsViewController.swift */,
-				E281E9D51E01DED600CC8E74 /* SoundViewController.swift */,
+				E281E9D91E01E10A00CC8E74 /* SettingsViewController.swift */,
 				E281E9CB1E01BAD600CC8E74 /* ProjectViewController.swift */,
 				E281E9FD1E01FADE00CC8E74 /* ModelController.swift */,
-				E281E9D71E01DFB100CC8E74 /* PresentationViewController.swift */,
-				E281E9D91E01E10A00CC8E74 /* SettingsViewController.swift */,
+				E281E9D31E01DE8A00CC8E74 /* LightsViewController.swift */,
+				E281E9D51E01DED600CC8E74 /* SoundViewController.swift */,
 				E281E9CD1E01C13C00CC8E74 /* SinglePageViewController.swift */,
 				E281E9CF1E01D8A000CC8E74 /* pdfView.swift */,
+				E281E9D71E01DFB100CC8E74 /* PresentationViewController.swift */,
 				E281E9AF1E01B32B00CC8E74 /* AppDelegate.swift */,
 				E281E9B91E01B32B00CC8E74 /* Assets.xcassets */,
 				E281E9C71E01B70000CC8E74 /* Fyi.pdf */,

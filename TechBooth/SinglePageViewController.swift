@@ -13,6 +13,7 @@ class SinglePageViewController: UIViewController {
     
     var page: CGPDFPage!
     var pageNum: Int!
+    @IBOutlet var pdfView: pdfView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +25,7 @@ class SinglePageViewController: UIViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+        
         // Dispose of any resources that can be recreated.
     }
     
