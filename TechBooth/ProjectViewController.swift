@@ -12,6 +12,7 @@ class ProjectViewController: UIViewController {
     
     var pageViewController: UIPageViewController?
     
+    @IBOutlet weak var stackView: UIStackView!
 
     override func viewDidLoad() {
         super.viewDidLoad()

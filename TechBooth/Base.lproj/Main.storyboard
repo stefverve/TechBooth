@@ -26,13 +26,13 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="100"/>
                                 <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="importPDFButton:" destination="lWp-5R-be8" eventType="touchUpInside" id="lWN-l7-e8Q"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <connections>
-                        <outlet property="importButton" destination="v2S-p6-bhc" id="7TF-5u-xeK"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l6X-6I-32J" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -67,8 +67,57 @@
                     <view key="view" contentMode="scaleToFill" id="fDt-Fl-P7u">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vxn-he-HRN">
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="qz5-af-pkO"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="qz5-af-pkO"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular">
+                                    <mask key="constraints">
+                                        <include reference="qz5-af-pkO"/>
+                                    </mask>
+                                </variation>
+                            </stackView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Vxn-he-HRN" firstAttribute="top" secondItem="fDt-Fl-P7u" secondAttribute="top" id="OSo-B6-8WJ"/>
+                            <constraint firstItem="Vxn-he-HRN" firstAttribute="centerX" secondItem="fDt-Fl-P7u" secondAttribute="centerX" id="Wog-hQ-ekP"/>
+                            <constraint firstItem="Vxn-he-HRN" firstAttribute="width" secondItem="fDt-Fl-P7u" secondAttribute="width" id="l2w-jr-QjY"/>
+                            <constraint firstItem="Vxn-he-HRN" firstAttribute="leading" secondItem="fDt-Fl-P7u" secondAttribute="leading" id="sX1-re-BwY"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="Vxn-he-HRN"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="OSo-B6-8WJ"/>
+                                <exclude reference="Wog-hQ-ekP"/>
+                                <exclude reference="l2w-jr-QjY"/>
+                                <exclude reference="sX1-re-BwY"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular">
+                            <mask key="subviews">
+                                <include reference="Vxn-he-HRN"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="OSo-B6-8WJ"/>
+                                <include reference="Wog-hQ-ekP"/>
+                                <include reference="l2w-jr-QjY"/>
+                                <include reference="sX1-re-BwY"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <connections>
+                        <outlet property="stackView" destination="Vxn-he-HRN" id="Fz1-Rn-8l2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X1O-g7-lL0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

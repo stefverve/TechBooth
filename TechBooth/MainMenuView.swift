@@ -10,12 +10,16 @@ import UIKit
 
 class MainMenuView: UIViewController {
 
-    @IBOutlet weak var importButton: UIButton!
+    
+    @IBAction func importPDFButton(_ sender: UIButton) {
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
