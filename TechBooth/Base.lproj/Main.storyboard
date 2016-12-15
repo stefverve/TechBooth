@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Emt-r8-siP">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vp0-B0-Il7">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -459,13 +459,13 @@
                         <viewControllerLayoutGuide type="top" id="TYk-1V-xPT"/>
                         <viewControllerLayoutGuide type="bottom" id="F1M-oE-pxZ"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="2qk-c5-C2L" customClass="PDFView" customModule="TechBooth" customModuleProvider="target">
+                    <view key="view" contentMode="scaleToFill" id="2qk-c5-C2L" customClass="pdfView" customModule="TechBooth" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <outlet property="PDFView" destination="2qk-c5-C2L" id="zsW-9w-ndw"/>
+                        <outlet property="pdfView" destination="2qk-c5-C2L" id="Cz4-Kf-rEE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bqx-fs-HiH" userLabel="First Responder" sceneMemberID="firstResponder"/>
