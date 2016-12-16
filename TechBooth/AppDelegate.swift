@@ -42,5 +42,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Saves changes in the application's managed object context before the application terminates.
         DataManager.share.saveContext()
     }
+
+	//MARK: - PDF from Another App
+	
+	func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+
+		let pathName = url.lastPathComponent
+		
+		let newProject = Project(context: DataManager.share.context())
+		newProject.pdf = pathName
+		DataManager.share.saveContext()
+		
+		DataManager.share.loadPDF(project: newProject)
+		
+		return true
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
