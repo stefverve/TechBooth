@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vp0-B0-Il7">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="lWp-5R-be8">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -21,14 +21,36 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WzA-mD-Oae">
-                                <rect key="frame" x="16" y="20" width="343" height="627"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QyB-AK-XWU">
+                                <rect key="frame" x="124" y="508" width="127" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="1" green="0.14117647059999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="300"/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="Login With Google"/>
                                 <connections>
-                                    <action selector="importPDFButton:" destination="lWp-5R-be8" eventType="touchUpInside" id="1qi-ec-ga0"/>
+                                    <action selector="signinGoogle:" destination="lWp-5R-be8" eventType="touchUpInside" id="TXI-sM-90d"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tech Booth" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZVY-Pl-q9t">
+                                <rect key="frame" x="87" y="111" width="201" height="48"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PCO-rF-kE6">
+                                <rect key="frame" x="143" y="280" width="89" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Open Recent"/>
+                                <connections>
+                                    <action selector="openRecent:" destination="lWp-5R-be8" eventType="touchUpInside" id="qdC-MX-wH7"/>
+                                    <segue destination="vp0-B0-Il7" kind="show" id="GCh-By-SOt"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JpA-LV-kXf">
+                                <rect key="frame" x="137" y="386" width="100" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Open Previous"/>
+                                <connections>
+                                    <action selector="openPrevious:" destination="lWp-5R-be8" eventType="touchUpInside" id="A1v-3T-0oW"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -60,7 +82,7 @@
         <!--Project View Controller-->
         <scene sceneID="hXz-aA-6No">
             <objects>
-                <viewController id="vp0-B0-Il7" customClass="ProjectViewController" customModule="TechBooth" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ProjectVC" id="vp0-B0-Il7" customClass="ProjectViewController" customModule="TechBooth" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="bEW-nE-s6l"/>
                         <viewControllerLayoutGuide type="bottom" id="OHZ-Aq-8mT"/>

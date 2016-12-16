@@ -67,7 +67,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 			
 			return true
 		}
-		return false
 	}
 	
 	//MARK: - Google Sign In
