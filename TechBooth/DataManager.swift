@@ -104,7 +104,7 @@ class DataManager {
 			DataManager.share.pageRect = (newDoc.page(at: 1)?.getBoxRect(CGPDFBox.mediaBox))!
 		}
 		else{
-			let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+			let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)			
 			let documentsDirectory = paths[0]
 			let path = documentsDirectory.appendingPathComponent("Inbox/\(project!.pdf!)")
 			
