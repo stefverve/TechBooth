@@ -27,7 +27,6 @@
 		E281E9D81E01DFB100CC8E74 /* PresentationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E281E9D71E01DFB100CC8E74 /* PresentationViewController.swift */; };
 		E281E9DA1E01E10A00CC8E74 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E281E9D91E01E10A00CC8E74 /* SettingsViewController.swift */; };
 		E281E9FE1E01FADE00CC8E74 /* ModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E281E9FD1E01FADE00CC8E74 /* ModelController.swift */; };
-		E289116E1E02703D001BAD95 /* AlternateScrollViewOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = E289116D1E02703D001BAD95 /* AlternateScrollViewOption.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,7 +53,6 @@
 		E281E9D71E01DFB100CC8E74 /* PresentationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentationViewController.swift; sourceTree = "<group>"; };
 		E281E9D91E01E10A00CC8E74 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		E281E9FD1E01FADE00CC8E74 /* ModelController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelController.swift; sourceTree = "<group>"; };
-		E289116D1E02703D001BAD95 /* AlternateScrollViewOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlternateScrollViewOption.swift; sourceTree = "<group>"; };
 		F32199733E5AAB2006406D40 /* Pods-TechBooth.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TechBooth.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TechBooth/Pods-TechBooth.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -111,7 +109,6 @@
 				E2140DFF1E0348BF008B91C9 /* EditMenu.xib */,
 				E281E9D31E01DE8A00CC8E74 /* LightsViewController.swift */,
 				E281E9D51E01DED600CC8E74 /* SoundViewController.swift */,
-				E289116D1E02703D001BAD95 /* AlternateScrollViewOption.swift */,
 				E281E9CD1E01C13C00CC8E74 /* SinglePageViewController.swift */,
 				E281E9CF1E01D8A000CC8E74 /* pdfView.swift */,
 				E281E9D71E01DFB100CC8E74 /* PresentationViewController.swift */,
@@ -260,7 +257,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E281E9D21E01DDA900CC8E74 /* MainMenuView.swift in Sources */,
-				E289116E1E02703D001BAD95 /* AlternateScrollViewOption.swift in Sources */,
 				E281E9B81E01B32B00CC8E74 /* TechBooth.xcdatamodeld in Sources */,
 				A0A239FD1E01C49B00FC2588 /* DataManager.swift in Sources */,
 				E281E9B01E01B32B00CC8E74 /* AppDelegate.swift in Sources */,

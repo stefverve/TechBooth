@@ -21,11 +21,11 @@ class SinglePageViewController: UIViewController {
         
         
         if (self.view.traitCollection.verticalSizeClass == UIUserInterfaceSizeClass.compact) {
-            let pdfWidth = self.pdfScroller.frame.width
+            let pdfWidth = self.view.frame.width
             let scalefactor = pdfWidth / DataManager.share.pageRect.size.width
             self.pdfView.frame = CGRect(x: 0, y: 0, width: pdfWidth, height: DataManager.share.pageRect.size.height * scalefactor)
         } else {
-            self.pdfView.frame = self.pdfScroller.frame
+            self.pdfView.frame = self.view.frame
         }
         self.pdfScroller.contentSize = self.pdfView.frame.size
         
