@@ -13,8 +13,12 @@ class DataManager {
 	
 	
 	//Make a new Project
-//	let newProject = Project(context: DataManager.service.persistentContainer.viewContext)
+//	let newProject = Project(context: DataManager.share.persistentContainer.viewContext)
 //	newProject.pdf = "Fyi.pdf"
+	
+	//Load from core data
+//	let projectArray = DataManager.share.fetchEntityArray(name: "Project")
+//	DataManager.share.loadPDF(project:projectArray[0] as! Project)
 	
 	//Singleton
 	static let share = DataManager()
@@ -53,6 +57,10 @@ class DataManager {
 		return container
 	}()
 	
+	func context() -> NSManagedObjectContext {
+		return persistentContainer.viewContext
+	}
+	
 	// MARK: - Core Data Saving
 	
 	func saveContext () {
@@ -84,6 +92,18 @@ class DataManager {
 			print("Error with request: \(error)")
 			return []
 		}
+	}
+	
+	func loadPDF(project: Project) {
+		let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+		let documentsDirectory = paths[0]
+		let path = documentsDirectory.appendingPathComponent(project.pdf!)
+		
+		let newDoc = CGPDFDocument(path as CFURL)!
+		self.document = newDoc
+		self.pageCount = newDoc.numberOfPages
+		self.pageRect = (newDoc.page(at: 1)?.getBoxRect(CGPDFBox.mediaBox))!
+	
 	}
 	
 	//func fetchPDFAnnotations(name:String) -> [AnyObject]{

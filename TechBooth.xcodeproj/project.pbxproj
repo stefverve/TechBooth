@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4FC1319A0F579422C8501F8A /* Pods_TechBooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1B6982EE941512828B4EFF3 /* Pods_TechBooth.framework */; };
+		A061064C1E03369000442324 /* techboothPDF.png in Resources */ = {isa = PBXBuildFile; fileRef = A061064B1E03369000442324 /* techboothPDF.png */; };
 		A0A239FD1E01C49B00FC2588 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A239FC1E01C49B00FC2588 /* DataManager.swift */; };
 		E281E9B01E01B32B00CC8E74 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E281E9AF1E01B32B00CC8E74 /* AppDelegate.swift */; };
 		E281E9B51E01B32B00CC8E74 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E281E9B31E01B32B00CC8E74 /* Main.storyboard */; };
@@ -29,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A061064B1E03369000442324 /* techboothPDF.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = techboothPDF.png; path = ../techboothPDF.png; sourceTree = "<group>"; };
 		A0A239FC1E01C49B00FC2588 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		C1B6982EE941512828B4EFF3 /* Pods_TechBooth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TechBooth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD675261CF4C2035F9C55AA1 /* Pods-TechBooth.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TechBooth.release.xcconfig"; path = "Pods/Target Support Files/Pods-TechBooth/Pods-TechBooth.release.xcconfig"; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 				E281E9AF1E01B32B00CC8E74 /* AppDelegate.swift */,
 				E281E9B91E01B32B00CC8E74 /* Assets.xcassets */,
 				E281E9C71E01B70000CC8E74 /* Fyi.pdf */,
+				A061064B1E03369000442324 /* techboothPDF.png */,
 				E281E9BB1E01B32B00CC8E74 /* LaunchScreen.storyboard */,
 				E281E9BE1E01B32B00CC8E74 /* Info.plist */,
 				E281E9B61E01B32B00CC8E74 /* TechBooth.xcdatamodeld */,
@@ -194,6 +197,7 @@
 				E281E9BA1E01B32B00CC8E74 /* Assets.xcassets in Resources */,
 				E281E9B51E01B32B00CC8E74 /* Main.storyboard in Resources */,
 				E281E9C81E01B70000CC8E74 /* Fyi.pdf in Resources */,
+				A061064C1E03369000442324 /* techboothPDF.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
