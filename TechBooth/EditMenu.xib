@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina5_5" orientation="landscape">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="AZL-vZ-2jd" customClass="EditMenu" customModule="TechBooth" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="791" height="789"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="aq3-ok-J5F">
+                    <rect key="frame" x="0.0" y="0.0" width="791" height="789"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fSL-jr-pqf">
+                            <rect key="frame" x="0.0" y="0.0" width="791" height="197.33333333333334"/>
+                            <color key="backgroundColor" red="1" green="0.91372549020000005" blue="0.54117647059999996" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="cueButtonPressed:" destination="AZL-vZ-2jd" eventType="touchUpInside" id="kGH-La-a70"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gMh-US-VIa">
+                            <rect key="frame" x="0.0" y="197.33333333333331" width="791" height="197.33333333333331"/>
+                            <color key="backgroundColor" red="0.78823529410000004" green="0.94117647059999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="cueButtonPressed:" destination="AZL-vZ-2jd" eventType="touchUpInside" id="7zv-WE-rXm"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RN8-A7-8T9">
+                            <rect key="frame" x="0.0" y="394.66666666666663" width="791" height="196.99999999999989"/>
+                            <color key="backgroundColor" red="0.84313725490000002" green="0.87058823529999996" blue="0.86274509799999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="cueButtonPressed:" destination="AZL-vZ-2jd" eventType="touchUpInside" id="GYs-vZ-6rl"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Ad-Gw-SNu">
+                            <rect key="frame" x="0.0" y="591.66666666666652" width="791" height="197.33333333333337"/>
+                            <color key="backgroundColor" red="0.64705882349999999" green="0.70588235290000001" blue="0.75686274509999996" alpha="1" colorSpace="calibratedRGB"/>
+                        </button>
+                    </subviews>
+                    <variation key="heightClass=compact" axis="vertical"/>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="aq3-ok-J5F" secondAttribute="bottom" id="63E-sI-rSy"/>
+                <constraint firstItem="aq3-ok-J5F" firstAttribute="leading" secondItem="AZL-vZ-2jd" secondAttribute="leading" id="Hxv-0E-qd9"/>
+                <constraint firstItem="aq3-ok-J5F" firstAttribute="top" secondItem="AZL-vZ-2jd" secondAttribute="top" id="Od7-jG-jXe"/>
+                <constraint firstAttribute="trailing" secondItem="aq3-ok-J5F" secondAttribute="trailing" id="qaO-Tl-mf2"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="lightButton" destination="gMh-US-VIa" id="XD2-FM-euG"/>
+                <outlet property="menuButton" destination="3Ad-Gw-SNu" id="d2Q-83-XGU"/>
+                <outlet property="soundButton" destination="fSL-jr-pqf" id="7tI-2A-nQn"/>
+                <outlet property="textButton" destination="RN8-A7-8T9" id="ASY-7w-0O1"/>
+            </connections>
+            <point key="canvasLocation" x="277" y="-15"/>
+        </view>
+    </objects>
+</document>

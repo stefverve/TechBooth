@@ -24,7 +24,7 @@ class ProjectViewController: UIViewController {
         DataManager.share.pageCount = document.numberOfPages
         DataManager.share.pageRect = (document.page(at: 1)?.getBoxRect(CGPDFBox.mediaBox))!
         
-        self.pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .vertical, options: nil)
+        self.pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
         
         let startingViewController: SinglePageViewController = self.modelController.viewControllerAtIndex(0, storyboard: self.storyboard!)!
         let viewControllers = [startingViewController]

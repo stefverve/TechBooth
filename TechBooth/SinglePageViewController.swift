@@ -13,14 +13,25 @@ class SinglePageViewController: UIViewController {
     
     var page: CGPDFPage!
     var pageNum: Int!
-    @IBOutlet var pdfView: pdfView!
+    @IBOutlet weak var pdfView: PDFView!
+    @IBOutlet weak var pdfScroller: UIScrollView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let label = UILabel(frame: CGRect(x: 10, y: 10, width: 300, height: 44))
-        label.text = "Page \(pageNum)"
-        view.addSubview(label)
+        
+        if (self.view.traitCollection.verticalSizeClass == UIUserInterfaceSizeClass.compact) {
+            let pdfWidth = self.pdfScroller.frame.width
+            let scalefactor = pdfWidth / DataManager.share.pageRect.size.width
+            self.pdfView.frame = CGRect(x: 0, y: 0, width: pdfWidth, height: DataManager.share.pageRect.size.height * scalefactor)
+        } else {
+            self.pdfView.frame = self.pdfScroller.frame
+        }
+        self.pdfScroller.contentSize = self.pdfView.frame.size
+        
+ //       let label = UILabel(frame: CGRect(x: 10, y: 10, width: 300, height: 44))
+  //      label.text = "Page \(pageNum)"
+ //       view.addSubview(label)
         self.pdfView.page = DataManager.share.document.page(at: pageNum+1)
         
         

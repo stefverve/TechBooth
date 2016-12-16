@@ -8,7 +8,7 @@
 
 import UIKit
 
-class pdfView: UIView {
+class PDFView: UIView {
 
     var page: CGPDFPage!
     
