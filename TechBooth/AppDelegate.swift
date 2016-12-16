@@ -65,6 +65,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 			DataManager.share.saveContext()
 			DataManager.share.loadPDF(project: newProject)
 			
+			let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+			let projectVC : UIViewController = storyboard.instantiateViewController(withIdentifier: "ProjectVC") as UIViewController
+			self.window = UIWindow(frame: UIScreen.main.bounds)
+			self.window?.rootViewController = projectVC
+			self.window?.makeKeyAndVisible()
+			
 			return true
 		}
 	}
