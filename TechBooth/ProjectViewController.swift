@@ -16,14 +16,16 @@ class ProjectViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // temp code to load pdf from bundle.main
-        let document: CGPDFDocument = CGPDFDocument(Bundle.main.url(forResource: "Fyi", withExtension: "pdf")! as CFURL)!
-        
-        DataManager.share.document = document
-        DataManager.share.pageCount = document.numberOfPages
-        DataManager.share.pageRect = (document.page(at: 1)?.getBoxRect(CGPDFBox.mediaBox))!
-        
+		
+		let projectArray = DataManager.share.fetchEntityArray(name: "Project")
+		var loadProject : Project? = nil
+		
+		if projectArray.count != 0 {
+			loadProject = projectArray.last as? Project
+		}
+		
+		DataManager.share.loadPDF(project:loadProject)
+		
         self.pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
         
         let startingViewController: SinglePageViewController = self.modelController.viewControllerAtIndex(0, storyboard: self.storyboard!)!

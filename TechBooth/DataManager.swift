@@ -94,16 +94,25 @@ class DataManager {
 		}
 	}
 	
-	func loadPDF(project: Project) {
-		let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-		let documentsDirectory = paths[0]
-		let path = documentsDirectory.appendingPathComponent(project.pdf!)
+	func loadPDF(project: Project?) {
 		
-		let newDoc = CGPDFDocument(path as CFURL)!
-		self.document = newDoc
-		self.pageCount = newDoc.numberOfPages
-		self.pageRect = (newDoc.page(at: 1)?.getBoxRect(CGPDFBox.mediaBox))!
-	
+		if(project == nil){
+			//TEMP PDF load if nothing exists
+			let newDoc: CGPDFDocument = CGPDFDocument(Bundle.main.url(forResource: "Fyi", withExtension: "pdf")! as CFURL)!
+			DataManager.share.document = newDoc
+			DataManager.share.pageCount = newDoc.numberOfPages
+			DataManager.share.pageRect = (newDoc.page(at: 1)?.getBoxRect(CGPDFBox.mediaBox))!
+		}
+		else{
+			let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)			
+			let documentsDirectory = paths[0]
+			let path = documentsDirectory.appendingPathComponent("Inbox/\(project!.pdf!)")
+			
+			let newDoc = CGPDFDocument(path as CFURL)!
+			self.document = newDoc
+			self.pageCount = newDoc.numberOfPages
+			self.pageRect = (newDoc.page(at: 1)?.getBoxRect(CGPDFBox.mediaBox))!
+		}
 	}
 	
 	//func fetchPDFAnnotations(name:String) -> [AnyObject]{
