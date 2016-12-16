@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		4FC1319A0F579422C8501F8A /* Pods_TechBooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1B6982EE941512828B4EFF3 /* Pods_TechBooth.framework */; };
 		A061064C1E03369000442324 /* techboothPDF.png in Resources */ = {isa = PBXBuildFile; fileRef = A061064B1E03369000442324 /* techboothPDF.png */; };
-		A07720601E045E1500B32EA0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A077205F1E045E1500B32EA0 /* GoogleService-Info.plist */; };
+		A07720661E0480CD00B32EA0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A07720651E0480CD00B32EA0 /* GoogleService-Info.plist */; };
 		A0A239FD1E01C49B00FC2588 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A239FC1E01C49B00FC2588 /* DataManager.swift */; };
 		E2140E001E0348BF008B91C9 /* EditMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2140DFE1E0348BF008B91C9 /* EditMenu.swift */; };
 		E2140E011E0348BF008B91C9 /* EditMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2140DFF1E0348BF008B91C9 /* EditMenu.xib */; };
@@ -33,7 +33,8 @@
 
 /* Begin PBXFileReference section */
 		A061064B1E03369000442324 /* techboothPDF.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = techboothPDF.png; path = ../techboothPDF.png; sourceTree = "<group>"; };
-		A077205F1E045E1500B32EA0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		A07720611E04610400B32EA0 /* TechBooth-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TechBooth-Bridging-Header.h"; sourceTree = "<group>"; };
+		A07720651E0480CD00B32EA0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A0A239FC1E01C49B00FC2588 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		C1B6982EE941512828B4EFF3 /* Pods_TechBooth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TechBooth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD675261CF4C2035F9C55AA1 /* Pods-TechBooth.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TechBooth.release.xcconfig"; path = "Pods/Target Support Files/Pods-TechBooth/Pods-TechBooth.release.xcconfig"; sourceTree = "<group>"; };
@@ -122,8 +123,9 @@
 				A061064B1E03369000442324 /* techboothPDF.png */,
 				E281E9BB1E01B32B00CC8E74 /* LaunchScreen.storyboard */,
 				E281E9BE1E01B32B00CC8E74 /* Info.plist */,
-				A077205F1E045E1500B32EA0 /* GoogleService-Info.plist */,
+				A07720651E0480CD00B32EA0 /* GoogleService-Info.plist */,
 				E281E9B61E01B32B00CC8E74 /* TechBooth.xcdatamodeld */,
+				A07720611E04610400B32EA0 /* TechBooth-Bridging-Header.h */,
 			);
 			path = TechBooth;
 			sourceTree = "<group>";
@@ -171,7 +173,7 @@
 				TargetAttributes = {
 					E281E9AB1E01B32B00CC8E74 = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = A337N9L862;
+						LastSwiftMigration = 0810;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -205,7 +207,7 @@
 				E281E9B51E01B32B00CC8E74 /* Main.storyboard in Resources */,
 				E281E9C81E01B70000CC8E74 /* Fyi.pdf in Resources */,
 				A061064C1E03369000442324 /* techboothPDF.png in Resources */,
-				A07720601E045E1500B32EA0 /* GoogleService-Info.plist in Resources */,
+				A07720661E0480CD00B32EA0 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -400,11 +402,14 @@
 			baseConfigurationReference = F32199733E5AAB2006406D40 /* Pods-TechBooth.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = A337N9L862;
+				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = TechBooth/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = DMSV.TechBooth.Me;
+				PRODUCT_BUNDLE_IDENTIFIER = DMSV.TechBooth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "TechBooth/TechBooth-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -414,11 +419,13 @@
 			baseConfigurationReference = CD675261CF4C2035F9C55AA1 /* Pods-TechBooth.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = A337N9L862;
+				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = TechBooth/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = DMSV.TechBooth.Me;
+				PRODUCT_BUNDLE_IDENTIFIER = DMSV.TechBooth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "TechBooth/TechBooth-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

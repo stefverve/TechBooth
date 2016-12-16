@@ -8,18 +8,23 @@
 
 import UIKit
 
-class MainMenuView: UIViewController {
+class MainMenuView: UIViewController, GIDSignInUIDelegate {
 
     
-    @IBAction func importPDFButton(_ sender: UIButton) {
-    }
-    
-    
+	
+	
+	@IBAction func signinGoogle(_ sender: UIButton) {
+		GIDSignIn.sharedInstance().signIn()
+	}
+	
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-        
+		GIDSignIn.sharedInstance().uiDelegate = self
+		
+  // Uncomment to automatically sign in the user.
+  //GIDSignIn.sharedInstance().signInSilently()
+
         
     }
 
@@ -27,16 +32,21 @@ class MainMenuView: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+	
+	//MARK: - Google Sign In
+	// Stop the UIActivityIndicatorView animation that was started when the user
+	// pressed the Sign In button
+	func sign(inWillDispatch signIn: GIDSignIn!, error: Error!) {
+  //myActivityIndicator.stopAnimating()
+	}
+	
+	// Present a view that prompts the user to sign in with Google
+	func sign(_ signIn: GIDSignIn!, present viewController: UIViewController!) {
+  self.present(viewController, animated: true, completion: nil)
+	}
+	
+	// Dismiss the "Sign in with Google" view
+	func sign(_ signIn: GIDSignIn!, dismiss viewController: UIViewController!) {
+  self.dismiss(animated: true, completion: nil)
+	}
 }

@@ -3,12 +3,26 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>909794791437-078hatmo9nv239vavup7psa1e84abp5c.apps.googleusercontent.com</string>
+	<string>879595095226-t50jdtevu3ipgk3ug5sld25vo1s4uh9k.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.909794791437-078hatmo9nv239vavup7psa1e84abp5c</string>
+	<string>com.googleusercontent.apps.879595095226-t50jdtevu3ipgk3ug5sld25vo1s4uh9k</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>DMSV.TechBooth</string>
+	<key>PROJECT_ID</key>
+	<string>firebase-techbooth</string>
+	<key>IS_ADS_ENABLED</key>
+	<false/>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false/>
+	<key>IS_APPINVITE_ENABLED</key>
+	<false/>
+	<key>IS_GCM_ENABLED</key>
+	<false/>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true/>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:879595095226:ios:e357fb7d7b0a3785</string>
 </dict>
 </plist>

@@ -9,13 +9,20 @@
 import UIKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 
     var window: UIWindow?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+		
+		// Initialize sign-in
+		var configureError: NSError?
+		GGLContext.sharedInstance().configureWithError(&configureError)
+		assert(configureError == nil, "Error configuring Google services: \(configureError)")
+		
+		GIDSignIn.sharedInstance().delegate = self
+		
         return true
     }
 
@@ -47,15 +54,49 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
 
-		let pathName = url.lastPathComponent
-		
-		let newProject = Project(context: DataManager.share.context())
-		newProject.pdf = pathName
-		DataManager.share.saveContext()
-		
-		DataManager.share.loadPDF(project: newProject)
-		
-		return true
+		if(url.scheme! == "com.googleusercontent.apps.879595095226-t50jdtevu3ipgk3ug5sld25vo1s4uh9k"){
+			return GIDSignIn.sharedInstance().handle(url, sourceApplication:
+				options[UIApplicationOpenURLOptionsKey.sourceApplication] as! String!, annotation:
+				options[UIApplicationOpenURLOptionsKey.annotation])
+		}else{
+			let pathName = url.lastPathComponent
+			let newProject = Project(context: DataManager.share.context())
+			newProject.pdf = pathName
+			DataManager.share.saveContext()
+			DataManager.share.loadPDF(project: newProject)
+			
+			return true
+		}
+		return false
+	}
+	
+	//MARK: - Google Sign In
+	
+	
+	
+	func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
+		return GIDSignIn.sharedInstance().handle(url as URL!, sourceApplication: sourceApplication, annotation: annotation)
+	}
+	
+	func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+		if (error == nil) {
+			// Perform any operations on signed in user here.
+			let userId = user.userID                  // For client-side use only!
+			let idToken = user.authentication.idToken // Safe to send to the server
+			let fullName = user.profile.name
+			let givenName = user.profile.givenName
+			let familyName = user.profile.familyName
+			let email = user.profile.email
+			// ...
+		} else {
+			print("\(error.localizedDescription)")
+		}
+	}
+	
+	func signIn(signIn: GIDSignIn!, didDisconnectWithUser user:GIDGoogleUser!,
+	            withError error: NSError!) {
+		// Perform any operations when the user disconnects from app here.
+		// ...
 	}
 }
 

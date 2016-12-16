@@ -39,9 +39,11 @@
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>googleLogin</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.909794791437-078hatmo9nv239vavup7psa1e84abp5c</string>
+				<string>com.googleusercontent.apps.879595095226-t50jdtevu3ipgk3ug5sld25vo1s4uh9k</string>
 			</array>
 		</dict>
 	</array>
