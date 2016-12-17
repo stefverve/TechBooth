@@ -13,7 +13,7 @@ class DataManager {
 	
 	
 	//Make a new Project
-//	let newProject = Project(context: DataManager.share.persistentContainer.viewContext)
+//	let newProject = Project(context: DataManager.share.context())
 //	newProject.pdf = "Fyi.pdf"
 	
 	//Load from core data

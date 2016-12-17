@@ -56,6 +56,7 @@ class MainMenuView: UIViewController, GIDSignInUIDelegate {
 	}
 	
 	@IBAction func openPrevious(_ sender: UIButton) {
-		
+		let driveURL = URL(string: "googledrive://")!
+		UIApplication.shared.open(driveURL, options: [:], completionHandler: nil)
 	}
 }

@@ -50,7 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         DataManager.share.saveContext()
     }
 
-	//MARK: - PDF from Another App
+	//MARK: - Import PDF from Another App
 	
 	func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
 
@@ -76,9 +76,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 	}
 	
 	//MARK: - Google Sign In
-	
-	
-	
 	func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
 		return GIDSignIn.sharedInstance().handle(url as URL!, sourceApplication: sourceApplication, annotation: annotation)
 	}
@@ -92,7 +89,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 			let givenName = user.profile.givenName
 			let familyName = user.profile.familyName
 			let email = user.profile.email
-			// ...
+			
 		} else {
 			print("\(error.localizedDescription)")
 		}
