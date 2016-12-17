@@ -61,7 +61,7 @@
                 <outlet property="soundButton" destination="fSL-jr-pqf" id="7tI-2A-nQn"/>
                 <outlet property="textButton" destination="RN8-A7-8T9" id="ASY-7w-0O1"/>
             </connections>
-            <point key="canvasLocation" x="277" y="-15"/>
+            <point key="canvasLocation" x="276.5" y="-15.5"/>
         </view>
     </objects>
 </document>

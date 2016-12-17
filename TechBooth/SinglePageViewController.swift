@@ -13,48 +13,35 @@ class SinglePageViewController: UIViewController {
     
     var page: CGPDFPage!
     var pageNum: Int!
+    var pageViewRect: CGRect!
     @IBOutlet weak var pdfView: PDFView!
     @IBOutlet weak var pdfScroller: UIScrollView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-     //   layoutForPDFSubview(size: self.view.frame.size)
-        
-self.pdfView.page = DataManager.share.document.page(at: pageNum+1)
-        layoutForPDFSubview(size: self.view.frame.size)
+        self.pdfView.page = DataManager.share.document.page(at: pageNum+1)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        layoutForPDFSubview(size: pageViewRect.size)
     }
     
     func layoutForPDFSubview(size: CGSize) {
-        self.pdfScroller.frame = self.view.frame
+        self.pdfScroller.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
         if size.height < size.width {
             let pdfWidth = size.width
             let scalefactor = pdfWidth / DataManager.share.pageRect.size.width
             self.pdfView.frame = CGRect(x: 0, y: 0, width: pdfWidth, height: DataManager.share.pageRect.size.height * scalefactor)
         } else {
-            self.pdfView.frame = self.view.frame
+            self.pdfView.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
         }
-        /*       if (self.view.traitCollection.verticalSizeClass == UIUserInterfaceSizeClass.compact) {
-            let pdfWidth = self.view.frame.width
-            let scalefactor = pdfWidth / DataManager.share.pageRect.size.width
-            self.pdfView.frame = CGRect(x: 0, y: 0, width: pdfWidth, height: DataManager.share.pageRect.size.height * scalefactor)
-        } else {
-            self.pdfView.frame = self.view.frame
-        } */
         self.pdfScroller.contentSize = self.pdfView.frame.size
         
-        
-
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        
-        // Dispose of any resources that can be recreated.
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -62,15 +49,8 @@ self.pdfView.page = DataManager.share.document.page(at: pageNum+1)
         self.layoutForPDFSubview(size: size)
         self.pdfView.page = DataManager.share.document.page(at: pageNum+1)
 
-        
-    }
-/*
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        // self.layoutForPDFSubview(size: self.view.frame.size)
     }
     
-    */
     /*
     // MARK: - Navigation
 

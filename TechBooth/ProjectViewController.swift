@@ -11,15 +11,24 @@ import UIKit
 class ProjectViewController: UIViewController {
     
     var pageViewController: UIPageViewController?
+    var editMenu: EditMenu?
     
     @IBOutlet weak var stackView: UIStackView!
 
     override func viewDidLoad() {
+        
+        
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
         super.viewDidLoad()
 		
         self.pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
-        
+        self.layoutDevice(rect: self.view.bounds)
+        self.modelController.pageViewRect = self.pageViewController?.view.bounds
         let startingViewController: SinglePageViewController = self.modelController.viewControllerAtIndex(0, storyboard: self.storyboard!)!
+        startingViewController.view.frame = (self.pageViewController?.view.bounds)!
+        
         let viewControllers = [startingViewController]
         self.pageViewController!.setViewControllers(viewControllers, direction: .forward, animated: false, completion: {done in })
         
@@ -28,16 +37,51 @@ class ProjectViewController: UIViewController {
         self.addChildViewController(self.pageViewController!)
         self.view.addSubview(self.pageViewController!.view)
         
-        // Set the page view controller's bounds using an inset rect so that self's view is visible around the edges of the pages.
-        var pageViewRect = self.view.bounds
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            pageViewRect = pageViewRect.insetBy(dx: 0.0, dy: 0.0)
-        }
-        self.pageViewController!.view.frame = pageViewRect
-        
         self.pageViewController!.didMove(toParentViewController: self)
-        
     }
+    
+    func layoutDevice(rect: CGRect) {
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            self.layoutIPad(rect: rect)
+        } else {
+            if self.editMenu == nil {
+                self.editMenu = EditMenu.fromXib()
+                self.view.addSubview(self.editMenu!)
+            }
+            if self.traitCollection.verticalSizeClass == .compact {
+                layoutLandscapeIPhone(rect: rect)
+            } else if self.traitCollection.horizontalSizeClass == .compact {
+                layoutPortraitIPhone(rect: rect)
+            }
+        }
+    }
+    
+    func layoutIPad(rect: CGRect) {
+        self.pageViewController!.view.frame = rect
+    }
+    
+    func layoutLandscapeIPhone(rect: CGRect) {
+        self.pageViewController!.view.frame = CGRect(x: 0, y: 0, width: rect.size.width - (rect.size.height/4), height: rect.size.height)
+        self.editMenu?.frame = CGRect(x: rect.size.width - rect.size.height/4, y: 0, width: rect.size.height/4, height: rect.size.height)
+    }
+    
+    func layoutPortraitIPhone(rect: CGRect) {
+        self.pageViewController!.view.frame = CGRect(x: 0, y: rect.size.width/4, width: rect.size.width, height: rect.size.height - rect.size.width/4)
+        self.editMenu?.frame = CGRect(x: 0, y: 0, width: rect.size.width, height: rect.size.width/4)
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        let rect = CGRect(origin: CGPoint.zero, size: size)
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            layoutIPad(rect: rect)
+        } else if size.width > size.height {
+            layoutLandscapeIPhone(rect: rect)
+        } else if size.height > size.width {
+            layoutPortraitIPhone(rect: rect)
+        }
+    }
+    
     
     var modelController: ModelController {
         // Return the model controller object, creating it if necessary.
