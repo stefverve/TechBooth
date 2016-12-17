@@ -115,6 +115,19 @@ class DataManager {
 		}
 	}
 	
+	func exportCSV() {
+		if (GIDSignIn.sharedInstance().currentUser != nil) {
+			let accessToken = GIDSignIn.sharedInstance().currentUser.authentication.accessToken
+			
+			let scopes = "https://www.googleapis.com/auth/drive"
+			let keychainItemName = "TechBooth";
+			let clientId = "PUT_CLIENT_ID_HERE";
+			
+			let service = GTLServiceDrive()
+
+		}
+	}
+	
 	//func fetchPDFAnnotations(name:String) -> [AnyObject]{
 	//
 	//}
