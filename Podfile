@@ -6,7 +6,7 @@ target 'TechBooth' do
   use_frameworks!
 
   # Pods for TechBooth
-  pod 'GoogleAPIClient/Drive', '~> 1.0.2'
+  pod 'GoogleAPIClientForREST/Drive', '~> 1.0'
   pod 'GTMOAuth2', '~> 1.1.0'
   pod 'Google/SignIn'
 

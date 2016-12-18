@@ -8,6 +8,8 @@
 
 import UIKit
 import CoreData
+import GoogleAPIClientForREST
+import GTMOAuth2
 
 class DataManager {
 	
@@ -22,14 +24,19 @@ class DataManager {
 	
 	//Singleton
 	static let share = DataManager()
+	
+	//PDF Variables
 	var document: CGPDFDocument!
 	var pageCount = 0
     var pageRect = CGRect(x: 0, y: 0, width: 0, height: 0)
 	
+	//Google Variables
+	let service = GTLRDriveService()
+	var user:GIDGoogleUser? = nil
+	
 	private init() {	}
 	
 	// MARK: - Core Data stack
-	
 	lazy var persistentContainer: NSPersistentContainer = {
 		/*
 		The persistent container for the application. This implementation
@@ -62,7 +69,6 @@ class DataManager {
 	}
 	
 	// MARK: - Core Data Saving
-	
 	func saveContext () {
 		let context = persistentContainer.viewContext
 		if context.hasChanges {
@@ -119,11 +125,11 @@ class DataManager {
 		if (GIDSignIn.sharedInstance().currentUser != nil) {
 			let accessToken = GIDSignIn.sharedInstance().currentUser.authentication.accessToken
 			
-			let scopes = "https://www.googleapis.com/auth/drive"
+			let scopes = kGTLRAuthScopeDrive
 			let keychainItemName = "TechBooth";
 			let clientId = "PUT_CLIENT_ID_HERE";
 			
-			let service = GTLServiceDrive()
+			
 
 		}
 	}

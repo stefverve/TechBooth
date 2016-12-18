@@ -14,11 +14,11 @@ PODS:
   - Google/SignIn (3.0.3):
     - Google/Core
     - GoogleSignIn (~> 4.0)
-  - GoogleAPIClient/Core (1.0.5):
-    - GTMSessionFetcher (~> 1.1)
-  - GoogleAPIClient/Drive (1.0.5):
-    - GoogleAPIClient/Core
-    - GTMSessionFetcher (~> 1.1)
+  - GoogleAPIClientForREST/Core (1.1.1):
+    - GTMSessionFetcher (>= 1.1.7)
+  - GoogleAPIClientForREST/Drive (1.1.1):
+    - GoogleAPIClientForREST/Core
+    - GTMSessionFetcher (>= 1.1.7)
   - GoogleAppUtilities (1.1.2):
     - GoogleSymbolUtilities (~> 1.1)
   - GoogleInterchangeUtilities (1.2.2):
@@ -49,7 +49,7 @@ PODS:
 
 DEPENDENCIES:
   - Google/SignIn
-  - GoogleAPIClient/Drive (~> 1.0.2)
+  - GoogleAPIClientForREST/Drive (~> 1.0)
   - GTMOAuth2 (~> 1.1.0)
 
 SPEC CHECKSUMS:
@@ -57,7 +57,7 @@ SPEC CHECKSUMS:
   FirebaseCore: 03da1cb32615569bbc2830a22f9ad753d9a02ef5
   FirebaseInstanceID: ba1e640935235e5fac39dfa816fe7660e72e1a8a
   Google: 813c467362eabc11385f5a5cc9ad0cb651a58f4e
-  GoogleAPIClient: 4a6b0b807de8b1115a2835180b25dd93dc60f1ea
+  GoogleAPIClientForREST: f272e35f7fe9f80ab232756c798adc32245ece8c
   GoogleAppUtilities: a8a552aa74f6597f805e45b5a3962766c3134973
   GoogleInterchangeUtilities: d5bc4d88d5b661ab72f9d70c58d02ca8c27ad1f7
   GoogleSignIn: a8694c0a8e6d1b0ec77c58014de5bfd4ba2fa766
@@ -66,6 +66,6 @@ SPEC CHECKSUMS:
   GTMOAuth2: 7fc9c10f5c745f4d9850419ea88889fe3baa6b7d
   GTMSessionFetcher: a1f8ed39e4fe21c68957daed472c7afbcdf29166
 
-PODFILE CHECKSUM: a5ee2902351c5c8e79a5f230d27fe81d1b86474d
+PODFILE CHECKSUM: f41505a1163866d03e866bf110317c8d8e2de024
 
 COCOAPODS: 1.2.0.beta.1
