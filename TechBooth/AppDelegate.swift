@@ -76,7 +76,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 	}
 	
 	//MARK: - Google Sign In
-	func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
+	func application(application: UIApplication, openURL url: URL, sourceApplication: String?, annotation: Any) -> Bool {
 		return GIDSignIn.sharedInstance().handle(url as URL!, sourceApplication: sourceApplication, annotation: annotation)
 	}
 	
@@ -89,6 +89,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 			let givenName = user.profile.givenName
 			let familyName = user.profile.familyName
 			let email = user.profile.email
+			
+			print(userId, idToken, fullName, givenName, familyName, email)
+			DataManager.share.user = user
 			
 		} else {
 			print("\(error.localizedDescription)")

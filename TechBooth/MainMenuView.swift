@@ -28,7 +28,8 @@ class MainMenuView: UIViewController, GIDSignInUIDelegate {
 		super.viewDidLoad()
 		GIDSignIn.sharedInstance().uiDelegate = self
 	  //Uncomment to automatically sign in the user.
-	  //GIDSignIn.sharedInstance().signInSilently()
+		GIDSignIn.sharedInstance().signInSilently()
+		//googleUsernameLabel.text = GIDSignIn.sharedInstance().currentUser
 	}
 
 	func sign(inWillDispatch signIn: GIDSignIn!, error: Error!) {
