@@ -26,7 +26,7 @@ class DataManager {
 	static let share = DataManager()
 	
 	//PDF Variables
-	var currentProject : Project? = nil
+	var currentProject: Project? = nil
 	var document: CGPDFDocument!
 	var pageCount = 0
     var pageRect = CGRect(x: 0, y: 0, width: 0, height: 0)
@@ -36,37 +36,23 @@ class DataManager {
 	
 	private init() {	}
 	
+	
 	// MARK: - Core Data stack
 	lazy var persistentContainer: NSPersistentContainer = {
-		/*
-		The persistent container for the application. This implementation
-		creates and returns a container, having loaded the store for the
-		application to it. This property is optional since there are legitimate
-		error conditions that could cause the creation of the store to fail.
-		*/
 		let container = NSPersistentContainer(name: "TechBooth")
 		container.loadPersistentStores(completionHandler: { (storeDescription, error) in
 			if let error = error as NSError? {
-				// Replace this implementation with code to handle the error appropriately.
-				// fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-				
-				/*
-				Typical reasons for an error here include:
-				* The parent directory does not exist, cannot be created, or disallows writing.
-				* The persistent store is not accessible, due to permissions or data protection when the device is locked.
-				* The device is out of space.
-				* The store could not be migrated to the current model version.
-				Check the error message to determine what the actual problem was.
-				*/
 				fatalError("Unresolved error \(error), \(error.userInfo)")
 			}
 		})
 		return container
 	}()
 	
+	
 	func context() -> NSManagedObjectContext {
 		return persistentContainer.viewContext
 	}
+	
 	
 	// MARK: - Core Data Saving
 	func saveContext () {
@@ -100,6 +86,26 @@ class DataManager {
 		}
 	}
 	
+	
+	func fetchPageAnnotations(page: Int) -> Set<Annotation> {
+		let projectArray = fetchEntityArray(name: "Project") as! [Project]
+		for project in projectArray{
+			if(project == currentProject){
+				let projectAnnotations = project.pdfAnnotations as! Set<Annotation>
+				var pageAnnotations: Set<Annotation> = []
+				
+				for annotation in projectAnnotations {
+					if Int(annotation.pageNumber) == page {
+						pageAnnotations.insert(annotation)
+					}
+				}
+				return pageAnnotations
+			}
+		}
+		return []
+	}
+	
+	
 	func loadPDF(project: Project?) {
 		if(project == nil){
 			//TEMP PDF load if nothing exists
@@ -126,27 +132,18 @@ class DataManager {
 		}
 	}
 	
-//	func fetchPageAnnotations(page: Int) -> [Annotations] {
-//		self.currentProject
+
+	
+//	func exportCSV() {
+//		if (GIDSignIn.sharedInstance().currentUser != nil) {
+//			let accessToken = GIDSignIn.sharedInstance().currentUser.authentication.accessToken
+//			
+//			let scopes = kGTLRAuthScopeDrive
+//			let keychainItemName = "TechBooth";
+//			let clientId = "879595095226-t50jdtevu3ipgk3ug5sld25vo1s4uh9k.apps.googleusercontent.com";
+//			
+//			
+//
+//		}
 //	}
-	
-	func exportCSV() {
-		if (GIDSignIn.sharedInstance().currentUser != nil) {
-			let accessToken = GIDSignIn.sharedInstance().currentUser.authentication.accessToken
-			
-			let scopes = kGTLRAuthScopeDrive
-			let keychainItemName = "TechBooth";
-			let clientId = "PUT_CLIENT_ID_HERE";
-			
-			
-
-		}
-	}
-	
-	//func fetchPDFAnnotations(name:String) -> [AnyObject]{
-	//
-	//}
-	
-	//909794791437-078hatmo9nv239vavup7psa1e84abp5c.apps.googleusercontent.com
-
 }
