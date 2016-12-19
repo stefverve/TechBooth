@@ -13,7 +13,6 @@ class SinglePageViewController: UIViewController {
     
     var page: CGPDFPage!
     var pageNum: Int!
-    var pageViewRect: CGRect!
     @IBOutlet weak var pdfView: PDFView!
     @IBOutlet weak var pdfScroller: UIScrollView!
     
@@ -24,7 +23,17 @@ class SinglePageViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        layoutForPDFSubview(size: pageViewRect.size)
+        layoutForPDFSubview(size: self.view.frame.size)
+
+    }
+    
+    // for the love of god find out what is causing this and end it.
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if self.pdfView.frame.size.width > self.view.frame.size.width {
+            layoutForPDFSubview(size: self.view.frame.size)
+        }
     }
     
     func layoutForPDFSubview(size: CGSize) {
@@ -46,9 +55,18 @@ class SinglePageViewController: UIViewController {
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        self.layoutForPDFSubview(size: size)
+        self.layoutForPDFSubview(size: CGSize(width: self.view.frame.size.height, height: self.view.frame.size.width))
         self.pdfView.page = DataManager.share.document.page(at: pageNum+1)
 
+    }
+    
+    @IBAction func didTapPage(_ sender: UITapGestureRecognizer) {
+        print (sender.location(in: pdfView))
+        
+    }
+    
+    func drawAnnots() {
+        
     }
     
     /*

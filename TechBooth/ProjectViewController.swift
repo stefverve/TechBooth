@@ -22,6 +22,7 @@ class ProjectViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewDidLoad()
+        self.view.backgroundColor = UIColor.lightGray
 		
         self.pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
         self.layoutDevice(rect: self.view.bounds)
@@ -41,23 +42,23 @@ class ProjectViewController: UIViewController {
     }
     
     func layoutDevice(rect: CGRect) {
-        if UIDevice.current.userInterfaceIdiom == .pad {
+  //      if UIDevice.current.userInterfaceIdiom == .pad {
             self.layoutIPad(rect: rect)
-        } else {
-            if self.editMenu == nil {
-                self.editMenu = EditMenu.fromXib()
-                self.view.addSubview(self.editMenu!)
-            }
-            if self.traitCollection.verticalSizeClass == .compact {
-                layoutLandscapeIPhone(rect: rect)
-            } else if self.traitCollection.horizontalSizeClass == .compact {
-                layoutPortraitIPhone(rect: rect)
-            }
-        }
+//        } else {
+//            if self.editMenu == nil {
+//                self.editMenu = EditMenu.fromXib()
+//                self.view.addSubview(self.editMenu!)
+//            }
+//            if self.traitCollection.verticalSizeClass == .compact {
+//                layoutLandscapeIPhone(rect: rect)
+//            } else if self.traitCollection.horizontalSizeClass == .compact {
+//                layoutPortraitIPhone(rect: rect)
+//            }
+//        }
     }
     
     func layoutIPad(rect: CGRect) {
-        self.pageViewController!.view.frame = rect
+        self.pageViewController!.view.frame = rect .insetBy(dx: 20, dy: 20)
     }
     
     func layoutLandscapeIPhone(rect: CGRect) {
@@ -70,17 +71,17 @@ class ProjectViewController: UIViewController {
         self.editMenu?.frame = CGRect(x: 0, y: 0, width: rect.size.width, height: rect.size.width/4)
     }
     
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        let rect = CGRect(origin: CGPoint.zero, size: size)
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            layoutIPad(rect: rect)
-        } else if size.width > size.height {
-            layoutLandscapeIPhone(rect: rect)
-        } else if size.height > size.width {
-            layoutPortraitIPhone(rect: rect)
-        }
-    }
+//    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+//        super.viewWillTransition(to: size, with: coordinator)
+//        let rect = CGRect(origin: CGPoint.zero, size: size)
+//        if UIDevice.current.userInterfaceIdiom == .pad {
+//            layoutIPad(rect: rect)
+//        } else if size.width > size.height {
+//            layoutLandscapeIPhone(rect: rect)
+//        } else if size.height > size.width {
+//            layoutPortraitIPhone(rect: rect)
+//        }
+//    }
     
     
     var modelController: ModelController {
@@ -103,5 +104,7 @@ class ProjectViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    
 
 }

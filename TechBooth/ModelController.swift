@@ -26,7 +26,7 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
         
         // Create a new view controller and pass suitable data.
         let singlePageViewController = storyboard.instantiateViewController(withIdentifier: "SinglePageViewController") as! SinglePageViewController
-        singlePageViewController.pageViewRect = self.pageViewRect
+    //    singlePageViewController.pageViewRect = self.pageViewRect
         singlePageViewController.page = DataManager.share.document.page(at: index+1)
         singlePageViewController.pageNum = index
         return singlePageViewController
