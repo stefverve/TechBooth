@@ -37,7 +37,9 @@ class EditMenu: UIView {
         }
     }
     
-    
+    class func fromXib() -> EditMenu {
+        return Bundle.main.loadNibNamed("EditMenu", owner: self, options: nil)![0] as! EditMenu
+    }
     
     
     /*
