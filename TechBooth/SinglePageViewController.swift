@@ -9,12 +9,15 @@
 import UIKit
 import CoreText
 
+
+
 class SinglePageViewController: UIViewController {
     
     var page: CGPDFPage!
     var pageNum: Int!
     @IBOutlet weak var pdfView: PDFView!
     @IBOutlet weak var pdfScroller: UIScrollView!
+    var annotType: AnnotType!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,12 +65,12 @@ class SinglePageViewController: UIViewController {
     
     @IBAction func didTapPage(_ sender: UITapGestureRecognizer) {
         print (sender.location(in: pdfView))
-        
+        let annot = Annot.init(dotLocation: sender.location(in: pdfView), rect: pdfView.frame, type: AnnotType.light)
+        pdfView.addSubview(annot.annotDot)
+        pdfView.addSubview(annot.annotBox)
     }
     
-    func drawAnnots() {
-        
-    }
+    
     
     /*
     // MARK: - Navigation

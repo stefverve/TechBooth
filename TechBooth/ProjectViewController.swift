@@ -58,7 +58,7 @@ class ProjectViewController: UIViewController {
     }
     
     func layoutIPad(rect: CGRect) {
-        self.pageViewController!.view.frame = rect .insetBy(dx: 20, dy: 20)
+        self.pageViewController!.view.frame = rect //.insetBy(dx: 20, dy: 20)
     }
     
     func layoutLandscapeIPhone(rect: CGRect) {
