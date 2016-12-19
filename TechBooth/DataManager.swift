@@ -26,13 +26,13 @@ class DataManager {
 	static let share = DataManager()
 	
 	//PDF Variables
+	var currentProject : Project? = nil
 	var document: CGPDFDocument!
 	var pageCount = 0
     var pageRect = CGRect(x: 0, y: 0, width: 0, height: 0)
 	
 	//Google Variables
 	let service = GTLRDriveService()
-	var user:GIDGoogleUser? = nil
 	
 	private init() {	}
 	
@@ -101,13 +101,17 @@ class DataManager {
 	}
 	
 	func loadPDF(project: Project?) {
-		
 		if(project == nil){
 			//TEMP PDF load if nothing exists
 			let newDoc: CGPDFDocument = CGPDFDocument(Bundle.main.url(forResource: "Fyi", withExtension: "pdf")! as CFURL)!
 			DataManager.share.document = newDoc
 			DataManager.share.pageCount = newDoc.numberOfPages
 			DataManager.share.pageRect = (newDoc.page(at: 1)?.getBoxRect(CGPDFBox.mediaBox))!
+			
+			let newProject = Project(context: context())
+			newProject.pdf = "Fyi.pdf"
+			newProject.name = "FYI"
+			saveContext()
 		}
 		else{
 			let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)			
@@ -118,8 +122,13 @@ class DataManager {
 			self.document = newDoc
 			self.pageCount = newDoc.numberOfPages
 			self.pageRect = (newDoc.page(at: 1)?.getBoxRect(CGPDFBox.mediaBox))!
+			self.currentProject = project!
 		}
 	}
+	
+//	func fetchPageAnnotations(page: Int) -> [Annotations] {
+//		self.currentProject
+//	}
 	
 	func exportCSV() {
 		if (GIDSignIn.sharedInstance().currentUser != nil) {
