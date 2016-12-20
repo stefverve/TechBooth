@@ -18,7 +18,7 @@ class ProjectViewController: UIViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.lightGray
+        //self.view.backgroundColor = UIColor.lightGray
 		
         self.pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
     }

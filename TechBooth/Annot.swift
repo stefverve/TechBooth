@@ -21,14 +21,16 @@ class Annot: UIView {
     var annotDot = UIView()
     var annotBox = UIView()
     var annotColor = UIColor()
-    var boxWidth = CGFloat()
     var annotDotContainer = UIView()
-    let boxOffset: CGFloat = 25
     var deleteButton = UIButton()
     var resizeHandle = UIView()
     var instructionOverlay = UIView()
     var tapToEditLabel = UILabel()
     var dragToMoveLabel = UILabel()
+    var boxWidth = CGFloat()
+    let boxOffset: CGFloat = 25
+    var editMode: Bool = false
+    var annot: Annotation? = nil
     
     // MARK: Inits
     
@@ -36,7 +38,7 @@ class Annot: UIView {
         super.init(frame: rect)
         self.isUserInteractionEnabled = true
         self.backgroundColor = UIColor.clear
-        self.boxWidth = self.bounds.size.width * 0.2
+        self.boxWidth = self.bounds.size.width * 0.2 + boxOffset
         
         if type == AnnotType.light {
             self.annotColor = .blue
@@ -95,6 +97,9 @@ class Annot: UIView {
         if allowEdits {
             self.setupGestures()
         }
+        
+        //self.annot =
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -118,7 +123,7 @@ class Annot: UIView {
         setNeedsDisplay()
     }
     
-    func editAnnotBox(_ sender: UIPanGestureRecognizer) {
+    func editAnnotBox(_ sender: UITapGestureRecognizer) {
         
         self.layoutInstructionOverlay()
         self.annotBox.addSubview(self.instructionOverlay)
@@ -128,6 +133,13 @@ class Annot: UIView {
         
         self.layoutResizeHandle()
         self.addSubview(self.resizeHandle)
+        
+        superview?.bringSubview(toFront: self)
+        
+        let endEdit = UITapGestureRecognizer(target: self, action: #selector(self.endEdit(_:)))
+        self.addGestureRecognizer(endEdit)
+        
+        self.editMode = true
     }
     
     func deleteAnnot() {
@@ -136,6 +148,9 @@ class Annot: UIView {
     
     func resizeBox(_ sender: UIPanGestureRecognizer) {
         self.annotBox.frame.size = CGSize(width: self.annotBox.frame.size.width + sender.translation(in: self).x, height: self.annotBox.frame.size.height + sender.translation(in: self).y)
+        if self.annotBox.frame.origin.x > 0 {
+            
+        }
         if self.annotBox.frame.size.height < 65 {
             self.annotBox.frame = CGRect(x: self.annotBox.frame.origin.x, y: self.annotBox.frame.origin.y, width: self.annotBox.frame.size.width, height: 65)
         }
@@ -146,8 +161,10 @@ class Annot: UIView {
         layoutInstructionOverlay()
         layoutDeleteButton()
         layoutResizeHandle()
-        setNeedsDisplay()
+        self.setNeedsDisplay()
     }
+    
+    // MARK: AnnotBox Subview Layouts
     
     func layoutInstructionOverlay() {
         self.instructionOverlay.frame = self.annotBox.bounds
@@ -191,7 +208,20 @@ class Annot: UIView {
         self.deleteButton.addTarget(self, action: #selector(self.deleteAnnot), for: .touchUpInside)
     }
     
+    func endEdit(_ sender: UITapGestureRecognizer) {
+        self.deleteButton.removeFromSuperview()
+        self.resizeHandle.removeFromSuperview()
+        self.instructionOverlay.removeFromSuperview()
+        self.editMode = false
+        self.gestureRecognizers = []
+    }
+    
+    // MARK: Override Functions
+    
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        if self.editMode {
+            return true
+        }
         if self.annotBox.frame.contains(point) || self.annotDotContainer.frame.contains(point) || self.deleteButton.frame.contains(point) || self.resizeHandle.frame.contains(point) {
             return true
         }
@@ -209,7 +239,7 @@ class Annot: UIView {
             ctx?.addLine(to: CGPoint(x: self.annotBox.center.x + self.annotBox.frame.size.width / 2, y: self.annotBox.center.y))
         }
         ctx!.strokePath()
-            
+        
     }
 
 }
