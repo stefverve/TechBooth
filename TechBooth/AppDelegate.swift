@@ -11,6 +11,7 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 
+	private var count = 0
     var window: UIWindow?
 
 
@@ -22,6 +23,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 		assert(configureError == nil, "Error configuring Google services: \(configureError)")
 		
 		GIDSignIn.sharedInstance().delegate = self
+		if FileManager.default.fileExists(atPath: "/Project") == false {
+			let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+			let documentsDirectory = paths[0]
+			let projectFolderPath = documentsDirectory.appendingPathComponent("Project")
+			do{
+				try FileManager.default.createDirectory(atPath: projectFolderPath.path, withIntermediateDirectories: false, attributes: nil)
+			} catch {
+				print(error)
+			}
+		}
+		
+
 		
         return true
     }
@@ -62,6 +75,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 			let pathName = url.lastPathComponent
 			let newProject = Project(context: DataManager.share.context())
 			newProject.pdf = pathName
+			
+			newProject.name = "NewProject-\(self.count)"
+			self.count += 1
 			DataManager.share.saveContext()
 			DataManager.share.loadPDF(project: newProject)
 			

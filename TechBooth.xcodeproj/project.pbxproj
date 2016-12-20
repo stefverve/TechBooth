@@ -34,6 +34,7 @@
 
 /* Begin PBXFileReference section */
 		6D95031D90F6CE161C5F62F7 /* Pods-TechBooth.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TechBooth.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TechBooth/Pods-TechBooth.debug.xcconfig"; sourceTree = "<group>"; };
+		A05506451E08A8AF00B55F30 /* TechBooth.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TechBooth.entitlements; sourceTree = "<group>"; };
 		A061064B1E03369000442324 /* techboothPDF.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = techboothPDF.png; path = ../techboothPDF.png; sourceTree = "<group>"; };
 		A07720611E04610400B32EA0 /* TechBooth-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TechBooth-Bridging-Header.h"; sourceTree = "<group>"; };
 		A07720651E0480CD00B32EA0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -79,6 +80,7 @@
 		A07720671E04943E00B32EA0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A05506451E08A8AF00B55F30 /* TechBooth.entitlements */,
 				E281E9B91E01B32B00CC8E74 /* Assets.xcassets */,
 				E281E9C71E01B70000CC8E74 /* Fyi.pdf */,
 				A061064B1E03369000442324 /* techboothPDF.png */,
@@ -187,6 +189,11 @@
 						DevelopmentTeam = JNQLRNGEA7;
 						LastSwiftMigration = 0810;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -416,6 +423,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = TechBooth/TechBooth.entitlements;
 				DEVELOPMENT_TEAM = JNQLRNGEA7;
 				INFOPLIST_FILE = TechBooth/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -433,6 +441,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = TechBooth/TechBooth.entitlements;
 				DEVELOPMENT_TEAM = JNQLRNGEA7;
 				INFOPLIST_FILE = TechBooth/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
