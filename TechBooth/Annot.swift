@@ -16,17 +16,26 @@ enum AnnotType {
 
 class Annot: UIView {
     
+    // MARK: Properties
+    
     var annotDot = UIView()
     var annotBox = UIView()
     var annotColor = UIColor()
     var boxWidth = CGFloat()
     var annotDotContainer = UIView()
+    let boxOffset: CGFloat = 25
+    var deleteButton = UIButton()
+    var resizeHandle = UIView()
+    var instructionOverlay = UIView()
+    var tapToEditLabel = UILabel()
+    var dragToMoveLabel = UILabel()
+    
+    // MARK: Inits
     
     init(dotLocation: CGPoint, rect: CGRect, type: AnnotType, allowEdits: Bool) {
         super.init(frame: rect)
         self.isUserInteractionEnabled = true
         self.backgroundColor = UIColor.clear
-        let boxXOffset: CGFloat = 25
         self.boxWidth = self.bounds.size.width * 0.2
         
         if type == AnnotType.light {
@@ -58,9 +67,9 @@ class Annot: UIView {
         var y: CGFloat = 0
         
         if dotLocation.x > rect.size.width / 2 {
-            x = rect.size.width - self.boxWidth + boxXOffset
+            x = rect.size.width - self.boxWidth + boxOffset
         } else {
-            x = 0 - boxXOffset
+            x = 0 - boxOffset
         }
         
         if dotLocation.y < 50 {
@@ -79,6 +88,7 @@ class Annot: UIView {
         annotBox.layer.cornerRadius = 20
         annotBox.layer.borderColor = self.annotColor.withAlphaComponent(0.5).cgColor
         annotBox.layer.borderWidth = 4
+        annotBox.clipsToBounds = true
 
         self.addSubview(annotBox)
         
@@ -86,6 +96,12 @@ class Annot: UIView {
             self.setupGestures()
         }
     }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: Gestures and actions
     
     func setupGestures() {
         let dotPan = UIPanGestureRecognizer(target: self, action: #selector(self.moveAnnotDot(_:)))
@@ -103,21 +119,82 @@ class Annot: UIView {
     }
     
     func editAnnotBox(_ sender: UIPanGestureRecognizer) {
-        let deleteBox = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height:40))
-        deleteBox.backgroundColor = UIColor.red
-        deleteBox.tintColor = UIColor.white
-        deleteBox.titleLabel?.text = "X"
-        deleteBox.titleLabel?.font = UIFont(name: "Avenir Next", size: 12)
-        deleteBox.center = CGPoint(x: self.annotBox.frame.size.width - 25, y: self.annotBox.frame.origin.y)
-        self.addSubview(deleteBox)
+        
+        self.layoutInstructionOverlay()
+        self.annotBox.addSubview(self.instructionOverlay)
+        
+        self.layoutDeleteButton()
+        self.addSubview(self.deleteButton)
+        
+        self.layoutResizeHandle()
+        self.addSubview(self.resizeHandle)
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    func deleteAnnot() {
+        self.removeFromSuperview()
+    }
+    
+    func resizeBox(_ sender: UIPanGestureRecognizer) {
+        self.annotBox.frame.size = CGSize(width: self.annotBox.frame.size.width + sender.translation(in: self).x, height: self.annotBox.frame.size.height + sender.translation(in: self).y)
+        if self.annotBox.frame.size.height < 65 {
+            self.annotBox.frame = CGRect(x: self.annotBox.frame.origin.x, y: self.annotBox.frame.origin.y, width: self.annotBox.frame.size.width, height: 65)
+        }
+        if self.annotBox.frame.size.width < 150 {
+            self.annotBox.frame = CGRect(x: self.annotBox.frame.origin.x, y: self.annotBox.frame.origin.y, width: 150, height: self.annotBox.frame.size.height)
+        }
+        sender.setTranslation(CGPoint.zero, in: self)
+        layoutInstructionOverlay()
+        layoutDeleteButton()
+        layoutResizeHandle()
+        setNeedsDisplay()
+    }
+    
+    func layoutInstructionOverlay() {
+        self.instructionOverlay.frame = self.annotBox.bounds
+        self.instructionOverlay.backgroundColor = UIColor.gray.withAlphaComponent(0.5)
+        self.tapToEditLabel.frame = CGRect(x: 30, y: 9, width: 120, height: 20)
+        self.tapToEditLabel.text = "Tap to Edit"
+        self.dragToMoveLabel.frame = CGRect(x: 30, y: self.annotBox.frame.size.height - 28, width: 120, height: 20)
+        self.dragToMoveLabel.text = "Drag to Move"
+        if self.instructionOverlay.subviews.count < 1 {
+            self.instructionOverlay.addSubview(tapToEditLabel)
+            self.instructionOverlay.addSubview(dragToMoveLabel)
+        }
+    }
+    
+    func layoutResizeHandle() {
+        self.resizeHandle.frame = CGRect(x: 0, y: 0, width: 40, height:40)
+        self.resizeHandle.backgroundColor = UIColor.white
+        self.resizeHandle.layer.borderColor = UIColor.black.cgColor
+        self.resizeHandle.layer.borderWidth = 1
+        if annotBox.frame.origin.x > 0 {
+            self.resizeHandle.center = CGPoint(x: self.annotBox.frame.origin.x + 4, y: self.annotBox.frame.origin.y + self.annotBox.frame.size.height - 4)
+        } else {
+            self.resizeHandle.center = CGPoint(x: self.annotBox.frame.size.width - boxOffset - 4, y: self.annotBox.frame.origin.y + self.annotBox.frame.size.height - 4)
+        }
+        let resizePan = UIPanGestureRecognizer(target: self, action: #selector(self.resizeBox(_:)))
+        self.resizeHandle.addGestureRecognizer(resizePan)
+        self.resizeHandle.isUserInteractionEnabled = true
+    }
+    
+    func layoutDeleteButton() {
+        self.deleteButton.frame = CGRect(x: 0, y: 0, width: 40, height:40)
+        self.deleteButton.setTitle("X", for: .normal)
+        self.deleteButton.backgroundColor = UIColor.red
+        self.deleteButton.tintColor = UIColor.white
+        self.deleteButton.titleLabel?.font = UIFont(name: "Avenir Next", size: 24)
+        self.deleteButton.titleLabel?.textColor = UIColor.white
+        if annotBox.frame.origin.x > 0 {
+            self.deleteButton.center = CGPoint(x: self.annotBox.frame.origin.x + 4, y: self.annotBox.frame.origin.y + 4)
+        } else {
+            self.deleteButton.center = CGPoint(x: self.annotBox.frame.size.width - boxOffset - 4, y: self.annotBox.frame.origin.y + 4)
+        }
+        self.deleteButton.layer.cornerRadius = 20
+        self.deleteButton.addTarget(self, action: #selector(self.deleteAnnot), for: .touchUpInside)
     }
     
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
-        if self.annotBox.frame.contains(point) || self.annotDotContainer.frame.contains(point) {
+        if self.annotBox.frame.contains(point) || self.annotDotContainer.frame.contains(point) || self.deleteButton.frame.contains(point) || self.resizeHandle.frame.contains(point) {
             return true
         }
         return false
