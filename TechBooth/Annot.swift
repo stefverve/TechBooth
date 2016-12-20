@@ -92,6 +92,9 @@ class Annot: UIView {
         self.annotDotContainer.addGestureRecognizer(dotPan)
         self.annotDotContainer.isUserInteractionEnabled = true
         
+        let boxTap = UITapGestureRecognizer(target: self, action: #selector(self.editAnnotBox(_:)))
+        self.annotBox.addGestureRecognizer(boxTap)
+        self.annotDotContainer.isUserInteractionEnabled = true
     }
     
     func moveAnnotDot(_ sender: UIPanGestureRecognizer) {
@@ -99,8 +102,25 @@ class Annot: UIView {
         setNeedsDisplay()
     }
     
+    func editAnnotBox(_ sender: UIPanGestureRecognizer) {
+        let deleteBox = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height:40))
+        deleteBox.backgroundColor = UIColor.red
+        deleteBox.tintColor = UIColor.white
+        deleteBox.titleLabel?.text = "X"
+        deleteBox.titleLabel?.font = UIFont(name: "Avenir Next", size: 12)
+        deleteBox.center = CGPoint(x: self.annotBox.frame.size.width - 25, y: self.annotBox.frame.origin.y)
+        self.addSubview(deleteBox)
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        if self.annotBox.frame.contains(point) || self.annotDotContainer.frame.contains(point) {
+            return true
+        }
+        return false
     }
     
     override func draw(_ rect: CGRect) {
