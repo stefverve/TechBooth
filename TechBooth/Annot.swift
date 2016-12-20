@@ -8,7 +8,7 @@
 
 import UIKit
 
-enum AnnotType {
+enum AnnotType: Int {
     case light
     case sound
     case note
@@ -31,14 +31,16 @@ class Annot: UIView {
     let boxOffset: CGFloat = 25
     var editMode: Bool = false
     var annot: Annotation? = nil
+    var pageSize = CGRect.zero
     
     // MARK: Inits
     
-    init(dotLocation: CGPoint, rect: CGRect, type: AnnotType, allowEdits: Bool) {
+    init(pageNum: Int, dotLocation: CGPoint, rect: CGRect, type: AnnotType, allowEdits: Bool) {
         super.init(frame: rect)
         self.isUserInteractionEnabled = true
         self.backgroundColor = UIColor.clear
         self.boxWidth = self.bounds.size.width * 0.2 + boxOffset
+        self.pageSize = rect
         
         if type == AnnotType.light {
             self.annotColor = .blue
@@ -98,8 +100,23 @@ class Annot: UIView {
             self.setupGestures()
         }
         
-        //self.annot =
+        // Save in Core Data
         
+        self.annot = DataManager.share.makeAnnotation(page: pageNum+1,
+                                                      type: type.rawValue,
+                                                      boxW: self.mapToX(value: self.annotBox.frame.size.width),
+                                                      boxH: self.mapToY(value: self.annotBox.frame.size.height),
+                                                      boxX: self.mapToX(value: self.annotBox.frame.origin.x),
+                                                      boxY: self.mapToY(value: self.annotBox.frame.origin.y),
+                                                      dotX: self.mapToX(value: self.annotDot.frame.origin.x),
+                                                      dotY: self.mapToY(value: self.annotBox.frame.origin.y))
+        
+        self.makeAnnotDesc()
+    }
+    
+    func makeAnnotDesc() {
+        self.annot?.cueDescription = "HAHAHAHAHAHAHA"
+        DataManager.share.saveContext()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -124,6 +141,7 @@ class Annot: UIView {
     }
     
     func editAnnotBox(_ sender: UITapGestureRecognizer) {
+        self.editMode = true
         
         self.layoutInstructionOverlay()
         self.annotBox.addSubview(self.instructionOverlay)
@@ -139,7 +157,8 @@ class Annot: UIView {
         let endEdit = UITapGestureRecognizer(target: self, action: #selector(self.endEdit(_:)))
         self.addGestureRecognizer(endEdit)
         
-        self.editMode = true
+        self.backgroundColor = UIColor.gray.withAlphaComponent(0.1)
+        
     }
     
     func deleteAnnot() {
@@ -213,7 +232,18 @@ class Annot: UIView {
         self.resizeHandle.removeFromSuperview()
         self.instructionOverlay.removeFromSuperview()
         self.editMode = false
+        self.backgroundColor = UIColor.clear
         self.gestureRecognizers = []
+    }
+    
+    // MARK: Coordinate Map Functions (used for Core Data storage)
+    
+    func mapToX(value: CGFloat) -> Float {
+        return Float(value / self.pageSize.size.width)
+    }
+
+    func mapToY(value: CGFloat) -> Float {
+        return Float(value / self.pageSize.size.height)
     }
     
     // MARK: Override Functions
