@@ -156,10 +156,8 @@ class Annot: UIView {
         self.tapToEditLabel.text = "Tap to Edit"
         self.dragToMoveLabel.frame = CGRect(x: 30, y: self.annotBox.frame.size.height - 28, width: 120, height: 20)
         self.dragToMoveLabel.text = "Drag to Move"
-        if self.instructionOverlay.subviews.count < 1 {
-            self.instructionOverlay.addSubview(tapToEditLabel)
-            self.instructionOverlay.addSubview(dragToMoveLabel)
-        }
+        self.instructionOverlay.addSubview(tapToEditLabel)
+        self.instructionOverlay.addSubview(dragToMoveLabel)
     }
     
     func layoutResizeHandle() {
