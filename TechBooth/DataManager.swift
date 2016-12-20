@@ -18,6 +18,8 @@ class DataManager {
 //	let newProject = Project(context: DataManager.share.context())
 //	newProject.pdf = "Fyi.pdf"
 	
+	
+	
 	//Load from core data
 //	let projectArray = DataManager.share.fetchEntityArray(name: "Project")
 //	DataManager.share.loadPDF(project:projectArray[0] as! Project)
@@ -37,9 +39,7 @@ class DataManager {
 	//Store Directory
 	let dir = "Project"
 	
-	
 	private init() {	}
-	
 	
 	// MARK: - Core Data stack
 	lazy var persistentContainer: NSPersistentContainer = {
@@ -91,22 +91,29 @@ class DataManager {
 	}
 	
 	
+//	func fetchCurrentProject() -> Project?{
+//		let projectArray = fetchEntityArray(name: "Project") as! [Project]
+//		for project in projectArray{
+//			if(project == currentProject){
+//				return project
+//			}
+//		}
+//		return nil
+//	}
+	
+	
 	func fetchPageAnnotations(page: Int) -> Set<Annotation> {
-		let projectArray = fetchEntityArray(name: "Project") as! [Project]
-		for project in projectArray{
-			if(project == currentProject){
-				let projectAnnotations = project.pdfAnnotations as! Set<Annotation>
-				var pageAnnotations: Set<Annotation> = []
-				
-				for annotation in projectAnnotations {
-					if Int(annotation.pageNumber) == page {
-						pageAnnotations.insert(annotation)
-					}
-				}
-				return pageAnnotations
+//		let project = fetchCurrentProject()
+		
+		let projectAnnotations = currentProject!.pdfAnnotations as! Set<Annotation>
+		var pageAnnotations: Set<Annotation> = []
+		
+		for annotation in projectAnnotations {
+			if Int(annotation.pageNumber) == page {
+				pageAnnotations.insert(annotation)
 			}
 		}
-		return []
+		return pageAnnotations
 	}
 	
 	
@@ -152,6 +159,7 @@ class DataManager {
 		}
 	}
 	
+	
 	func openProject(project: Project?) {
 		let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
 		let documentsDirectory = paths[0]
@@ -162,7 +170,27 @@ class DataManager {
 		self.pageCount = newDoc.numberOfPages
 		self.pageRect = (newDoc.page(at: 1)?.getBoxRect(CGPDFBox.mediaBox))!
 		self.currentProject = project!
+	}
+	
+	
+	func makeAnnotation(page:Int, type:Int, boxW:Float, boxH:Float, boxX:Float, boxY:Float, dotX:Float, dotY:Float) -> Annotation{
+		let newAnnotation = Annotation(context: DataManager.share.context())
+		
+		newAnnotation.project = currentProject//fetchCurrentProject()
+		newAnnotation.pageNumber = Int16(page)
+		newAnnotation.type = Int16(type)
+		newAnnotation.cueDescription = ""
 
+		newAnnotation.boxWidth = boxW
+		newAnnotation.boxHeight = boxH
+		newAnnotation.boxX = boxX
+		newAnnotation.boxY = boxY
+		newAnnotation.dotX = dotX
+		newAnnotation.dotY = dotY
+		newAnnotation.uniqueID = UUID().uuidString
+		
+		saveContext()
+		return newAnnotation
 	}
 
 	
