@@ -17,14 +17,14 @@ class ProjectViewController: UIViewController {
 
     override func viewDidLoad() {
         
-        
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.lightGray
 		
         self.pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        
         self.layoutDevice(rect: self.view.bounds)
         self.modelController.pageViewRect = self.pageViewController?.view.bounds
         let startingViewController: SinglePageViewController = self.modelController.viewControllerAtIndex(0, storyboard: self.storyboard!)!
@@ -58,7 +58,7 @@ class ProjectViewController: UIViewController {
     }
     
     func layoutIPad(rect: CGRect) {
-        self.pageViewController!.view.frame = rect //.insetBy(dx: 20, dy: 20)
+        self.pageViewController!.view.frame = rect//.insetBy(dx: 20, dy: 20)  // FIX THIS
     }
     
     func layoutLandscapeIPhone(rect: CGRect) {
