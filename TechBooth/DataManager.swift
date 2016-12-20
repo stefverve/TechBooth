@@ -34,6 +34,10 @@ class DataManager {
 	//Google Variables
 	let service = GTLRDriveService()
 	
+	//Store Directory
+	let dir = "Project"
+	
+	
 	private init() {	}
 	
 	
@@ -107,31 +111,59 @@ class DataManager {
 	
 	
 	func loadPDF(project: Project?) {
+		
+		let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+		let documentsDirectory = paths[0]
+
 		if(project == nil){
 			//TEMP PDF load if nothing exists
-			let newDoc: CGPDFDocument = CGPDFDocument(Bundle.main.url(forResource: "Fyi", withExtension: "pdf")! as CFURL)!
-			DataManager.share.document = newDoc
-			DataManager.share.pageCount = newDoc.numberOfPages
-			DataManager.share.pageRect = (newDoc.page(at: 1)?.getBoxRect(CGPDFBox.mediaBox))!
 			
 			let newProject = Project(context: context())
 			newProject.pdf = "Fyi.pdf"
 			newProject.name = "FYI"
 			saveContext()
+
+			let bundlePath = Bundle.main.url(forResource: "Fyi", withExtension: "pdf")
+			
+			let fileFolderPath = documentsDirectory.appendingPathComponent("\(dir)/\(newProject.name!)")
+			let filePath =  fileFolderPath.appendingPathComponent(newProject.pdf!)
+			
+			do {
+				try FileManager.default.createDirectory(atPath: fileFolderPath.path, withIntermediateDirectories: false, attributes: nil)
+				try FileManager.default.copyItem(atPath: bundlePath!.path, toPath: filePath.path)
+			} catch {
+				print(error)
+			}
+			openProject(project: newProject)
 		}
 		else{
-			let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)			
-			let documentsDirectory = paths[0]
-			let path = documentsDirectory.appendingPathComponent("Inbox/\(project!.pdf!)")
+			let importPath = documentsDirectory.appendingPathComponent("/Inbox/\(project!.pdf!)")
+			let subPath = documentsDirectory.appendingPathComponent("\(dir)/\(project!.name!)")
+			let movePath = subPath.appendingPathComponent(project!.pdf!)
+			do {
+				try FileManager.default.createDirectory(atPath: subPath.path, withIntermediateDirectories: false, attributes: nil)
+				try FileManager.default.moveItem(atPath: importPath.path, toPath: movePath.path)
+				print("Move successful")
+			} catch let error {
+				print("Error: \(error.localizedDescription)")
+			}
 			
-			let newDoc = CGPDFDocument(path as CFURL)!
-			self.document = newDoc
-			self.pageCount = newDoc.numberOfPages
-			self.pageRect = (newDoc.page(at: 1)?.getBoxRect(CGPDFBox.mediaBox))!
-			self.currentProject = project!
+			openProject(project: project)
 		}
 	}
 	
+	func openProject(project: Project?) {
+		let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+		let documentsDirectory = paths[0]
+		
+		let path = documentsDirectory.appendingPathComponent("\(dir)/\(project!.name!)/\(project!.pdf!)")
+		let newDoc = CGPDFDocument(path as CFURL)!
+		self.document = newDoc
+		self.pageCount = newDoc.numberOfPages
+		self.pageRect = (newDoc.page(at: 1)?.getBoxRect(CGPDFBox.mediaBox))!
+		self.currentProject = project!
+
+	}
 
 	
 //	func exportCSV() {

@@ -13,7 +13,7 @@
 		D8FB54AF09F2D4C04BB1549E /* Pods_TechBooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E48B21ACBD0258E06E2958C7 /* Pods_TechBooth.framework */; };
 		E2140E001E0348BF008B91C9 /* EditMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2140DFE1E0348BF008B91C9 /* EditMenu.swift */; };
 		E2140E011E0348BF008B91C9 /* EditMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2140DFF1E0348BF008B91C9 /* EditMenu.xib */; };
-		E26229E71E084335007038A1 /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26229E61E084335007038A1 /* Annotation.swift */; };
+		E26229E71E084335007038A1 /* Annot.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26229E61E084335007038A1 /* Annot.swift */; };
 		E281E9B01E01B32B00CC8E74 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E281E9AF1E01B32B00CC8E74 /* AppDelegate.swift */; };
 		E281E9B51E01B32B00CC8E74 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E281E9B31E01B32B00CC8E74 /* Main.storyboard */; };
 		E281E9B81E01B32B00CC8E74 /* TechBooth.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E281E9B61E01B32B00CC8E74 /* TechBooth.xcdatamodeld */; };
@@ -34,13 +34,14 @@
 
 /* Begin PBXFileReference section */
 		6D95031D90F6CE161C5F62F7 /* Pods-TechBooth.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TechBooth.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TechBooth/Pods-TechBooth.debug.xcconfig"; sourceTree = "<group>"; };
+		A05506451E08A8AF00B55F30 /* TechBooth.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TechBooth.entitlements; sourceTree = "<group>"; };
 		A061064B1E03369000442324 /* techboothPDF.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = techboothPDF.png; path = ../techboothPDF.png; sourceTree = "<group>"; };
 		A07720611E04610400B32EA0 /* TechBooth-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TechBooth-Bridging-Header.h"; sourceTree = "<group>"; };
 		A07720651E0480CD00B32EA0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A0A239FC1E01C49B00FC2588 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		E2140DFE1E0348BF008B91C9 /* EditMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditMenu.swift; sourceTree = "<group>"; };
 		E2140DFF1E0348BF008B91C9 /* EditMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditMenu.xib; sourceTree = "<group>"; };
-		E26229E61E084335007038A1 /* Annotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Annotation.swift; sourceTree = "<group>"; };
+		E26229E61E084335007038A1 /* Annot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Annot.swift; sourceTree = "<group>"; };
 		E281E9AC1E01B32B00CC8E74 /* TechBooth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TechBooth.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E281E9AF1E01B32B00CC8E74 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E281E9B41E01B32B00CC8E74 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -79,6 +80,7 @@
 		A07720671E04943E00B32EA0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A05506451E08A8AF00B55F30 /* TechBooth.entitlements */,
 				E281E9B91E01B32B00CC8E74 /* Assets.xcassets */,
 				E281E9C71E01B70000CC8E74 /* Fyi.pdf */,
 				A061064B1E03369000442324 /* techboothPDF.png */,
@@ -131,7 +133,7 @@
 				E2140DFE1E0348BF008B91C9 /* EditMenu.swift */,
 				E2140DFF1E0348BF008B91C9 /* EditMenu.xib */,
 				E281E9D31E01DE8A00CC8E74 /* LightsViewController.swift */,
-				E26229E61E084335007038A1 /* Annotation.swift */,
+				E26229E61E084335007038A1 /* Annot.swift */,
 				E281E9D51E01DED600CC8E74 /* SoundViewController.swift */,
 				E281E9CD1E01C13C00CC8E74 /* SinglePageViewController.swift */,
 				E281E9CF1E01D8A000CC8E74 /* pdfView.swift */,
@@ -187,6 +189,11 @@
 						DevelopmentTeam = JNQLRNGEA7;
 						LastSwiftMigration = 0810;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -290,7 +297,7 @@
 				E281E9FE1E01FADE00CC8E74 /* ModelController.swift in Sources */,
 				E281E9D41E01DE8A00CC8E74 /* LightsViewController.swift in Sources */,
 				E2140E001E0348BF008B91C9 /* EditMenu.swift in Sources */,
-				E26229E71E084335007038A1 /* Annotation.swift in Sources */,
+				E26229E71E084335007038A1 /* Annot.swift in Sources */,
 				E281E9CE1E01C13C00CC8E74 /* SinglePageViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -416,6 +423,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = TechBooth/TechBooth.entitlements;
 				DEVELOPMENT_TEAM = JNQLRNGEA7;
 				INFOPLIST_FILE = TechBooth/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -433,6 +441,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = TechBooth/TechBooth.entitlements;
 				DEVELOPMENT_TEAM = JNQLRNGEA7;
 				INFOPLIST_FILE = TechBooth/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
