@@ -91,16 +91,57 @@ class DataManager {
 	}
 	
 	
-	func fetchPageAnnotations(page: Int) -> Set<Annotation> {
-		let projectAnnotations = currentProject!.pdfAnnotations as! Set<Annotation>
-		var pageAnnotations: Set<Annotation> = []
+	func fetchPageAnnotations(page: Int) -> Dictionary <Int,[Annotation]> {
+		let projectAnnotations = currentProject!.pdfAnnotations?.allObjects as! [Annotation]
+		var dict = [Int:[Annotation]]()
+		var pageAnnotations: [Annotation] = []
 		
+		var lightAnnotations: [Annotation] = []
+		var soundAnnotations: [Annotation] = []
+		var textAnnotations: [Annotation] = []
+
 		for annotation in projectAnnotations {
 			if Int(annotation.pageNumber) == page {
-				pageAnnotations.insert(annotation)
+				pageAnnotations.append(annotation)
 			}
 		}
-		return pageAnnotations
+		for annotation in pageAnnotations {
+			if Int(annotation.type) == AnnotType.light.rawValue {
+				lightAnnotations.append(annotation)
+			}
+			else if Int(annotation.type) == AnnotType.sound.rawValue {
+				soundAnnotations.append(annotation)
+			}
+			else if Int(annotation.type) == AnnotType.note.rawValue {
+				textAnnotations.append(annotation)
+			}
+		}
+		
+		dict[AnnotType.light.rawValue] = sortAnnotations(annotArray: lightAnnotations)
+		dict[AnnotType.sound.rawValue] = sortAnnotations(annotArray: soundAnnotations)
+		dict[AnnotType.note.rawValue] = sortAnnotations(annotArray: textAnnotations)
+		
+		return dict
+	}
+	
+	
+	func fetchAnnotations(type: Int) -> [Annotation] {
+		let projectAnnotations = currentProject!.pdfAnnotations?.allObjects as! [Annotation]
+		var allAnnotations: [Annotation] = []
+		for annotation in projectAnnotations{
+			if Int(annotation.type) == type {
+				allAnnotations.append(annotation)
+			}
+		}
+		return allAnnotations
+	}
+	
+	
+	func sortAnnotations(annotArray:[Annotation]) -> [Annotation]{
+		let sortedArray = annotArray.sorted { (annot1, annot2) -> Bool in
+			return annot1.dotY < annot2.dotY
+		}
+		return sortedArray
 	}
 	
 	
@@ -159,9 +200,9 @@ class DataManager {
 		self.currentProject = project!
 	}
 	
-	
 
-	func makeAnnotation(page:Int, type:Int) -> Annotation{//, boxW:Float, boxH:Float, boxX:Float, boxY:Float, dotX:Float, dotY:Float) -> Annotation{
+	func makeAnnotation(page:Int, type:Int) -> Annotation{
+		
 		let newAnnotation = Annotation(context: DataManager.share.context())
 		
 		newAnnotation.project = currentProject
@@ -169,17 +210,14 @@ class DataManager {
 		newAnnotation.type = Int16(type)
 		newAnnotation.cueDescription = "No Description"
 
-//		newAnnotation.boxWidth = boxW
-//		newAnnotation.boxHeight = boxH
-//		newAnnotation.boxX = boxX
-//		newAnnotation.boxY = boxY
-//		newAnnotation.dotX = dotX
-//		newAnnotation.dotY = dotY
 		newAnnotation.uniqueID = UUID().uuidString
 		
 		saveContext()
 		return newAnnotation
 	}
+	
+	
+
 	
 	
 	func exportCSV() {
