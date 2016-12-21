@@ -91,20 +91,7 @@ class DataManager {
 	}
 	
 	
-//	func fetchCurrentProject() -> Project?{
-//		let projectArray = fetchEntityArray(name: "Project") as! [Project]
-//		for project in projectArray{
-//			if(project == currentProject){
-//				return project
-//			}
-//		}
-//		return nil
-//	}
-	
-	
 	func fetchPageAnnotations(page: Int) -> Set<Annotation> {
-//		let project = fetchCurrentProject()
-		
 		let projectAnnotations = currentProject!.pdfAnnotations as! Set<Annotation>
 		var pageAnnotations: Set<Annotation> = []
 		
@@ -174,12 +161,12 @@ class DataManager {
 	
 	
 	func makeAnnotation(page:Int, type:Int, boxW:Float, boxH:Float, boxX:Float, boxY:Float, dotX:Float, dotY:Float) -> Annotation{
-		let newAnnotation = Annotation(context: DataManager.share.context())
+		let newAnnotation = Annotation(context: context())
 		
-		newAnnotation.project = currentProject//fetchCurrentProject()
+		newAnnotation.project = currentProject
 		newAnnotation.pageNumber = Int16(page)
 		newAnnotation.type = Int16(type)
-		newAnnotation.cueDescription = ""
+		newAnnotation.cueDescription = "No Description"
 
 		newAnnotation.boxWidth = boxW
 		newAnnotation.boxHeight = boxH
@@ -192,9 +179,9 @@ class DataManager {
 		saveContext()
 		return newAnnotation
 	}
-
 	
-//	func exportCSV() {
+	
+	func exportCSV() {
 //		if (GIDSignIn.sharedInstance().currentUser != nil) {
 //			let accessToken = GIDSignIn.sharedInstance().currentUser.authentication.accessToken
 //			
@@ -205,5 +192,20 @@ class DataManager {
 //			
 //
 //		}
+		
+		var projectAnnotations = currentProject?.pdfAnnotations?.allObjects
+		
+		projectAnnotations?.sort(by: $0.fileID > $1.fileID)
+		
+		
+		
+		for annot in (currentProject?.pdfAnnotations)! {
+			
+		}
+		
+	}
+	
+//	func sortArrayBy(item1: String, item2: String) -> Bool {
+//		return item1.fileID > item2.
 //	}
 }
