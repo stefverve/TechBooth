@@ -193,15 +193,15 @@ class DataManager {
 //
 //		}
 		
-		var projectAnnotations = currentProject?.pdfAnnotations?.allObjects
+//		var projectAnnotations = currentProject?.pdfAnnotations?.allObjects
+//		
+//		projectAnnotations?.sort(by: $0.fileID > $1.fileID)
 		
-		projectAnnotations?.sort(by: $0.fileID > $1.fileID)
 		
 		
-		
-		for annot in (currentProject?.pdfAnnotations)! {
-			
-		}
+//		for annot in (currentProject?.pdfAnnotations)! {
+//			
+//		}
 		
 	}
 	
