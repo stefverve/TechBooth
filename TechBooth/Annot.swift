@@ -78,11 +78,17 @@ class Annot: UIView {
         }
         
         // Save in Core Data
-        
-        self.annot = DataManager.share.makeAnnotation(page: pageNum + 1, type: type.rawValue)
-        self.saveFrame(frame: self.annotBox.frame)
-        self.savePoint(point: self.annotDotContainer.center)
-        
+        self.annot = DataManager.share.makeAnnotation(page: pageNum + 1,
+                                                      type: type.rawValue,
+                                                      inRect: self.pageSize,
+                                                      box: self.annotBox.frame,
+                                                      point: self.annotDotContainer.center)
+
+		
+		//        self.annot = DataManager.share.makeAnnotation(page: pageNum + 1, type: type.rawValue)
+//        self.saveFrame(frame: self.annotBox.frame)
+//        self.savePoint(point: self.annotDotContainer.center)
+		
         self.makeAnnotDesc()
     }
     

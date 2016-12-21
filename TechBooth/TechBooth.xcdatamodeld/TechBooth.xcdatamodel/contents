@@ -6,6 +6,7 @@
         <attribute name="boxX" optional="YES" attributeType="Float" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="boxY" optional="YES" attributeType="Float" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="cueDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cueNum" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="dotX" optional="YES" attributeType="Float" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="dotY" optional="YES" attributeType="Float" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="pageNumber" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
@@ -19,7 +20,7 @@
         <relationship name="pdfAnnotations" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Annotation" inverseName="project" inverseEntity="Annotation" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Annotation" positionX="-54" positionY="-9" width="128" height="210"/>
+        <element name="Annotation" positionX="-54" positionY="-9" width="128" height="225"/>
         <element name="Project" positionX="-279" positionY="81" width="128" height="88"/>
     </elements>
 </model>

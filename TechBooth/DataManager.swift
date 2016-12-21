@@ -52,11 +52,9 @@ class DataManager {
 		return container
 	}()
 	
-	
 	func context() -> NSManagedObjectContext {
 		return persistentContainer.viewContext
 	}
-	
 	
 	// MARK: - Core Data Saving
 	func saveContext () {
@@ -72,7 +70,6 @@ class DataManager {
 			}
 		}
 	}
-	
 	
 	// MARK: - Core Data Fetching
 	func fetchEntityArray(name:String) -> [AnyObject]{
@@ -90,61 +87,31 @@ class DataManager {
 		}
 	}
 	
-	
-	func fetchPageAnnotations(page: Int) -> Dictionary <Int,[Annotation]> {
+	func fetchPageAnnotations(page: Int) -> [Annotation] {
 		let projectAnnotations = currentProject!.pdfAnnotations?.allObjects as! [Annotation]
-		var dict = [Int:[Annotation]]()
 		var pageAnnotations: [Annotation] = []
-		
-		var lightAnnotations: [Annotation] = []
-		var soundAnnotations: [Annotation] = []
-		var textAnnotations: [Annotation] = []
 
 		for annotation in projectAnnotations {
 			if Int(annotation.pageNumber) == page {
 				pageAnnotations.append(annotation)
 			}
 		}
-		for annotation in pageAnnotations {
-			if Int(annotation.type) == AnnotType.light.rawValue {
-				lightAnnotations.append(annotation)
-			}
-			else if Int(annotation.type) == AnnotType.sound.rawValue {
-				soundAnnotations.append(annotation)
-			}
-			else if Int(annotation.type) == AnnotType.note.rawValue {
-				textAnnotations.append(annotation)
-			}
-		}
 		
-		dict[AnnotType.light.rawValue] = sortAnnotations(annotArray: lightAnnotations)
-		dict[AnnotType.sound.rawValue] = sortAnnotations(annotArray: soundAnnotations)
-		dict[AnnotType.note.rawValue] = sortAnnotations(annotArray: textAnnotations)
-		
-		return dict
+		return pageAnnotations
 	}
 	
-	
-	func fetchAnnotations(type: Int) -> [Annotation] {
-		let projectAnnotations = currentProject!.pdfAnnotations?.allObjects as! [Annotation]
-		var allAnnotations: [Annotation] = []
-		for annotation in projectAnnotations{
-			if Int(annotation.type) == type {
-				allAnnotations.append(annotation)
+	func fetchSortedAnnotationsOf(type: Int, annotArray: [Annotation]) -> [Annotation]{
+		var typeArray: [Annotation] = []
+		
+		for annotation in annotArray {
+			if Int(annotation.type) ==  type{
+				typeArray.append(annotation)
 			}
 		}
-		return allAnnotations
+		return sortAnnotations(annotArray: typeArray)
 	}
 	
-	
-	func sortAnnotations(annotArray:[Annotation]) -> [Annotation]{
-		let sortedArray = annotArray.sorted { (annot1, annot2) -> Bool in
-			return annot1.dotY < annot2.dotY
-		}
-		return sortedArray
-	}
-	
-	
+	//#MARK - Creating/Loading
 	func loadPDF(project: Project?) {
 		
 		let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
@@ -187,7 +154,6 @@ class DataManager {
 		}
 	}
 	
-	
 	func openProject(project: Project?) {
 		let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
 		let documentsDirectory = paths[0]
@@ -199,25 +165,68 @@ class DataManager {
 		self.pageRect = (newDoc.page(at: 1)?.getBoxRect(CGPDFBox.mediaBox))!
 		self.currentProject = project!
 	}
-	
 
-	func makeAnnotation(page:Int, type:Int) -> Annotation{
+	func makeAnnotation(page:Int, type:Int, inRect: CGRect, box:CGRect, point:CGPoint) -> Annotation{
 		
-		let newAnnotation = Annotation(context: DataManager.share.context())
+		let newAnnotation = Annotation(context: context())
 		
 		newAnnotation.project = currentProject
 		newAnnotation.pageNumber = Int16(page)
 		newAnnotation.type = Int16(type)
 		newAnnotation.cueDescription = "No Description"
-
 		newAnnotation.uniqueID = UUID().uuidString
 		
 		saveContext()
+		
+		saveBox(box: box, inRect: inRect, annotation: newAnnotation)
+		savePoint(point: point, inRect: inRect, annotation: newAnnotation)
+		reorderCues(changeAnnot: newAnnotation)
+		
 		return newAnnotation
 	}
 	
+	//#MARK - Sorting
+	func sortAnnotations(annotArray:[Annotation]) -> [Annotation]{
+		let sortedArray = annotArray.sorted { (annot1, annot2) -> Bool in
+			return annot1.dotY < annot2.dotY
+		}
+		return sortedArray
+	}
 	
+	func reorderCues(changeAnnot: Annotation){
+		let pageAnnotations = fetchPageAnnotations(page: Int(changeAnnot.pageNumber))
+		let annotationsOfType = fetchSortedAnnotationsOf(type: Int(changeAnnot.type), annotArray: pageAnnotations)
+		var count = 1
+		for annotation in annotationsOfType {
+			if (annotation.dotY == changeAnnot.dotY){
+				changeAnnot.cueNum = Int16(count)
+				for index in count-1..<annotationsOfType.count{
+					annotationsOfType[index].cueNum = Int16(count)
+					count += 1
+				}
+				break
+			}
+			count += 1
+		}
+		saveContext()
+	}
+	
+	//#MARK - Convert box and point values
+	func saveBox(box:CGRect, inRect: CGRect, annotation:Annotation) {
+		annotation.boxX = Float(box.origin.x / inRect.size.width)
+		annotation.boxY = Float(box.origin.y / inRect.size.height)
+		annotation.boxWidth = Float(box.size.width / inRect.size.width)
+		annotation.boxHeight = Float(box.size.height / inRect.size.height)
+		saveContext()
+	}
+	
+	func savePoint(point:CGPoint, inRect: CGRect, annotation:Annotation) {
+		annotation.dotX = Float(point.x / inRect.size.width)
+		annotation.dotY = Float(point.y / inRect.size.height)
+		saveContext()
+	}
 
+	
 	
 	
 	func exportCSV() {
