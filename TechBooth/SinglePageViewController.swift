@@ -18,6 +18,7 @@ class SinglePageViewController: UIViewController {
     @IBOutlet weak var pdfView: PDFView!
     @IBOutlet weak var pdfScroller: UIScrollView!
     var annotType: AnnotType!
+    var annots = [Annot]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,17 +28,23 @@ class SinglePageViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         layoutForPDFSubview(size: self.view.frame.size)
-
-    }
-    
-    // for the love of god find out what is causing this and end it.
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        if self.pdfView.frame.size.width > self.view.frame.size.width {
-            layoutForPDFSubview(size: self.view.frame.size)
+        if annots.count == 0 {
+            for annotation in DataManager.share.fetchPageAnnotations(page: pageNum + 1) {
+                let annot = Annot.init(annotation: annotation, rect: pdfView.frame)
+                self.annots.append(annot)
+                pdfView.addSubview(annot)
+            }
         }
     }
+    
+    // method commented out -- pages loaded off-screen are loaded at default frame size, and need to be re-adjusted if they are to be stretched to a different frame. This should ideally be fixed, but is not relevant at the moment since we are only dispalying the PDF full screen.
+    
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
+//        if self.pdfView.frame.size.width > self.view.frame.size.width {
+//            layoutForPDFSubview(size: self.view.frame.size)
+//        }
+//    }
     
     func layoutForPDFSubview(size: CGSize) {
         self.pdfScroller.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
