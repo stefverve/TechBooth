@@ -160,20 +160,21 @@ class DataManager {
 	}
 	
 	
-	func makeAnnotation(page:Int, type:Int, boxW:Float, boxH:Float, boxX:Float, boxY:Float, dotX:Float, dotY:Float) -> Annotation{
-		let newAnnotation = Annotation(context: context())
+
+	func makeAnnotation(page:Int, type:Int) -> Annotation{//, boxW:Float, boxH:Float, boxX:Float, boxY:Float, dotX:Float, dotY:Float) -> Annotation{
+		let newAnnotation = Annotation(context: DataManager.share.context())
 		
 		newAnnotation.project = currentProject
 		newAnnotation.pageNumber = Int16(page)
 		newAnnotation.type = Int16(type)
 		newAnnotation.cueDescription = "No Description"
 
-		newAnnotation.boxWidth = boxW
-		newAnnotation.boxHeight = boxH
-		newAnnotation.boxX = boxX
-		newAnnotation.boxY = boxY
-		newAnnotation.dotX = dotX
-		newAnnotation.dotY = dotY
+//		newAnnotation.boxWidth = boxW
+//		newAnnotation.boxHeight = boxH
+//		newAnnotation.boxX = boxX
+//		newAnnotation.boxY = boxY
+//		newAnnotation.dotX = dotX
+//		newAnnotation.dotY = dotY
 		newAnnotation.uniqueID = UUID().uuidString
 		
 		saveContext()
