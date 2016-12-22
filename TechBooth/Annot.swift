@@ -14,6 +14,10 @@ enum AnnotType: Int {
     case note
 }
 
+protocol AnnotDelegate {
+    func relabelAnnots()
+}
+
 class Annot: UIView {
     
     // MARK: Properties
@@ -36,6 +40,7 @@ class Annot: UIView {
     var pageNum = Int()
     var cueLabel = UILabel()
     var descriptionLabel = UILabel()
+    var delegate: AnnotDelegate?
     
     // MARK: Inits
     
@@ -185,6 +190,8 @@ class Annot: UIView {
         if sender.state == .ended {
             self.savePoint(point: self.annotDotContainer.center)
         }
+        DataManager.share.reorderAllCues(page: self.pageNum, type: self.annotType)
+        delegate?.relabelAnnots()
     }
     
     func editAnnotBox(_ sender: UITapGestureRecognizer) {
@@ -218,6 +225,8 @@ class Annot: UIView {
         self.removeFromSuperview()
         DataManager.share.context().delete(self.annot!)
         DataManager.share.saveContext()
+        DataManager.share.reorderAllCues(page: self.pageNum, type: self.annotType)
+        delegate?.relabelAnnots()
     }
     
     func resizeBox(_ sender: UIPanGestureRecognizer) {
@@ -261,6 +270,15 @@ class Annot: UIView {
     func editText(_ sender: UITapGestureRecognizer) {
       //  let typeDescriptionView = UIView(frame: self.frame)
         
+    }
+    
+    func endEdit(_ sender: UITapGestureRecognizer) {
+        self.deleteButton.removeFromSuperview()
+        self.resizeHandle.removeFromSuperview()
+        self.instructionOverlay.removeFromSuperview()
+        self.editMode = false
+        self.backgroundColor = UIColor.clear
+        self.gestureRecognizers = []
     }
     
     // MARK: AnnotBox Subview Layouts
@@ -329,14 +347,7 @@ class Annot: UIView {
         self.deleteButton.addTarget(self, action: #selector(self.deleteAnnot), for: .touchUpInside)
     }
     
-    func endEdit(_ sender: UITapGestureRecognizer) {
-        self.deleteButton.removeFromSuperview()
-        self.resizeHandle.removeFromSuperview()
-        self.instructionOverlay.removeFromSuperview()
-        self.editMode = false
-        self.backgroundColor = UIColor.clear
-        self.gestureRecognizers = []
-    }
+    
     
     // MARK: Coordinate Map Functions (used for Core Data storage)
     

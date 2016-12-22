@@ -11,7 +11,7 @@ import CoreText
 
 
 
-class SinglePageViewController: UIViewController {
+class SinglePageViewController: UIViewController, AnnotDelegate {
     
     var page: CGPDFPage!
     var pageNum: Int!
@@ -33,6 +33,7 @@ class SinglePageViewController: UIViewController {
                 let annot = Annot.init(annotation: annotation, rect: pdfView.frame)
                 self.annots.append(annot)
                 pdfView.addSubview(annot)
+                annot.delegate = self
             }
         }
     }
@@ -73,12 +74,19 @@ class SinglePageViewController: UIViewController {
     @IBAction func didTapPage(_ sender: UITapGestureRecognizer) {
         print (sender.location(in: pdfView))
         let annot = Annot.init(pageNum: self.pageNum, dotLocation: sender.location(in: pdfView), rect: pdfView.frame, type: AnnotType.light, allowEdits: true)
+        annot.delegate = self
+        
         pdfView.addSubview(annot)
         print(self.pdfView.subviews.count)
         self.annots.append(annot)
+        relabelAnnots()
     }
     
-    
+    func relabelAnnots() {
+        for annot in annots {
+            annot.layoutAnnotBoxLabels()
+        }
+    }
     
     /*
     // MARK: - Navigation
