@@ -190,7 +190,7 @@ class Annot: UIView {
         if sender.state == .ended {
             self.savePoint(point: self.annotDotContainer.center)
         }
-        DataManager.share.reorderAllCues(page: self.pageNum, type: self.annotType)
+        DataManager.share.reorderAllCues(page: self.pageNum, type: self.annotType.rawValue)
         delegate?.relabelAnnots()
     }
     
@@ -225,7 +225,7 @@ class Annot: UIView {
         self.removeFromSuperview()
         DataManager.share.context().delete(self.annot!)
         DataManager.share.saveContext()
-        DataManager.share.reorderAllCues(page: self.pageNum, type: self.annotType)
+        DataManager.share.reorderAllCues(page: self.pageNum, type: self.annotType.rawValue)
         delegate?.relabelAnnots()
     }
     
