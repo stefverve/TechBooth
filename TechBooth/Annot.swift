@@ -269,7 +269,7 @@ class Annot: UIView {
             cueLabel.frame = CGRect(x: annotBoxLabelInset + boxOffset, y: annotBoxLabelInset, width: annotBox.frame.size.width - annotBoxLabelInset*2 - boxOffset, height: 24)
             descriptionLabel.frame = CGRect(x: annotBoxLabelInset + boxOffset, y: annotBoxLabelInset*2 + 24, width: annotBox.frame.size.width - annotBoxLabelInset*2 - boxOffset, height: 24)
         }
-        cueLabel.text = String("\(self.pageNum).### - \(String(describing: self.annotType).capitalized)")
+        cueLabel.text = String("\(self.pageNum).\(self.annot!.cueNum) - \(String(describing: self.annotType).capitalized)")
     }
     
     func layoutInstructionOverlay() {

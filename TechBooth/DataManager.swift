@@ -200,7 +200,7 @@ class DataManager {
 		for annotation in annotationsOfType {
 			if (annotation.dotY == changeAnnot.dotY){
 				changeAnnot.cueNum = Int16(count)
-				for index in count-1..<annotationsOfType.count{
+				for index in count..<annotationsOfType.count-1{
 					annotationsOfType[index].cueNum = Int16(count)
 					count += 1
 				}
@@ -225,7 +225,7 @@ class DataManager {
 		annotation.dotY = Float(point.y / inRect.size.height)
 		saveContext()
 	}
-
+	
 	
 	
 	
