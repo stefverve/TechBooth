@@ -91,15 +91,6 @@ class Annot: UIView {
             self.setupGestures()
         }
         
-        
-        
-
-        
-		
-		//        self.annot = DataManager.share.makeAnnotation(page: pageNum + 1, type: type.rawValue)
-//        self.saveFrame(frame: self.annotBox.frame)
-//        self.savePoint(point: self.annotDotContainer.center)
-		
         self.makeAnnotDesc()
     }
     
@@ -187,9 +178,9 @@ class Annot: UIView {
     func moveAnnotDot(_ sender: UIPanGestureRecognizer) {
         self.annotDotContainer.center = sender.location(in: self)
         setNeedsDisplay()
-        if sender.state == .ended {
+  //      if sender.state == .ended {
             self.savePoint(point: self.annotDotContainer.center)
-        }
+   //     }
         DataManager.share.reorderAllCues(page: self.pageNum, type: self.annotType.rawValue)
         delegate?.relabelAnnots()
     }

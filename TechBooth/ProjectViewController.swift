@@ -39,6 +39,39 @@ class ProjectViewController: UIViewController {
         self.view.addSubview(self.pageViewController!.view)
         
         self.pageViewController!.didMove(toParentViewController: self)
+        
+        let menuWidth: CGFloat = self.view.frame.size.width * 0.12
+        
+        let cueMenuBackingLayer = UIView(frame: CGRect(x: self.view.frame.size.width - menuWidth, y: self.view.frame.size.height - menuWidth, width: menuWidth, height: menuWidth))
+        let cueMenu = UIButton(frame: cueMenuBackingLayer.bounds)
+        cueMenu.addTarget(self, action: #selector(self.showCueMenu), for: .touchUpInside)
+        var path = UIBezierPath(roundedRect: cueMenu.bounds, byRoundingCorners: UIRectCorner.topLeft, cornerRadii: CGSize(width: menuWidth/12, height: menuWidth/12))
+        var mask = CAShapeLayer()
+        mask.path = path.cgPath
+        cueMenu.layer.mask = mask
+        cueMenu.backgroundColor = UIColor(white: 0.85, alpha: 1)
+        cueMenuBackingLayer.layer.shadowRadius = 3
+        cueMenuBackingLayer.layer.shadowColor = UIColor.black.cgColor
+        cueMenuBackingLayer.layer.shadowOpacity = 0.8
+        cueMenuBackingLayer.layer.shadowOffset = CGSize.zero
+        cueMenuBackingLayer.addSubview(cueMenu)
+        self.view.addSubview(cueMenuBackingLayer)
+        
+        let settingsMenuBackingLayer = UIView(frame: CGRect(x: self.view.frame.origin.x, y: self.view.frame.size.height - menuWidth, width: menuWidth, height: menuWidth))
+        let settingsMenu = UIButton(frame: settingsMenuBackingLayer.bounds)
+        settingsMenu.addTarget(self, action: #selector(self.showSettingsMenu), for: .touchUpInside)
+        path = UIBezierPath(roundedRect: settingsMenu.bounds, byRoundingCorners: UIRectCorner.topRight, cornerRadii: CGSize(width: menuWidth/12, height: menuWidth/12))
+        mask = CAShapeLayer()
+        mask.path = path.cgPath
+        settingsMenu.layer.mask = mask
+        settingsMenu.backgroundColor = UIColor(white: 0.85, alpha: 1)
+        settingsMenuBackingLayer.layer.shadowRadius = 3
+        settingsMenuBackingLayer.layer.shadowColor = UIColor.black.cgColor
+        settingsMenuBackingLayer.layer.shadowOpacity = 0.8
+        settingsMenuBackingLayer.layer.shadowOffset = CGSize.zero
+        settingsMenuBackingLayer.addSubview(settingsMenu)
+        self.view.addSubview(settingsMenuBackingLayer)
+        
     }
     
     func layoutDevice(rect: CGRect) {
@@ -83,6 +116,13 @@ class ProjectViewController: UIViewController {
 //        }
 //    }
     
+    func showCueMenu() {
+        print("show cue menu here")
+    }
+    
+    func showSettingsMenu() {
+        print ("show settings menu here")
+    }
     
     var modelController: ModelController {
         // Return the model controller object, creating it if necessary.
