@@ -71,19 +71,25 @@ class Annot: UIView {
             y = dotLocation.y - 50
         }
         
-        self.createAnnotBox(rect: CGRect(x: x, y: y, width: self.boxWidth, height: 100))
+        let boxRect = CGRect(x: x, y: y, width: self.boxWidth, height: 100)
+        
+        
+        // Core Data
+        self.annot = DataManager.share.makeAnnotation(page: pageNum + 1,
+                                                      type: type.rawValue,
+                                                      inRect: self.pageSize,
+                                                      box: boxRect,
+                                                      point: self.annotDotContainer.center)
+        self.createAnnotBox(rect: boxRect)
         
         if allowEdits {
             self.setupGestures()
         }
         
-        // Save in Core Data
-        self.annot = DataManager.share.makeAnnotation(page: pageNum + 1,
-                                                      type: type.rawValue,
-                                                      inRect: self.pageSize,
-                                                      box: self.annotBox.frame,
-                                                      point: self.annotDotContainer.center)
+        
+        
 
+        
 		
 		//        self.annot = DataManager.share.makeAnnotation(page: pageNum + 1, type: type.rawValue)
 //        self.saveFrame(frame: self.annotBox.frame)

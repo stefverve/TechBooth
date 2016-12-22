@@ -75,6 +75,7 @@ class SinglePageViewController: UIViewController {
         let annot = Annot.init(pageNum: self.pageNum, dotLocation: sender.location(in: pdfView), rect: pdfView.frame, type: AnnotType.light, allowEdits: true)
         pdfView.addSubview(annot)
         print(self.pdfView.subviews.count)
+        self.annots.append(annot)
     }
     
     
