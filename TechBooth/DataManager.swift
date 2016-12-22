@@ -193,6 +193,19 @@ class DataManager {
 		return sortedArray
 	}
 	
+	
+	func reorderAllCues(page: Int, type: Int){
+		let pageAnnotations = fetchPageAnnotations(page: page)
+		let annotationsOfType = fetchSortedAnnotationsOf(type: type, annotArray: pageAnnotations)
+		var count = 1
+		for annotation in annotationsOfType {
+			annotation.cueNum = Int16(count)
+			count += 1
+		}
+		saveContext()
+	}
+
+	
 	func reorderCues(changeAnnot: Annotation){
 		let pageAnnotations = fetchPageAnnotations(page: Int(changeAnnot.pageNumber))
 		let annotationsOfType = fetchSortedAnnotationsOf(type: Int(changeAnnot.type), annotArray: pageAnnotations)
@@ -200,7 +213,7 @@ class DataManager {
 		for annotation in annotationsOfType {
 			if (annotation.dotY == changeAnnot.dotY){
 				changeAnnot.cueNum = Int16(count)
-				for index in count..<annotationsOfType.count-1{
+				for index in count..<annotationsOfType.count{
 					annotationsOfType[index].cueNum = Int16(count)
 					count += 1
 				}
