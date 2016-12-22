@@ -202,6 +202,7 @@ class DataManager {
 			annotation.cueNum = Int16(count)
 			count += 1
 		}
+		
 		saveContext()
 	}
 
