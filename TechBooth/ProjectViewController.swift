@@ -17,7 +17,21 @@ class ProjectViewController: UIViewController {
     var cueMenuShadowLayer = UIView()
     var cueMenuShapeLayer = UIView()
     var shadowHeightConstraint: NSLayoutConstraint!
+    
+    var lightCueButtonBottom: NSLayoutConstraint!
+    var lightCueButtonTop: NSLayoutConstraint!
+    var lightCueButtonCenterY: NSLayoutConstraint!
+    
+    var soundCueButtonBottom: NSLayoutConstraint!
+    var soundCueButtonTop: NSLayoutConstraint!
+    var soundCueButtonCenterY: NSLayoutConstraint!
+    
+    var textCueButtonBottom: NSLayoutConstraint!
+    var textCueButtonTop: NSLayoutConstraint!
+    
     var menuWidth: CGFloat!
+    var expandedMenu = false
+    var annotType: AnnotType = .light
     
     
     @IBOutlet weak var stackView: UIStackView!
@@ -68,8 +82,11 @@ class ProjectViewController: UIViewController {
         cueMenuShapeLayer.layer.mask = mask
         cueMenuShapeLayer.backgroundColor = UIColor(white: 0.85, alpha: 1)
         
+        lightCueButton.addTarget(self, action: #selector(self.toggleLightButton), for: .touchUpInside)
+        soundCueButton.addTarget(self, action: #selector(self.toggleSoundButton), for: .touchUpInside)
+        textCueButton.addTarget(self, action: #selector(self.toggleTextButton), for: .touchUpInside)
         
-        lightCueButton.addTarget(self, action: #selector(self.showCueMenu), for: .touchUpInside)
+        
         
         cueMenuShadowLayer.translatesAutoresizingMaskIntoConstraints = false
         cueMenuShapeLayer.translatesAutoresizingMaskIntoConstraints = false
@@ -90,8 +107,6 @@ class ProjectViewController: UIViewController {
         soundCueButton.frame = cueMenuShapeLayer.bounds
         textCueButton.frame = cueMenuShapeLayer.bounds
         
-   //     let shadowMargins = cueMenuShadowLayer.layoutMarginsGuide
-        
         shadowHeightConstraint = cueMenuShadowLayer.heightAnchor.constraint(equalToConstant: menuWidth)
         shadowHeightConstraint.isActive = true
         cueMenuShadowLayer.widthAnchor.constraint(equalToConstant: menuWidth).isActive = true
@@ -102,8 +117,6 @@ class ProjectViewController: UIViewController {
         cueMenuShapeLayer.widthAnchor.constraint(equalTo: cueMenuShadowLayer.widthAnchor, multiplier: 1).isActive = true
         cueMenuShapeLayer.centerXAnchor.constraint(equalTo: cueMenuShadowLayer.centerXAnchor).isActive = true
         cueMenuShapeLayer.centerYAnchor.constraint(equalTo: cueMenuShadowLayer.centerYAnchor).isActive = true
-        
-   //     let cueMenuShapeLayer = cueMenuShapeLayer.layoutMarginsGuide
         
         lightCueButton.heightAnchor.constraint(equalTo: cueMenuShapeLayer.widthAnchor, multiplier: 1).isActive = true
         soundCueButton.heightAnchor.constraint(equalTo: cueMenuShapeLayer.widthAnchor, multiplier: 1).isActive = true
@@ -117,23 +130,28 @@ class ProjectViewController: UIViewController {
         soundCueButton.widthAnchor.constraint(equalTo: cueMenuShapeLayer.widthAnchor).isActive = true
         textCueButton.widthAnchor.constraint(equalTo: cueMenuShapeLayer.widthAnchor).isActive = true
         
-        lightCueButton.bottomAnchor.constraint(equalTo: cueMenuShapeLayer.bottomAnchor, constant: 0).isActive=true
-        lightCueButton.topAnchor.constraint(equalTo: cueMenuShapeLayer.topAnchor, constant: 0).isActive=false
-        lightCueButton.centerYAnchor.constraint(equalTo: cueMenuShapeLayer.centerYAnchor, constant: 0).isActive=false
+        lightCueButtonBottom = lightCueButton.bottomAnchor.constraint(equalTo: cueMenuShapeLayer.bottomAnchor, constant: 0)
+        lightCueButtonBottom.isActive=true
+        lightCueButtonTop = lightCueButton.topAnchor.constraint(equalTo: cueMenuShapeLayer.topAnchor, constant: 0)
+        lightCueButtonTop.isActive=false
+        lightCueButtonCenterY = lightCueButton.centerYAnchor.constraint(equalTo: cueMenuShapeLayer.centerYAnchor, constant: 0)
+        lightCueButtonCenterY.isActive=false
+        
+        soundCueButtonBottom = soundCueButton.bottomAnchor.constraint(equalTo: cueMenuShapeLayer.bottomAnchor, constant: 0)
+            soundCueButtonBottom.isActive=false
+        soundCueButtonTop = soundCueButton.topAnchor.constraint(equalTo: cueMenuShapeLayer.topAnchor, constant: 0)
+            soundCueButtonTop.isActive=false
+        soundCueButtonCenterY = soundCueButton.centerYAnchor.constraint(equalTo: cueMenuShapeLayer.centerYAnchor, constant: 0)
+        soundCueButtonCenterY.isActive=true
+        
+        textCueButtonBottom = textCueButton.bottomAnchor.constraint(equalTo: cueMenuShapeLayer.bottomAnchor, constant: 0)
+            textCueButtonBottom.isActive=false
+        textCueButtonTop = textCueButton.topAnchor.constraint(equalTo: cueMenuShapeLayer.topAnchor, constant: 0)
+            textCueButtonTop.isActive=true
+        
         lightCueButton.backgroundColor = UIColor.blue
-        
-        soundCueButton.bottomAnchor.constraint(equalTo: cueMenuShapeLayer.bottomAnchor, constant: 0).isActive=false
-        soundCueButton.topAnchor.constraint(equalTo: cueMenuShapeLayer.topAnchor, constant: 0).isActive=false
-        soundCueButton.centerYAnchor.constraint(equalTo: cueMenuShapeLayer.centerYAnchor, constant: 0).isActive=true
         soundCueButton.backgroundColor = UIColor.orange
-        
-        textCueButton.bottomAnchor.constraint(equalTo: cueMenuShapeLayer.bottomAnchor, constant: 0).isActive=false
-        textCueButton.topAnchor.constraint(equalTo: cueMenuShapeLayer.topAnchor, constant: 0).isActive=true
-        textCueButton.centerYAnchor.constraint(equalTo: cueMenuShapeLayer.centerYAnchor, constant: 0).isActive=false
         textCueButton.backgroundColor = UIColor.brown
-        
-        
-        
         
         let settingsMenuBackingLayer = UIView(frame: CGRect(x: self.view.frame.origin.x, y: self.view.frame.size.height - menuWidth, width: menuWidth, height: menuWidth))
         let settingsMenu = UIButton(frame: settingsMenuBackingLayer.bounds)
@@ -162,11 +180,66 @@ class ProjectViewController: UIViewController {
         self.pageViewController!.view.frame = rect//.insetBy(dx: 20, dy: 20)  // FIX THIS
     }
 
+    func toggleLightButton() {
+        lightCueButton.isSelected = true
+        soundCueButton.isSelected = false
+        textCueButton.isSelected = false
+        if expandedMenu {
+            
+            annotType = .light
+            
+            cueMenuShapeLayer.bringSubview(toFront: soundCueButton)
+            cueMenuShapeLayer.bringSubview(toFront: lightCueButton)
+            
+            hideCueMenu()
+            
+            
+        } else {
+            showCueMenu()
+        }
+    }
+    
+    func toggleSoundButton() {
+        lightCueButton.isSelected = false
+        soundCueButton.isSelected = true
+        textCueButton.isSelected = false
+        if expandedMenu {
+            
+            annotType = .sound
+            
+            cueMenuShapeLayer.bringSubview(toFront: lightCueButton)
+            cueMenuShapeLayer.bringSubview(toFront: soundCueButton)
+            
+            hideCueMenu()
+            
+            
+        } else {
+            showCueMenu()
+        }
+    }
+    
+    func toggleTextButton() {
+        lightCueButton.isSelected = false
+        soundCueButton.isSelected = false
+        textCueButton.isSelected = true
+        if expandedMenu {
+            
+            annotType = .note
+            
+            cueMenuShapeLayer.bringSubview(toFront: soundCueButton)
+            cueMenuShapeLayer.bringSubview(toFront: textCueButton)
+            
+            hideCueMenu()
+            
+            
+        } else {
+            showCueMenu()
+        }
+    }
     
     func showCueMenu() {
-        print("show cue menu here")
+        expandedMenu = true
         UIView.animate(withDuration: 0.4, animations: {
-           // let stretch: CGFloat = self.view.frame.size.width * 0.24
             let newHeight = self.menuWidth * 3
             self.shadowHeightConstraint.constant = newHeight
             let maskRect = CGRect(x: 0, y: 0, width: self.cueMenuShadowLayer.frame.width, height: newHeight)
@@ -175,6 +248,60 @@ class ProjectViewController: UIViewController {
             mask.path = path.cgPath
             self.cueMenuShapeLayer.layer.mask = mask
             self.view.layoutIfNeeded()
+        })
+    }
+    
+    func hideCueMenu() {
+        expandedMenu = false
+        UIView.animate(withDuration: 0.4, animations: {
+            self.shadowHeightConstraint.constant = self.menuWidth
+            let maskRect = CGRect(x: 0, y: 0, width: self.cueMenuShadowLayer.frame.width, height: self.menuWidth)
+            let path = UIBezierPath(roundedRect: maskRect, byRoundingCorners: UIRectCorner.topLeft, cornerRadii: CGSize(width: self.menuWidth/10, height: self.menuWidth/10))
+            let mask = CAShapeLayer()
+            mask.path = path.cgPath
+            self.cueMenuShapeLayer.layer.mask = mask
+            self.view.layoutIfNeeded()
+        }, completion: {
+            (value: Bool) in
+            
+            if self.lightCueButton.isSelected {
+                self.lightCueButtonBottom.isActive=true
+                self.lightCueButtonTop.isActive=false
+                self.lightCueButtonCenterY.isActive=false
+                
+                self.soundCueButtonBottom.isActive=false
+                self.soundCueButtonTop.isActive=false
+                self.soundCueButtonCenterY.isActive=true
+                
+                self.textCueButtonBottom.isActive=false
+                self.textCueButtonTop.isActive=true
+                
+            } else if self.soundCueButton.isSelected {
+                self.lightCueButtonBottom.isActive=false
+                self.lightCueButtonTop.isActive=false
+                self.lightCueButtonCenterY.isActive=true
+                
+                self.soundCueButtonBottom.isActive=true
+                self.soundCueButtonTop.isActive=false
+                self.soundCueButtonCenterY.isActive=false
+                
+                self.textCueButtonBottom.isActive=false
+                self.textCueButtonTop.isActive=true
+                
+            } else {
+                self.lightCueButtonBottom.isActive=false
+                self.lightCueButtonTop.isActive=true
+                self.lightCueButtonCenterY.isActive=false
+                
+                self.soundCueButtonBottom.isActive=false
+                self.soundCueButtonTop.isActive=false
+                self.soundCueButtonCenterY.isActive=true
+                
+                self.textCueButtonBottom.isActive=true
+                self.textCueButtonTop.isActive=false
+                
+            }
+            
         })
     }
     
