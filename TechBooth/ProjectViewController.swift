@@ -11,13 +11,26 @@ import UIKit
 class ProjectViewController: UIViewController {
     
     var pageViewController: UIPageViewController?
-    var editMenu: EditMenu?
+    var lightCueButton = UIButton()
+    var soundCueButton = UIButton()
+    var textCueButton = UIButton()
+    var cueMenuShadowLayer = UIView()
+    var cueMenuShapeLayer = UIView()
+    var shadowHeightConstraint: NSLayoutConstraint!
+    var menuWidth: CGFloat!
+    
     
     @IBOutlet weak var stackView: UIStackView!
+    
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
 
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        menuWidth = self.view.frame.size.width * 0.12
         //self.view.backgroundColor = UIColor.lightGray
 		
         self.pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
@@ -40,27 +53,92 @@ class ProjectViewController: UIViewController {
         
         self.pageViewController!.didMove(toParentViewController: self)
         
-        let menuWidth: CGFloat = self.view.frame.size.width * 0.12
+      //  let menuWidth: CGFloat = self.view.frame.size.width * 0.12
         
-        let cueMenuBackingLayer = UIView(frame: CGRect(x: self.view.frame.size.width - menuWidth, y: self.view.frame.size.height - menuWidth, width: menuWidth, height: menuWidth))
-        let cueMenu = UIButton(frame: cueMenuBackingLayer.bounds)
-        cueMenu.addTarget(self, action: #selector(self.showCueMenu), for: .touchUpInside)
-        var path = UIBezierPath(roundedRect: cueMenu.bounds, byRoundingCorners: UIRectCorner.topLeft, cornerRadii: CGSize(width: menuWidth/12, height: menuWidth/12))
+        cueMenuShadowLayer.frame = CGRect(x: self.view.frame.size.width - menuWidth, y: self.view.frame.size.height - menuWidth, width: menuWidth, height: menuWidth)
+        cueMenuShadowLayer.layer.shadowRadius = 3
+        cueMenuShadowLayer.layer.shadowColor = UIColor.black.cgColor
+        cueMenuShadowLayer.layer.shadowOpacity = 0.8
+        cueMenuShadowLayer.layer.shadowOffset = CGSize.zero
+        
+        cueMenuShapeLayer.frame = cueMenuShadowLayer.bounds
+        var path = UIBezierPath(roundedRect: cueMenuShapeLayer.bounds, byRoundingCorners: UIRectCorner.topLeft, cornerRadii: CGSize(width: menuWidth/10, height: menuWidth/10))
         var mask = CAShapeLayer()
         mask.path = path.cgPath
-        cueMenu.layer.mask = mask
-        cueMenu.backgroundColor = UIColor(white: 0.85, alpha: 1)
-        cueMenuBackingLayer.layer.shadowRadius = 3
-        cueMenuBackingLayer.layer.shadowColor = UIColor.black.cgColor
-        cueMenuBackingLayer.layer.shadowOpacity = 0.8
-        cueMenuBackingLayer.layer.shadowOffset = CGSize.zero
-        cueMenuBackingLayer.addSubview(cueMenu)
-        self.view.addSubview(cueMenuBackingLayer)
+        cueMenuShapeLayer.layer.mask = mask
+        cueMenuShapeLayer.backgroundColor = UIColor(white: 0.85, alpha: 1)
+        
+        
+        lightCueButton.addTarget(self, action: #selector(self.showCueMenu), for: .touchUpInside)
+        
+        cueMenuShadowLayer.translatesAutoresizingMaskIntoConstraints = false
+        cueMenuShapeLayer.translatesAutoresizingMaskIntoConstraints = false
+        lightCueButton.translatesAutoresizingMaskIntoConstraints = false
+        soundCueButton.translatesAutoresizingMaskIntoConstraints = false
+        textCueButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        self.view.addSubview(cueMenuShadowLayer)
+        cueMenuShadowLayer.addSubview(cueMenuShapeLayer)
+        
+        
+        cueMenuShapeLayer.addSubview(textCueButton)
+        cueMenuShapeLayer.addSubview(soundCueButton)
+        cueMenuShapeLayer.addSubview(lightCueButton)
+        
+        lightCueButton.frame = cueMenuShapeLayer.bounds
+        soundCueButton.frame = cueMenuShapeLayer.bounds
+        textCueButton.frame = cueMenuShapeLayer.bounds
+        
+   //     let shadowMargins = cueMenuShadowLayer.layoutMarginsGuide
+        
+        shadowHeightConstraint = cueMenuShadowLayer.heightAnchor.constraint(equalToConstant: menuWidth)
+        shadowHeightConstraint.isActive = true
+        cueMenuShadowLayer.widthAnchor.constraint(equalToConstant: menuWidth).isActive = true
+        cueMenuShadowLayer.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        cueMenuShadowLayer.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+        
+        cueMenuShapeLayer.heightAnchor.constraint(equalTo: cueMenuShadowLayer.heightAnchor, multiplier: 1).isActive = true
+        cueMenuShapeLayer.widthAnchor.constraint(equalTo: cueMenuShadowLayer.widthAnchor, multiplier: 1).isActive = true
+        cueMenuShapeLayer.centerXAnchor.constraint(equalTo: cueMenuShadowLayer.centerXAnchor).isActive = true
+        cueMenuShapeLayer.centerYAnchor.constraint(equalTo: cueMenuShadowLayer.centerYAnchor).isActive = true
+        
+   //     let cueMenuShapeLayer = cueMenuShapeLayer.layoutMarginsGuide
+        
+        lightCueButton.heightAnchor.constraint(equalTo: cueMenuShapeLayer.widthAnchor, multiplier: 1).isActive = true
+        soundCueButton.heightAnchor.constraint(equalTo: cueMenuShapeLayer.widthAnchor, multiplier: 1).isActive = true
+        textCueButton.heightAnchor.constraint(equalTo: cueMenuShapeLayer.widthAnchor, multiplier: 1).isActive = true
+        
+        lightCueButton.centerXAnchor.constraint(equalTo: cueMenuShapeLayer.centerXAnchor).isActive = true
+        soundCueButton.centerXAnchor.constraint(equalTo: cueMenuShapeLayer.centerXAnchor).isActive = true
+        textCueButton.centerXAnchor.constraint(equalTo: cueMenuShapeLayer.centerXAnchor).isActive = true
+        
+        lightCueButton.widthAnchor.constraint(equalTo: cueMenuShapeLayer.widthAnchor).isActive = true
+        soundCueButton.widthAnchor.constraint(equalTo: cueMenuShapeLayer.widthAnchor).isActive = true
+        textCueButton.widthAnchor.constraint(equalTo: cueMenuShapeLayer.widthAnchor).isActive = true
+        
+        lightCueButton.bottomAnchor.constraint(equalTo: cueMenuShapeLayer.bottomAnchor, constant: 0).isActive=true
+        lightCueButton.topAnchor.constraint(equalTo: cueMenuShapeLayer.topAnchor, constant: 0).isActive=false
+        lightCueButton.centerYAnchor.constraint(equalTo: cueMenuShapeLayer.centerYAnchor, constant: 0).isActive=false
+        lightCueButton.backgroundColor = UIColor.blue
+        
+        soundCueButton.bottomAnchor.constraint(equalTo: cueMenuShapeLayer.bottomAnchor, constant: 0).isActive=false
+        soundCueButton.topAnchor.constraint(equalTo: cueMenuShapeLayer.topAnchor, constant: 0).isActive=false
+        soundCueButton.centerYAnchor.constraint(equalTo: cueMenuShapeLayer.centerYAnchor, constant: 0).isActive=true
+        soundCueButton.backgroundColor = UIColor.orange
+        
+        textCueButton.bottomAnchor.constraint(equalTo: cueMenuShapeLayer.bottomAnchor, constant: 0).isActive=false
+        textCueButton.topAnchor.constraint(equalTo: cueMenuShapeLayer.topAnchor, constant: 0).isActive=true
+        textCueButton.centerYAnchor.constraint(equalTo: cueMenuShapeLayer.centerYAnchor, constant: 0).isActive=false
+        textCueButton.backgroundColor = UIColor.brown
+        
+        
+        
         
         let settingsMenuBackingLayer = UIView(frame: CGRect(x: self.view.frame.origin.x, y: self.view.frame.size.height - menuWidth, width: menuWidth, height: menuWidth))
         let settingsMenu = UIButton(frame: settingsMenuBackingLayer.bounds)
         settingsMenu.addTarget(self, action: #selector(self.showSettingsMenu), for: .touchUpInside)
-        path = UIBezierPath(roundedRect: settingsMenu.bounds, byRoundingCorners: UIRectCorner.topRight, cornerRadii: CGSize(width: menuWidth/12, height: menuWidth/12))
+        path = UIBezierPath(roundedRect: settingsMenu.bounds, byRoundingCorners: UIRectCorner.topRight, cornerRadii: CGSize(width: menuWidth/10, height: menuWidth/10))
         mask = CAShapeLayer()
         mask.path = path.cgPath
         settingsMenu.layer.mask = mask
@@ -77,51 +155,32 @@ class ProjectViewController: UIViewController {
     func layoutDevice(rect: CGRect) {
   //      if UIDevice.current.userInterfaceIdiom == .pad {
             self.layoutIPad(rect: rect)
-//        } else {
-//            if self.editMenu == nil {
-//                self.editMenu = EditMenu.fromXib()
-//                self.view.addSubview(self.editMenu!)
-//            }
-//            if self.traitCollection.verticalSizeClass == .compact {
-//                layoutLandscapeIPhone(rect: rect)
-//            } else if self.traitCollection.horizontalSizeClass == .compact {
-//                layoutPortraitIPhone(rect: rect)
-//            }
-//        }
+
     }
     
     func layoutIPad(rect: CGRect) {
         self.pageViewController!.view.frame = rect//.insetBy(dx: 20, dy: 20)  // FIX THIS
     }
-    
-    func layoutLandscapeIPhone(rect: CGRect) {
-        self.pageViewController!.view.frame = CGRect(x: 0, y: 0, width: rect.size.width - (rect.size.height/4), height: rect.size.height)
-        self.editMenu?.frame = CGRect(x: rect.size.width - rect.size.height/4, y: 0, width: rect.size.height/4, height: rect.size.height)
-    }
-    
-    func layoutPortraitIPhone(rect: CGRect) {
-        self.pageViewController!.view.frame = CGRect(x: 0, y: rect.size.width/4, width: rect.size.width, height: rect.size.height - rect.size.width/4)
-        self.editMenu?.frame = CGRect(x: 0, y: 0, width: rect.size.width, height: rect.size.width/4)
-    }
-    
-//    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-//        super.viewWillTransition(to: size, with: coordinator)
-//        let rect = CGRect(origin: CGPoint.zero, size: size)
-//        if UIDevice.current.userInterfaceIdiom == .pad {
-//            layoutIPad(rect: rect)
-//        } else if size.width > size.height {
-//            layoutLandscapeIPhone(rect: rect)
-//        } else if size.height > size.width {
-//            layoutPortraitIPhone(rect: rect)
-//        }
-//    }
+
     
     func showCueMenu() {
         print("show cue menu here")
+        UIView.animate(withDuration: 0.4, animations: {
+           // let stretch: CGFloat = self.view.frame.size.width * 0.24
+            let newHeight = self.menuWidth * 3
+            self.shadowHeightConstraint.constant = newHeight
+            let maskRect = CGRect(x: 0, y: 0, width: self.cueMenuShadowLayer.frame.width, height: newHeight)
+            let path = UIBezierPath(roundedRect: maskRect, byRoundingCorners: UIRectCorner.topLeft, cornerRadii: CGSize(width: self.menuWidth/10, height: self.menuWidth/10))
+            let mask = CAShapeLayer()
+            mask.path = path.cgPath
+            self.cueMenuShapeLayer.layer.mask = mask
+            self.view.layoutIfNeeded()
+        })
     }
     
     func showSettingsMenu() {
         print ("show settings menu here")
+        self.dismiss(animated: true, completion: nil)
     }
     
     var modelController: ModelController {

@@ -194,7 +194,7 @@ class DataManager {
 	}
 	
 	
-	func reorderAllCues(page: Int, type: Int){
+	func reorderCuesOn(page: Int, type: Int){
 		let pageAnnotations = fetchPageAnnotations(page: page)
 		let annotationsOfType = fetchSortedAnnotationsOf(type: type, annotArray: pageAnnotations)
 		var count = 1

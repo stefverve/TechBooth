@@ -178,10 +178,21 @@ class Annot: UIView {
     func moveAnnotDot(_ sender: UIPanGestureRecognizer) {
         self.annotDotContainer.center = sender.location(in: self)
         setNeedsDisplay()
-  //      if sender.state == .ended {
-            self.savePoint(point: self.annotDotContainer.center)
-   //     }
-        DataManager.share.reorderAllCues(page: self.pageNum, type: self.annotType.rawValue)
+        if sender.state == .ended {
+            
+            // corrects if annotation point is behind bottom menus
+            
+            let menuWidth: CGFloat = self.frame.size.width * 0.12
+            
+            if (CGRect(x: self.frame.size.width - menuWidth, y: self.frame.size.height - menuWidth, width: menuWidth, height: menuWidth).contains(self.annotDotContainer.center)) {
+                self.annotDotContainer.frame.origin.x = self.frame.size.width - menuWidth - self.annotDotContainer.frame.size.width
+            } else if (CGRect(x: 0, y: self.frame.size.height - menuWidth, width: menuWidth, height: menuWidth).contains(self.annotDotContainer.center)) {
+                self.annotDotContainer.frame.origin.x = menuWidth
+            }
+            
+        }
+        self.savePoint(point: self.annotDotContainer.center)
+        DataManager.share.reorderCuesOn(page: self.pageNum, type: self.annotType.rawValue)
         delegate?.relabelAnnots()
     }
     
@@ -198,6 +209,7 @@ class Annot: UIView {
         self.addSubview(self.resizeHandle)
         
         superview?.bringSubview(toFront: self)
+        self.backgroundColor = UIColor.gray.withAlphaComponent(0.2)
         
         let endEdit = UITapGestureRecognizer(target: self, action: #selector(self.endEdit(_:)))
         self.addGestureRecognizer(endEdit)
@@ -205,18 +217,18 @@ class Annot: UIView {
         let editText = UITapGestureRecognizer(target: self, action: #selector(self.editText(_:)))
         self.instructionOverlay.addGestureRecognizer(editText)
         
-        let moveBox = UITapGestureRecognizer(target: self, action: #selector(self.moveBox(_:)))
+        let moveBox = UIPanGestureRecognizer(target: self, action: #selector(self.moveBox(_:)))
         self.instructionOverlay.addGestureRecognizer(moveBox)
         
-        self.backgroundColor = UIColor.gray.withAlphaComponent(0.2)
-        
+        let resizePan = UIPanGestureRecognizer(target: self, action: #selector(self.resizeBox(_:)))
+        self.resizeHandle.addGestureRecognizer(resizePan)
     }
     
     func deleteAnnot() {
         self.removeFromSuperview()
         DataManager.share.context().delete(self.annot!)
         DataManager.share.saveContext()
-        DataManager.share.reorderAllCues(page: self.pageNum, type: self.annotType.rawValue)
+        DataManager.share.reorderCuesOn(page: self.pageNum, type: self.annotType.rawValue)
         delegate?.relabelAnnots()
     }
     
@@ -270,6 +282,8 @@ class Annot: UIView {
         self.editMode = false
         self.backgroundColor = UIColor.clear
         self.gestureRecognizers = []
+        self.resizeHandle.gestureRecognizers = []
+        self.instructionOverlay.gestureRecognizers = []
     }
     
     // MARK: AnnotBox Subview Layouts
@@ -294,13 +308,6 @@ class Annot: UIView {
         self.tapToEditLabel.text = "Tap to Edit"
         self.dragToMoveLabel.frame = CGRect(x: 30, y: self.annotBox.frame.size.height - 28, width: 120, height: 20)
         self.dragToMoveLabel.text = "Drag to Move"
-        
-        let movePan = UIPanGestureRecognizer(target: self, action: #selector(self.moveBox(_:)))
-        self.instructionOverlay.addGestureRecognizer(movePan)
-        
-        let editTap = UITapGestureRecognizer(target: self, action: #selector(self.editText(_:)))
-        self.instructionOverlay.addGestureRecognizer(editTap)
-        
         self.instructionOverlay.addSubview(tapToEditLabel)
         self.instructionOverlay.addSubview(dragToMoveLabel)
     }
@@ -315,8 +322,7 @@ class Annot: UIView {
         } else {
             self.resizeHandle.center = CGPoint(x: self.annotBox.frame.size.width - boxOffset - 4, y: self.annotBox.frame.origin.y + self.annotBox.frame.size.height - 4)
         }
-        let resizePan = UIPanGestureRecognizer(target: self, action: #selector(self.resizeBox(_:)))
-        self.resizeHandle.addGestureRecognizer(resizePan)
+        
         self.resizeHandle.isUserInteractionEnabled = true
     }
     
