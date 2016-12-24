@@ -23,6 +23,7 @@ class SinglePageViewController: UIViewController, AnnotDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.pdfView.page = DataManager.share.document.page(at: pageNum+1)
+        self.annotType = .light
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -73,7 +74,7 @@ class SinglePageViewController: UIViewController, AnnotDelegate {
     
     @IBAction func didTapPage(_ sender: UITapGestureRecognizer) {
         print (sender.location(in: pdfView))
-        let annot = Annot.init(pageNum: self.pageNum, dotLocation: sender.location(in: pdfView), rect: pdfView.frame, type: AnnotType.light, allowEdits: true)
+        let annot = Annot.init(pageNum: self.pageNum, dotLocation: sender.location(in: pdfView), rect: pdfView.frame, type: self.annotType, allowEdits: true)
         annot.delegate = self
         
         pdfView.addSubview(annot)

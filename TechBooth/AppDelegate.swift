@@ -107,7 +107,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 			let familyName = user.profile.familyName
 			let email = user.profile.email
 			
-			print(userId, idToken, fullName, givenName, familyName, email)
+			print(userId!, idToken!, fullName!, givenName!, familyName!, email!)
 			
 		} else {
 			print("\(error.localizedDescription)")
