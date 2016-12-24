@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProjectViewController: UIViewController {
+class ProjectViewController: UIViewController, UIPageViewControllerDelegate {
     
     var pageViewController: UIPageViewController?
     var lightCueButton = UIButton()
@@ -33,6 +33,8 @@ class ProjectViewController: UIViewController {
     var expandedMenu = false
     var annotType: AnnotType = .light
     
+    var currentPage: SinglePageViewController!
+    
     
     @IBOutlet weak var stackView: UIStackView!
     
@@ -48,6 +50,7 @@ class ProjectViewController: UIViewController {
         //self.view.backgroundColor = UIColor.lightGray
 		
         self.pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+        self.pageViewController?.delegate = self
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -86,18 +89,14 @@ class ProjectViewController: UIViewController {
         soundCueButton.addTarget(self, action: #selector(self.toggleSoundButton), for: .touchUpInside)
         textCueButton.addTarget(self, action: #selector(self.toggleTextButton), for: .touchUpInside)
         
-        
-        
         cueMenuShadowLayer.translatesAutoresizingMaskIntoConstraints = false
         cueMenuShapeLayer.translatesAutoresizingMaskIntoConstraints = false
         lightCueButton.translatesAutoresizingMaskIntoConstraints = false
         soundCueButton.translatesAutoresizingMaskIntoConstraints = false
         textCueButton.translatesAutoresizingMaskIntoConstraints = false
         
-        
         self.view.addSubview(cueMenuShadowLayer)
         cueMenuShadowLayer.addSubview(cueMenuShapeLayer)
-        
         
         cueMenuShapeLayer.addSubview(textCueButton)
         cueMenuShapeLayer.addSubview(soundCueButton)
@@ -168,6 +167,8 @@ class ProjectViewController: UIViewController {
         settingsMenuBackingLayer.addSubview(settingsMenu)
         self.view.addSubview(settingsMenuBackingLayer)
         
+        currentPage = (self.pageViewController?.viewControllers?.first)! as! SinglePageViewController
+        
     }
     
     func layoutDevice(rect: CGRect) {
@@ -187,6 +188,7 @@ class ProjectViewController: UIViewController {
         if expandedMenu {
             
             annotType = .light
+            currentPage.annotType = annotType
             
             cueMenuShapeLayer.bringSubview(toFront: soundCueButton)
             cueMenuShapeLayer.bringSubview(toFront: lightCueButton)
@@ -206,6 +208,7 @@ class ProjectViewController: UIViewController {
         if expandedMenu {
             
             annotType = .sound
+            currentPage.annotType = annotType
             
             cueMenuShapeLayer.bringSubview(toFront: lightCueButton)
             cueMenuShapeLayer.bringSubview(toFront: soundCueButton)
@@ -225,12 +228,12 @@ class ProjectViewController: UIViewController {
         if expandedMenu {
             
             annotType = .note
+            currentPage.annotType = annotType
             
             cueMenuShapeLayer.bringSubview(toFront: soundCueButton)
             cueMenuShapeLayer.bringSubview(toFront: textCueButton)
             
             hideCueMenu()
-            
             
         } else {
             showCueMenu()
@@ -320,16 +323,16 @@ class ProjectViewController: UIViewController {
     }
     
     var _modelController: ModelController? = nil
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    // MARK: Page View Controller Delegate Methods
+    
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        if finished {
+            guard let index = (pageViewController.viewControllers?.first as! SinglePageViewController).pageNum else { return }
+            print(index)
+            currentPage = (pageViewController.viewControllers?.first)! as! SinglePageViewController
+        }
     }
-    */
     
     
 
