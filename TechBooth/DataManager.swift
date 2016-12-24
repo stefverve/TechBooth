@@ -41,7 +41,7 @@ class DataManager {
 	
 	private init() {	}
 	
-	// MARK: - Core Data stack
+	// MARK: - Core Data
 	lazy var persistentContainer: NSPersistentContainer = {
 		let container = NSPersistentContainer(name: "TechBooth")
 		container.loadPersistentStores(completionHandler: { (storeDescription, error) in
@@ -52,11 +52,12 @@ class DataManager {
 		return container
 	}()
 	
+	
 	func context() -> NSManagedObjectContext {
 		return persistentContainer.viewContext
 	}
 	
-	// MARK: - Core Data Saving
+	
 	func saveContext () {
 		let context = persistentContainer.viewContext
 		if context.hasChanges {
@@ -100,10 +101,26 @@ class DataManager {
 		return pageAnnotations
 	}
 	
-	func fetchSortedAnnotationsOf(type: Int, annotArray: [Annotation]) -> [Annotation]{
+	func fetchSortedAnnotationsOf(type: Int) -> [Annotation]{
+		
+		let projectAnnotations = currentProject!.pdfAnnotations?.allObjects as! [Annotation]
 		var typeArray: [Annotation] = []
 		
-		for annotation in annotArray {
+		for annotation in projectAnnotations {
+			if Int(annotation.type) ==  type{
+				typeArray.append(annotation)
+			}
+		}
+		
+		return sortAnnotations(annotArray: typeArray)
+	}
+	
+	func fetchSortedAnnotationsOf(type: Int, page: Int) -> [Annotation]{
+		
+		let pageAnnotations = fetchPageAnnotations(page: page)
+		var typeArray: [Annotation] = []
+		
+		for annotation in pageAnnotations {
 			if Int(annotation.type) ==  type{
 				typeArray.append(annotation)
 			}
@@ -111,7 +128,7 @@ class DataManager {
 		return sortAnnotations(annotArray: typeArray)
 	}
 	
-	//#MARK - Creating/Loading
+	// MARK: - Creating/Loading
 	func loadPDF(project: Project?) {
 		
 		let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
@@ -180,12 +197,12 @@ class DataManager {
 		
 		saveBox(box: box, inRect: inRect, annotation: newAnnotation)
 		savePoint(point: point, inRect: inRect, annotation: newAnnotation)
-		reorderCues(changeAnnot: newAnnotation)
+		reorderforNewCues(changeAnnot: newAnnotation)
 		
 		return newAnnotation
 	}
 	
-	//#MARK - Sorting
+	// MARK: - Sorting
 	func sortAnnotations(annotArray:[Annotation]) -> [Annotation]{
 		let sortedArray = annotArray.sorted { (annot1, annot2) -> Bool in
 			return annot1.dotY < annot2.dotY
@@ -194,22 +211,19 @@ class DataManager {
 	}
 	
 	
-	func reorderAllCues(page: Int, type: Int){
-		let pageAnnotations = fetchPageAnnotations(page: page)
-		let annotationsOfType = fetchSortedAnnotationsOf(type: type, annotArray: pageAnnotations)
+	func reorderCuesOn(page: Int, type: Int){
+		let annotationsOfType = fetchSortedAnnotationsOf(type: type, page: page)
 		var count = 1
 		for annotation in annotationsOfType {
 			annotation.cueNum = Int16(count)
 			count += 1
 		}
-		
 		saveContext()
 	}
-
 	
-	func reorderCues(changeAnnot: Annotation){
-		let pageAnnotations = fetchPageAnnotations(page: Int(changeAnnot.pageNumber))
-		let annotationsOfType = fetchSortedAnnotationsOf(type: Int(changeAnnot.type), annotArray: pageAnnotations)
+	
+	func reorderforNewCues(changeAnnot: Annotation){
+		let annotationsOfType = fetchSortedAnnotationsOf(type: Int(changeAnnot.type), page: Int(changeAnnot.pageNumber))
 		var count = 1
 		for annotation in annotationsOfType {
 			if (annotation.dotY == changeAnnot.dotY){
@@ -225,7 +239,7 @@ class DataManager {
 		saveContext()
 	}
 	
-	//#MARK - Convert box and point values
+	// MARK: - Convert box and point values
 	func saveBox(box:CGRect, inRect: CGRect, annotation:Annotation) {
 		annotation.boxX = Float(box.origin.x / inRect.size.width)
 		annotation.boxY = Float(box.origin.y / inRect.size.height)
@@ -243,6 +257,8 @@ class DataManager {
 	
 	
 	
+	
+	
 	func exportCSV() {
 //		if (GIDSignIn.sharedInstance().currentUser != nil) {
 //			let accessToken = GIDSignIn.sharedInstance().currentUser.authentication.accessToken
@@ -250,14 +266,15 @@ class DataManager {
 //			let scopes = kGTLRAuthScopeDrive
 //			let keychainItemName = "TechBooth";
 //			let clientId = "879595095226-t50jdtevu3ipgk3ug5sld25vo1s4uh9k.apps.googleusercontent.com";
-//			
-//			
-//
 //		}
 		
-//		var projectAnnotations = currentProject?.pdfAnnotations?.allObjects
-//		
-//		projectAnnotations?.sort(by: $0.fileID > $1.fileID)
+		
+		var annotationsArray = [Annotation]()
+		for index in 0 ..< 3 {
+			annotationsArray = fetchSortedAnnotationsOf(type: index)
+			
+		}
+	
 		
 		
 		
