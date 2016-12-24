@@ -239,7 +239,7 @@ class ProjectViewController: UIViewController {
     
     func showCueMenu() {
         expandedMenu = true
-        UIView.animate(withDuration: 0.4, animations: {
+        UIView.animate(withDuration: 0.2, animations: {
             let newHeight = self.menuWidth * 3
             self.shadowHeightConstraint.constant = newHeight
             let maskRect = CGRect(x: 0, y: 0, width: self.cueMenuShadowLayer.frame.width, height: newHeight)
@@ -253,9 +253,9 @@ class ProjectViewController: UIViewController {
     
     func hideCueMenu() {
         expandedMenu = false
-        UIView.animate(withDuration: 0.4, animations: {
+        UIView.animate(withDuration: 0.2, animations: {
             self.shadowHeightConstraint.constant = self.menuWidth
-            let maskRect = CGRect(x: 0, y: 0, width: self.cueMenuShadowLayer.frame.width, height: self.menuWidth)
+            let maskRect = CGRect(x: 0, y: 0, width: self.cueMenuShadowLayer.frame.width, height: self.cueMenuShadowLayer.frame.height)
             let path = UIBezierPath(roundedRect: maskRect, byRoundingCorners: UIRectCorner.topLeft, cornerRadii: CGSize(width: self.menuWidth/10, height: self.menuWidth/10))
             let mask = CAShapeLayer()
             mask.path = path.cgPath
