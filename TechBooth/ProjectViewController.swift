@@ -102,9 +102,13 @@ class ProjectViewController: UIViewController, UIPageViewControllerDelegate {
         cueMenuShapeLayer.addSubview(soundCueButton)
         cueMenuShapeLayer.addSubview(lightCueButton)
         
-        lightCueButton.frame = cueMenuShapeLayer.bounds
-        soundCueButton.frame = cueMenuShapeLayer.bounds
-        textCueButton.frame = cueMenuShapeLayer.bounds
+//        lightCueButton.frame = cueMenuShapeLayer.bounds
+//        soundCueButton.frame = cueMenuShapeLayer.bounds
+//        textCueButton.frame = cueMenuShapeLayer.bounds
+        
+        lightCueButton.setImage(UIImage(named: "Light"), for: .normal)
+        soundCueButton.setImage(UIImage(named: "Speakers"), for: .normal)
+        textCueButton.setImage(UIImage(named: "Notes"), for: .normal)
         
         shadowHeightConstraint = cueMenuShadowLayer.heightAnchor.constraint(equalToConstant: menuWidth)
         shadowHeightConstraint.isActive = true
