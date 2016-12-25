@@ -46,6 +46,12 @@ class MainMenuView: UIViewController, GIDSignInUIDelegate {
   		self.dismiss(animated: true, completion: nil)
 	}
 	
+	
+	@IBAction func exportRecent(_ sender: UIButton) {
+		DataManager.share.exportCSV()
+	}
+	
+	
 	//MARK: - Open Files
 	@IBAction func openRecent(_ sender: UIButton) {
 		let projectArray = DataManager.share.fetchEntityArray(name: "Project")
@@ -57,6 +63,7 @@ class MainMenuView: UIViewController, GIDSignInUIDelegate {
 		
 		DataManager.share.loadPDF(project:loadProject)
 	}
+	
 	
 	@IBAction func openPrevious(_ sender: UIButton) {
 		let driveURL = URL(string: "googledrive://")!
