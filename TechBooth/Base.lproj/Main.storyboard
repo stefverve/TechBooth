@@ -6,8 +6,14 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Stage.ttf">
+            <string>Stage</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Main Menu View-->
         <scene sceneID="5Oo-Jo-CiQ">
@@ -21,63 +27,177 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QyB-AK-XWU">
-                                <rect key="frame" x="124" y="508" width="127" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Login With Google"/>
-                                <connections>
-                                    <action selector="signinGoogle:" destination="lWp-5R-be8" eventType="touchUpInside" id="TXI-sM-90d"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tech Booth" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZVY-Pl-q9t">
-                                <rect key="frame" x="87" y="111" width="201" height="48"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                <nil key="textColor"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="Zmt-oC-eud">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Nzw-9I-TQy">
+                                <rect key="frame" x="67.5" y="455.5" width="240" height="190"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QyB-AK-XWU">
+                                        <rect key="frame" x="0.0" y="0.0" width="240" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="240" id="tnZ-E6-BiE">
+                                                <variation key="heightClass=compact" constant="180"/>
+                                            </constraint>
+                                        </constraints>
+                                        <state key="normal" image="SignIn"/>
+                                        <connections>
+                                            <action selector="signinGoogle:" destination="lWp-5R-be8" eventType="touchUpInside" id="TXI-sM-90d"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JpA-LV-kXf">
+                                        <rect key="frame" x="0.0" y="70" width="240" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="240" id="Vhm-sm-EEq">
+                                                <variation key="heightClass=compact" constant="180"/>
+                                            </constraint>
+                                        </constraints>
+                                        <state key="normal" image="ImportDrive"/>
+                                        <connections>
+                                            <action selector="openPrevious:" destination="lWp-5R-be8" eventType="touchUpInside" id="A1v-3T-0oW"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bKw-aQ-Aqe">
+                                        <rect key="frame" x="0.0" y="140" width="240" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="240" id="u7U-Mk-5me">
+                                                <variation key="heightClass=compact" constant="180"/>
+                                            </constraint>
+                                        </constraints>
+                                        <state key="normal" image="ExportSheets"/>
+                                        <connections>
+                                            <action selector="exportRecent:" destination="lWp-5R-be8" eventType="touchUpInside" id="ZNo-Fd-T3r"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tech Booth" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZVY-Pl-q9t">
+                                <rect key="frame" x="53.5" y="49" width="268.5" height="102"/>
+                                <fontDescription key="fontDescription" name="Stage" family="Stage" pointSize="90"/>
+                                <color key="textColor" red="0.087765803916421567" green="0.00028749079698279963" blue="0.37373798076923082" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PCO-rF-kE6">
-                                <rect key="frame" x="143" y="280" width="89" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" prefetchingEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wF1-hL-Aoj">
+                                <rect key="frame" x="38" y="273.5" width="300" height="120"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="ZXQ-jI-ly6"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="9Rv-qV-7wW">
+                                    <size key="itemSize" width="109" height="116"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="docCell" id="E7M-3p-V1r" customClass="myDocCell" customModule="TechBooth" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="109" height="116"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="109" height="116"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JDk-IW-KT1">
+                                                    <rect key="frame" x="0.0" y="0.0" width="109" height="116"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                            </subviews>
+                                        </view>
+                                        <connections>
+                                            <outlet property="pdfPreview" destination="JDk-IW-KT1" id="67h-24-tzN"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="lWp-5R-be8" id="HhY-1R-It6"/>
+                                    <outlet property="delegate" destination="lWp-5R-be8" id="CCz-aL-dp6"/>
+                                </connections>
+                            </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PCO-rF-kE6">
+                                <rect key="frame" x="38" y="248.5" width="89" height="30"/>
                                 <state key="normal" title="Open Recent"/>
                                 <connections>
                                     <action selector="openRecent:" destination="lWp-5R-be8" eventType="touchUpInside" id="qdC-MX-wH7"/>
                                     <segue destination="vp0-B0-Il7" kind="show" id="GCh-By-SOt"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JpA-LV-kXf">
-                                <rect key="frame" x="137" y="386" width="100" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Open Previous"/>
-                                <connections>
-                                    <action selector="openPrevious:" destination="lWp-5R-be8" eventType="touchUpInside" id="A1v-3T-0oW"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="googleUserName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WiW-tw-yk4">
-                                <rect key="frame" x="124" y="569" width="134" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bKw-aQ-Aqe">
-                                <rect key="frame" x="140" y="309" width="97" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Export to CSV"/>
-                                <connections>
-                                    <action selector="exportRecent:" destination="lWp-5R-be8" eventType="touchUpInside" id="ZNo-Fd-T3r"/>
-                                </connections>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="8Em-z6-DmV">
+                                <rect key="frame" x="56" y="294" width="554" height="50"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s0T-PM-sMa">
+                                        <rect key="frame" x="0.0" y="0.0" width="180" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="240" id="iWE-cB-U6H">
+                                                <variation key="heightClass=compact" constant="180"/>
+                                            </constraint>
+                                        </constraints>
+                                        <state key="normal" image="SmallSignin"/>
+                                        <connections>
+                                            <action selector="signinGoogle:" destination="lWp-5R-be8" eventType="touchUpInside" id="glI-kD-zDU"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i2K-s8-CI5">
+                                        <rect key="frame" x="187" y="0.0" width="180" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="240" id="9SL-1f-uUt">
+                                                <variation key="heightClass=compact" constant="180"/>
+                                            </constraint>
+                                        </constraints>
+                                        <state key="normal" image="SmallDrive"/>
+                                        <connections>
+                                            <action selector="openPrevious:" destination="lWp-5R-be8" eventType="touchUpInside" id="9vZ-jl-KUb"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wYz-XH-z8M">
+                                        <rect key="frame" x="374" y="0.0" width="180" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="240" id="Ura-j2-9QM">
+                                                <variation key="heightClass=compact" constant="180"/>
+                                            </constraint>
+                                        </constraints>
+                                        <state key="normal" image="SmallSheets"/>
+                                        <connections>
+                                            <action selector="exportRecent:" destination="lWp-5R-be8" eventType="touchUpInside" id="7GZ-0u-yu1"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <variation key="heightClass=compact" axis="horizontal" spacing="10"/>
+                            </stackView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.90322093395783087" green="1" blue="0.96052082925520632" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="8Em-z6-DmV" firstAttribute="centerY" secondItem="W6w-9r-EoF" secondAttribute="centerY" multiplier="1.7" id="8c5-y0-Xmg"/>
+                            <constraint firstItem="PCO-rF-kE6" firstAttribute="leading" secondItem="wF1-hL-Aoj" secondAttribute="leading" id="F1p-bw-9d1"/>
+                            <constraint firstItem="Zmt-oC-eud" firstAttribute="leading" secondItem="W6w-9r-EoF" secondAttribute="leading" id="Rmw-vn-QHB"/>
+                            <constraint firstItem="ZVY-Pl-q9t" firstAttribute="centerX" secondItem="W6w-9r-EoF" secondAttribute="centerX" id="V5h-zg-XFQ"/>
+                            <constraint firstItem="wF1-hL-Aoj" firstAttribute="width" secondItem="Zmt-oC-eud" secondAttribute="width" multiplier="0.8" id="VYW-LB-cfz"/>
+                            <constraint firstAttribute="trailing" secondItem="Zmt-oC-eud" secondAttribute="trailing" id="WXI-cH-Bj3"/>
+                            <constraint firstItem="VLh-a4-kLS" firstAttribute="top" secondItem="Zmt-oC-eud" secondAttribute="bottom" id="aLs-sr-Ukr"/>
+                            <constraint firstItem="wF1-hL-Aoj" firstAttribute="centerX" secondItem="Zmt-oC-eud" secondAttribute="centerX" id="alp-Q7-v0n"/>
+                            <constraint firstItem="Nzw-9I-TQy" firstAttribute="centerX" secondItem="W6w-9r-EoF" secondAttribute="centerX" id="bBt-pb-l7l"/>
+                            <constraint firstItem="Nzw-9I-TQy" firstAttribute="centerY" secondItem="W6w-9r-EoF" secondAttribute="centerY" multiplier="1.65" id="gmq-WF-3dt"/>
+                            <constraint firstItem="Zmt-oC-eud" firstAttribute="top" secondItem="W6w-9r-EoF" secondAttribute="top" id="nKg-AG-lTq"/>
+                            <constraint firstItem="wF1-hL-Aoj" firstAttribute="centerY" secondItem="Zmt-oC-eud" secondAttribute="centerY" id="ns1-RS-imV"/>
+                            <constraint firstItem="8Em-z6-DmV" firstAttribute="centerX" secondItem="W6w-9r-EoF" secondAttribute="centerX" id="u57-lO-V0w"/>
+                            <constraint firstItem="PCO-rF-kE6" firstAttribute="top" secondItem="wF1-hL-Aoj" secondAttribute="top" constant="-25" id="u5E-Go-9gs"/>
+                            <constraint firstItem="ZVY-Pl-q9t" firstAttribute="centerY" secondItem="W6w-9r-EoF" secondAttribute="centerY" multiplier="0.3" id="xFC-s3-aqD"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="8Em-z6-DmV"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=compact">
+                            <mask key="subviews">
+                                <exclude reference="Nzw-9I-TQy"/>
+                                <include reference="8Em-z6-DmV"/>
+                            </mask>
+                        </variation>
                     </view>
-                    <connections>
-                        <outlet property="googleUsernameLabel" destination="WiW-tw-yk4" id="iMg-Gs-yic"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l6X-6I-32J" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-533.60000000000002" y="-746.17691154422789"/>
+            <point key="canvasLocation" x="-535.20000000000005" y="-747.07646176911555"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="c31-C1-Bya">
@@ -296,4 +416,13 @@
             <point key="canvasLocation" x="500" y="740"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="ExportSheets" width="240" height="50"/>
+        <image name="ImportDrive" width="240" height="50"/>
+        <image name="SignIn" width="240" height="50"/>
+        <image name="SmallDrive" width="180" height="50"/>
+        <image name="SmallSheets" width="180" height="50"/>
+        <image name="SmallSignin" width="180" height="50"/>
+        <image name="background" width="1023" height="1366"/>
+    </resources>
 </document>

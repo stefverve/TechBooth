@@ -1,4 +1,5 @@
 PODS:
+  - Alamofire (4.2.0)
   - FirebaseAnalytics (3.6.0):
     - FirebaseCore (~> 3.4)
     - FirebaseInstanceID (~> 1.0)
@@ -17,6 +18,9 @@ PODS:
   - GoogleAPIClientForREST/Core (1.1.1):
     - GTMSessionFetcher (>= 1.1.7)
   - GoogleAPIClientForREST/Drive (1.1.1):
+    - GoogleAPIClientForREST/Core
+    - GTMSessionFetcher (>= 1.1.7)
+  - GoogleAPIClientForREST/Sheets (1.1.1):
     - GoogleAPIClientForREST/Core
     - GTMSessionFetcher (>= 1.1.7)
   - GoogleAppUtilities (1.1.2):
@@ -48,11 +52,14 @@ PODS:
     - GTMSessionFetcher/Core (= 1.1.7)
 
 DEPENDENCIES:
+  - Alamofire (~> 4.2)
   - Google/SignIn
   - GoogleAPIClientForREST/Drive (~> 1.0)
+  - GoogleAPIClientForREST/Sheets (~> 1.0)
   - GTMOAuth2 (~> 1.1.0)
 
 SPEC CHECKSUMS:
+  Alamofire: aa2e09d871c9160ac53c90e83c68064a94e3dfbe
   FirebaseAnalytics: 9c67af0ebeb8d2146c9b4ea2616439affa947b58
   FirebaseCore: 03da1cb32615569bbc2830a22f9ad753d9a02ef5
   FirebaseInstanceID: ba1e640935235e5fac39dfa816fe7660e72e1a8a
@@ -66,6 +73,6 @@ SPEC CHECKSUMS:
   GTMOAuth2: 7fc9c10f5c745f4d9850419ea88889fe3baa6b7d
   GTMSessionFetcher: a1f8ed39e4fe21c68957daed472c7afbcdf29166
 
-PODFILE CHECKSUM: f41505a1163866d03e866bf110317c8d8e2de024
+PODFILE CHECKSUM: 7f796c87a7cd3d1e9c582ca31d7149640c9b3d03
 
 COCOAPODS: 1.2.0.beta.1

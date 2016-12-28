@@ -7,7 +7,9 @@ target 'TechBooth' do
 
   # Pods for TechBooth
   pod 'GoogleAPIClientForREST/Drive', '~> 1.0'
+  pod 'GoogleAPIClientForREST/Sheets', '~> 1.0'
   pod 'GTMOAuth2', '~> 1.1.0'
   pod 'Google/SignIn'
+  pod 'Alamofire', '~> 4.2'
 
 end
