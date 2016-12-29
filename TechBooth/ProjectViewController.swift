@@ -166,30 +166,21 @@ class ProjectViewController: UIViewController, UIPageViewControllerDelegate {
         settingsMenuShadowLayer.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
         settingsMenuShadowLayer.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         
-        
-        //settingsMenuShadowLayer.frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.size.height - menuWidth, width: menuWidth, height: menuWidth)
         settingsMenuShadowLayer.layer.shadowRadius = 3
         settingsMenuShadowLayer.layer.shadowColor = UIColor.black.cgColor
         settingsMenuShadowLayer.layer.shadowOpacity = 0.8
         settingsMenuShadowLayer.layer.shadowOffset = CGSize.zero
-        
-        //settingsMenuShapeLayer.frame = settingsMenuShadowLayer.bounds
         
         settingsMenuShapeLayer.bottomAnchor.constraint(equalTo: settingsMenuShadowLayer.bottomAnchor).isActive = true
         settingsMenuShapeLayer.trailingAnchor.constraint(equalTo: settingsMenuShadowLayer.trailingAnchor).isActive = true
         settingsMenuShapeLayer.widthAnchor.constraint(equalTo: settingsMenuShadowLayer.widthAnchor).isActive = true
         settingsMenuShapeLayer.heightAnchor.constraint(equalTo: settingsMenuShadowLayer.heightAnchor).isActive = true
         
-//        let settingsPath = UIBezierPath(roundedRect: settingsMenuShapeLayer.bounds, byRoundingCorners: UIRectCorner.topRight, cornerRadii: CGSize(width: menuWidth/10, height: menuWidth/10))
-//        let settingsMask = CAShapeLayer()
-//        settingsMask.path = settingsPath.cgPath
-//        settingsMenuShapeLayer.layer.mask = settingsMask
-        
         path = UIBezierPath(roundedRect: cueMenuShapeLayer.bounds, byRoundingCorners: UIRectCorner.topRight, cornerRadii: CGSize(width: menuWidth/10, height: menuWidth/10))
         mask = CAShapeLayer()
         mask.path = path.cgPath
         settingsMenuShapeLayer.layer.mask = mask
-//        
+
         settingsMenuShapeLayer.backgroundColor = UIColor(white: 0.85, alpha: 1)
         
         mainMenuButton.addTarget(self, action: #selector(self.showSettingsMenu), for: .touchUpInside)
@@ -199,7 +190,11 @@ class ProjectViewController: UIViewController, UIPageViewControllerDelegate {
         settingsMenuShadowLayer.translatesAutoresizingMaskIntoConstraints = false
         settingsMenuShapeLayer.translatesAutoresizingMaskIntoConstraints = false
         mainMenuButton.translatesAutoresizingMaskIntoConstraints = false
+        lightTableButton.translatesAutoresizingMaskIntoConstraints = false
+        soundTableButton.translatesAutoresizingMaskIntoConstraints = false
         
+        settingsMenuShapeLayer.addSubview(soundTableButton)
+        settingsMenuShapeLayer.addSubview(lightTableButton)
         settingsMenuShapeLayer.addSubview(mainMenuButton)
         
         mainMenuButton.centerXAnchor.constraint(equalTo: settingsMenuShapeLayer.centerXAnchor).isActive = true
@@ -210,6 +205,25 @@ class ProjectViewController: UIViewController, UIPageViewControllerDelegate {
         mainMenuButton.addTarget(self, action: #selector(self.showSettingsMenu), for: .touchUpInside)
         
         mainMenuButton.backgroundColor = UIColor.red
+        
+        lightTableButton.centerYAnchor.constraint(equalTo: settingsMenuShapeLayer.centerYAnchor).isActive = true
+        lightTableButton.widthAnchor.constraint(equalTo: settingsMenuShapeLayer.widthAnchor).isActive = true
+        lightTableButton.centerXAnchor.constraint(equalTo: settingsMenuShapeLayer.centerXAnchor).isActive = true
+        lightTableButton.heightAnchor.constraint(equalTo: settingsMenuShapeLayer.widthAnchor, multiplier: 1).isActive = true
+        
+        lightTableButton.backgroundColor = UIColor.blue
+        
+        lightTableButton.addTarget(self, action: #selector(self.showLightTable), for: .touchUpInside)
+        
+        soundTableButton.centerXAnchor.constraint(equalTo: settingsMenuShapeLayer.centerXAnchor).isActive = true
+        soundTableButton.widthAnchor.constraint(equalTo: settingsMenuShapeLayer.widthAnchor).isActive = true
+        soundTableButton.topAnchor.constraint(equalTo: settingsMenuShapeLayer.topAnchor).isActive = true
+        soundTableButton.heightAnchor.constraint(equalTo: settingsMenuShapeLayer.widthAnchor, multiplier: 1).isActive = true
+        
+        soundTableButton.backgroundColor = UIColor.orange
+        
+        soundTableButton.addTarget(self, action: #selector(self.showSoundTable), for: .touchUpInside)
+        
         
         
         currentPage = (self.pageViewController?.viewControllers?.first)! as! SinglePageViewController
@@ -351,7 +365,6 @@ class ProjectViewController: UIViewController, UIPageViewControllerDelegate {
     }
     
     func showSettingsMenu() {
-        print ("show settings menu here")
         UIView.animate(withDuration: 0.2, animations: {
             let newHeight = self.menuWidth * 3
             self.settingsMenuShadowHeightConstraint.constant = newHeight
@@ -367,7 +380,6 @@ class ProjectViewController: UIViewController, UIPageViewControllerDelegate {
     }
     
     func hideSettingsMenu() {
-        print("hide settings here")
         UIView.animate(withDuration: 0.2, animations: {
             self.settingsMenuShadowHeightConstraint.constant = self.menuWidth
             let maskRect = CGRect(x: 0, y: 0, width: self.settingsMenuShadowLayer.frame.width, height: self.settingsMenuShadowLayer.frame.height)
@@ -379,6 +391,16 @@ class ProjectViewController: UIViewController, UIPageViewControllerDelegate {
         })
         mainMenuButton.removeTarget(self, action: nil, for: .touchUpInside)
         mainMenuButton.addTarget(self, action: #selector(self.showSettingsMenu), for: .touchUpInside)
+    }
+    
+    func showLightTable() {
+        print("Light Table goes here!")
+        hideSettingsMenu()
+    }
+    
+    func showSoundTable() {
+        print("Sound Menu goes here!")
+        hideSettingsMenu()
     }
     
     var modelController: ModelController {
