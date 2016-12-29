@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MainMenuView: UIViewController, GIDSignInUIDelegate {
+class MainMenuView: UIViewController, GIDSignInUIDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
 
 	@IBOutlet weak var googleUsernameLabel: UILabel!
 	
@@ -30,6 +30,19 @@ class MainMenuView: UIViewController, GIDSignInUIDelegate {
 	  //Uncomment to automatically sign in the user.
 		GIDSignIn.sharedInstance().signInSilently()
 		//googleUsernameLabel.text = GIDSignIn.sharedInstance().currentUser
+		
+		
+		let projectArray = DataManager.share.fetchEntityArray(name: "Project")
+		var loadProject : Project? = nil
+		
+		if projectArray.count != 0 {
+			loadProject = projectArray.last as? Project
+		}
+		
+		DataManager.share.loadPDF(project:loadProject)
+		
+		
+		
 	}
 
 	func sign(inWillDispatch signIn: GIDSignIn!, error: Error!) {
@@ -46,6 +59,12 @@ class MainMenuView: UIViewController, GIDSignInUIDelegate {
   		self.dismiss(animated: true, completion: nil)
 	}
 	
+	
+	@IBAction func exportRecent(_ sender: UIButton) {
+		DataManager.share.exportCSV()
+	}
+	
+	
 	//MARK: - Open Files
 	@IBAction func openRecent(_ sender: UIButton) {
 		let projectArray = DataManager.share.fetchEntityArray(name: "Project")
@@ -58,8 +77,31 @@ class MainMenuView: UIViewController, GIDSignInUIDelegate {
 		DataManager.share.loadPDF(project:loadProject)
 	}
 	
+	
 	@IBAction func openPrevious(_ sender: UIButton) {
 		let driveURL = URL(string: "googledrive://")!
 		UIApplication.shared.open(driveURL, options: [:], completionHandler: nil)
+	}
+	
+	//MARK: Open Recent CollectionView
+	func numberOfSections(in collectionView: UICollectionView) -> Int {
+		return 1
+	}
+	
+	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+		return 0
+	}
+	
+	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "docCell", for: indexPath) as! myDocCell
+		
+		
+		
+		
+		
+		
+		cell.pdfPreview.image = DataManager.share.imageFromPDF(pageNum: 1)
+		
+		return cell
 	}
 }

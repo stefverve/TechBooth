@@ -268,23 +268,55 @@ class DataManager {
 //			let clientId = "879595095226-t50jdtevu3ipgk3ug5sld25vo1s4uh9k.apps.googleusercontent.com";
 //		}
 		
+		var csvFile = ""
 		
 		var annotationsArray = [Annotation]()
 		for index in 0 ..< 3 {
-			annotationsArray = fetchSortedAnnotationsOf(type: index)
+			var cueType = ""
+			switch index {
+				case 0:
+					cueType = "Light"
+				case 1:
+					cueType = "Sound"
+				case 2:
+					cueType = "Note"
+				default:
+					cueType = ""
+			}
 			
+			annotationsArray = fetchSortedAnnotationsOf(type: index)
+			for annotation in annotationsArray {
+				
+    				csvFile += ("\(annotation.pageNumber).\(annotation.cueNum),\(cueType),\(annotation.cueDescription!),\(annotation.uniqueID!)\n")
+			}
 		}
-	
 		
-		
-		
-//		for annot in (currentProject?.pdfAnnotations)! {
-//			
-//		}
-		
+		if let directory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+			
+			let path = directory.appendingPathComponent("\(dir)/\(currentProject!.name!)/\(currentProject!.name!).csv")
+			
+			do {
+				try csvFile.write(to: path, atomically: false, encoding: String.Encoding.utf8)
+			}
+			catch {}
+		}
 	}
 	
-//	func sortArrayBy(item1: String, item2: String) -> Bool {
-//		return item1.fileID > item2.
-//	}
+	func imageFromPDF(pageNum: Int) -> UIImage? {
+		guard let page = self.document.page(at: pageNum) else { return nil }
+		
+		let pageRect = page.getBoxRect(.mediaBox)
+		let renderer = UIGraphicsImageRenderer(size: pageRect.size)
+		let img = renderer.image { ctx in
+			UIColor.white.set()
+			ctx.fill(pageRect)
+			
+			ctx.cgContext.translateBy(x: 0.0, y: pageRect.size.height);
+			ctx.cgContext.scaleBy(x: 1.0, y: -1.0);
+			
+			ctx.cgContext.drawPDFPage(page);
+		}
+		
+		return img
+	}
 }
