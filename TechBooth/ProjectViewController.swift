@@ -438,6 +438,9 @@ class ProjectViewController: UIViewController, UIPageViewControllerDelegate, UIT
         let lightTable = UITableView(frame: CGRect(x: -tableWidth, y: view.frame.height*0.2, width: tableWidth, height: view.frame.height*0.6))
         lightTable.dataSource = self
         view.addSubview(lightTable)
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.removeTableView(gesture:)))
+        swipeLeft.direction = .left
+        lightTable.addGestureRecognizer(swipeLeft)
         UIView.animate(withDuration: 0.3, animations: {
             lightTable.frame.origin.x = 0
         })
@@ -483,7 +486,17 @@ class ProjectViewController: UIViewController, UIPageViewControllerDelegate, UIT
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //var cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath)
         let cell = UITableViewCell.init(style: .default, reuseIdentifier: "myCell")
-        cell.textLabel?.text = "\(cueArray[indexPath.row].pageNumber).\(cueArray[indexPath.row].cueNum) - \(cueArray[indexPath.row].cueDescription)"
+        cell.textLabel?.text = "\(cueArray[indexPath.row].pageNumber).\(cueArray[indexPath.row].cueNum) - \(cueArray[indexPath.row].cueDescription!)"
+        
         return cell
+    }
+    
+    func removeTableView(gesture: UISwipeGestureRecognizer) {
+        UIView.animate(withDuration: 0.3, animations: {
+            gesture.view?.frame.origin.x -= self.view.frame.width/2
+        }, completion: {
+            (value:Bool) in
+            gesture.view?.removeFromSuperview()
+        })
     }
 }
