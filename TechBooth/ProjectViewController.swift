@@ -16,7 +16,7 @@ class ProjectViewController: UIViewController, UIPageViewControllerDelegate, UIT
     var lightCueButton = UIButton()
     var soundCueButton = UIButton()
     var textCueButton = UIButton()
-    var cueMenuShadowLayer = UIView()
+    var cueMenuShadowLayer = CueMenuShadowView()
     var cueMenuShapeLayer = UIView()
     var cueMenuShadowHeightConstraint: NSLayoutConstraint!
     
@@ -37,10 +37,14 @@ class ProjectViewController: UIViewController, UIPageViewControllerDelegate, UIT
     
     var settingsMenuButton = UIButton()
     var mainMenuButton = UIButton()
+    var presentationButton = UIButton()
+    
     var soundTableButton = UIButton()
+    var lightTableButton = UIButton()
+    var noteTableButton = UIButton()
     
     var menuWidth: CGFloat!
-    var expandedMenu = false
+    var expandedCueMenu = false
     var annotType: AnnotType = .light
     var cueArray: Array<Annotation>!
     
@@ -147,16 +151,16 @@ class ProjectViewController: UIViewController, UIPageViewControllerDelegate, UIT
         lightCueButtonCenterY.isActive=false
         
         soundCueButtonBottom = soundCueButton.bottomAnchor.constraint(equalTo: cueMenuShapeLayer.bottomAnchor, constant: 0)
-            soundCueButtonBottom.isActive=false
+        soundCueButtonBottom.isActive=false
         soundCueButtonTop = soundCueButton.topAnchor.constraint(equalTo: cueMenuShapeLayer.topAnchor, constant: 0)
-            soundCueButtonTop.isActive=false
+        soundCueButtonTop.isActive=false
         soundCueButtonCenterY = soundCueButton.centerYAnchor.constraint(equalTo: cueMenuShapeLayer.centerYAnchor, constant: 0)
         soundCueButtonCenterY.isActive=true
         
         textCueButtonBottom = textCueButton.bottomAnchor.constraint(equalTo: cueMenuShapeLayer.bottomAnchor, constant: 0)
-            textCueButtonBottom.isActive=false
+        textCueButtonBottom.isActive=false
         textCueButtonTop = textCueButton.topAnchor.constraint(equalTo: cueMenuShapeLayer.topAnchor, constant: 0)
-            textCueButtonTop.isActive=true
+        textCueButtonTop.isActive=true
         
         lightCueButton.backgroundColor = UIColor.blue
         soundCueButton.backgroundColor = UIColor.orange
@@ -187,18 +191,16 @@ class ProjectViewController: UIViewController, UIPageViewControllerDelegate, UIT
         settingsMenuShapeLayer.layer.mask = mask
 
         settingsMenuShapeLayer.backgroundColor = UIColor(white: 0.85, alpha: 1)
-        
         settingsMenuButton.addTarget(self, action: #selector(self.showSettingsMenu), for: .touchUpInside)
-        
         settingsMenuButton.backgroundColor = UIColor.red
         
         settingsMenuShadowLayer.translatesAutoresizingMaskIntoConstraints = false
         settingsMenuShapeLayer.translatesAutoresizingMaskIntoConstraints = false
         settingsMenuButton.translatesAutoresizingMaskIntoConstraints = false
         mainMenuButton.translatesAutoresizingMaskIntoConstraints = false
-        soundTableButton.translatesAutoresizingMaskIntoConstraints = false
+        presentationButton.translatesAutoresizingMaskIntoConstraints = false
         
-        settingsMenuShapeLayer.addSubview(soundTableButton)
+        settingsMenuShapeLayer.addSubview(presentationButton)
         settingsMenuShapeLayer.addSubview(mainMenuButton)
         settingsMenuShapeLayer.addSubview(settingsMenuButton)
         
@@ -208,7 +210,6 @@ class ProjectViewController: UIViewController, UIPageViewControllerDelegate, UIT
         settingsMenuButton.heightAnchor.constraint(equalTo: settingsMenuShapeLayer.widthAnchor, multiplier: 1).isActive = true
         
         settingsMenuButton.addTarget(self, action: #selector(self.showSettingsMenu), for: .touchUpInside)
-        
         settingsMenuButton.backgroundColor = UIColor.red
         
         mainMenuButton.centerYAnchor.constraint(equalTo: settingsMenuShapeLayer.centerYAnchor).isActive = true
@@ -217,20 +218,38 @@ class ProjectViewController: UIViewController, UIPageViewControllerDelegate, UIT
         mainMenuButton.heightAnchor.constraint(equalTo: settingsMenuShapeLayer.widthAnchor, multiplier: 1).isActive = true
         
         mainMenuButton.backgroundColor = UIColor.blue
+        mainMenuButton.addTarget(self, action: #selector(dismissProjectView), for: .touchUpInside)
         
-        mainMenuButton.addTarget(self, action: #selector(showLightTable(_:)), for: .touchUpInside)
+        presentationButton.centerXAnchor.constraint(equalTo: settingsMenuShapeLayer.centerXAnchor).isActive = true
+        presentationButton.widthAnchor.constraint(equalTo: settingsMenuShapeLayer.widthAnchor).isActive = true
+        presentationButton.topAnchor.constraint(equalTo: settingsMenuShapeLayer.topAnchor).isActive = true
+        presentationButton.heightAnchor.constraint(equalTo: settingsMenuShapeLayer.widthAnchor, multiplier: 1).isActive = true
         
-        soundTableButton.centerXAnchor.constraint(equalTo: settingsMenuShapeLayer.centerXAnchor).isActive = true
-        soundTableButton.widthAnchor.constraint(equalTo: settingsMenuShapeLayer.widthAnchor).isActive = true
-        soundTableButton.topAnchor.constraint(equalTo: settingsMenuShapeLayer.topAnchor).isActive = true
-        soundTableButton.heightAnchor.constraint(equalTo: settingsMenuShapeLayer.widthAnchor, multiplier: 1).isActive = true
+        presentationButton.backgroundColor = UIColor.orange
+        presentationButton.addTarget(self, action: #selector(presentationMode), for: .touchUpInside)
         
-        soundTableButton.backgroundColor = UIColor.orange
+        lightTableButton.frame = CGRect(x: 0, y: 0, width: menuWidth * 0.8, height: menuWidth * 0.8)
+        lightTableButton.backgroundColor = UIColor.lightGray
+        lightTableButton.addTarget(self, action: #selector(self.showCueTable(_:)), for: .touchUpInside)
         
-        soundTableButton.addTarget(self, action: #selector(self.showSoundTable), for: .touchUpInside)
+        soundTableButton.frame = CGRect(x: 0, y: 0, width: menuWidth * 0.8, height: menuWidth * 0.8)
+        soundTableButton.backgroundColor = UIColor.lightGray
+        soundTableButton.addTarget(self, action: #selector(self.showCueTable(_:)), for: .touchUpInside)
+        
+        noteTableButton.frame = CGRect(x: 0, y: 0, width: menuWidth * 0.8, height: menuWidth * 0.8)
+        noteTableButton.backgroundColor = UIColor.lightGray
+        noteTableButton.addTarget(self, action: #selector(self.showCueTable(_:)), for: .touchUpInside)
         
         currentPage = (self.pageViewController?.viewControllers?.first)! as! SinglePageViewController
         
+    }
+    
+    func presentationMode() {
+        print("Showtime!")
+    }
+    
+    func dismissProjectView() {
+        dismiss(animated: true, completion: nil)
     }
     
     // MARK: Layout functions
@@ -248,7 +267,7 @@ class ProjectViewController: UIViewController, UIPageViewControllerDelegate, UIT
     // MARK: Cue Menu functions
     
     func showCueMenu() {
-        expandedMenu = true
+        expandedCueMenu = true
         UIView.animate(withDuration: 0.2, animations: {
             let newHeight = self.menuWidth * 3
             self.cueMenuShadowHeightConstraint.constant = newHeight
@@ -264,14 +283,17 @@ class ProjectViewController: UIViewController, UIPageViewControllerDelegate, UIT
             let lightSubMenu = UIView(frame: CGRect(x: 0, y: self.lightCueButton.frame.origin.y + (self.menuWidth * 0.1), width: self.menuWidth * 2.1, height: self.menuWidth * 0.8))
             lightSubMenu.backgroundColor = UIColor.red
             lightSubMenu.tag = 1
+            lightSubMenu.addSubview(self.lightTableButton)
             
             let soundSubMenu = UIView(frame: CGRect(x: 0, y: self.soundCueButton.frame.origin.y + (self.menuWidth * 0.1), width: self.menuWidth * 2.1, height: self.menuWidth * 0.8))
             soundSubMenu.backgroundColor = UIColor.red
             soundSubMenu.tag = 1
+            soundSubMenu.addSubview(self.soundTableButton)
             
             let textSubMenu = UIView(frame: CGRect(x: 0, y: self.textCueButton.frame.origin.y + (self.menuWidth * 0.1), width: self.menuWidth * 2.1, height: self.menuWidth * 0.8))
             textSubMenu.backgroundColor = UIColor.red
             textSubMenu.tag = 1
+            textSubMenu.addSubview(self.noteTableButton)
             
             self.cueMenuShadowLayer.insertSubview(lightSubMenu, belowSubview: self.cueMenuShapeLayer)
             self.cueMenuShadowLayer.insertSubview(soundSubMenu, belowSubview: self.cueMenuShapeLayer)
@@ -288,7 +310,7 @@ class ProjectViewController: UIViewController, UIPageViewControllerDelegate, UIT
     }
     
     func hideCueMenu() {
-        expandedMenu = false
+        expandedCueMenu = false
         UIView.animate(withDuration: 0.2, animations: {
             self.cueMenuShadowHeightConstraint.constant = self.menuWidth
             let maskRect = CGRect(x: 0, y: 0, width: self.cueMenuShadowLayer.frame.width, height: self.cueMenuShadowLayer.frame.height)
@@ -347,7 +369,7 @@ class ProjectViewController: UIViewController, UIPageViewControllerDelegate, UIT
         lightCueButton.isSelected = true
         soundCueButton.isSelected = false
         textCueButton.isSelected = false
-        if expandedMenu {
+        if expandedCueMenu {
             
             annotType = .light
             currentPage.annotType = annotType
@@ -366,7 +388,7 @@ class ProjectViewController: UIViewController, UIPageViewControllerDelegate, UIT
         lightCueButton.isSelected = false
         soundCueButton.isSelected = true
         textCueButton.isSelected = false
-        if expandedMenu {
+        if expandedCueMenu {
             
             annotType = .sound
             currentPage.annotType = annotType
@@ -385,7 +407,7 @@ class ProjectViewController: UIViewController, UIPageViewControllerDelegate, UIT
         lightCueButton.isSelected = false
         soundCueButton.isSelected = false
         textCueButton.isSelected = true
-        if expandedMenu {
+        if expandedCueMenu {
             
             annotType = .note
             currentPage.annotType = annotType
@@ -431,32 +453,39 @@ class ProjectViewController: UIViewController, UIPageViewControllerDelegate, UIT
         settingsMenuButton.addTarget(self, action: #selector(self.showSettingsMenu), for: .touchUpInside)
     }
     
-    func showLightTable(_ sender: UIButton) {
+    func showCueTable(_ sender: UIButton) {
         print("Light Table goes here!")
-        cueArray = DataManager.share.fetchSortedAnnotationsOf(type: AnnotType.light.rawValue)
+        if sender == lightTableButton {
+            cueArray = DataManager.share.fetchSortedAnnotationsOf(type: AnnotType.light.rawValue)
+        } else if sender == soundTableButton {
+            cueArray = DataManager.share.fetchSortedAnnotationsOf(type: AnnotType.sound.rawValue)
+        } else if sender == noteTableButton {
+            cueArray = DataManager.share.fetchSortedAnnotationsOf(type: AnnotType.note.rawValue)
+        }
         let tableWidth = view.frame.width/2
-        let lightTable = UITableView(frame: CGRect(x: -tableWidth, y: view.frame.height*0.2, width: tableWidth, height: view.frame.height*0.6))
-        lightTable.dataSource = self
-        view.addSubview(lightTable)
+        let cueTableShadowLayer = UIView(frame: CGRect(x: -tableWidth, y: view.frame.height*0.2, width: tableWidth, height: view.frame.height*0.6))
+        let cueTable = UITableView(frame: cueTableShadowLayer.bounds)
+        cueTable.dataSource = self
+        view.addSubview(cueTableShadowLayer)
+        cueTableShadowLayer.addSubview(cueTable)
+        cueTable.layer.cornerRadius = 10
+        cueTableShadowLayer.layer.shadowRadius = 3
+        cueTableShadowLayer.layer.shadowColor = UIColor.black.cgColor
+        cueTableShadowLayer.layer.shadowOpacity = 0.8
+        cueTableShadowLayer.layer.shadowOffset = CGSize.zero
+        
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.removeTableView(gesture:)))
         swipeLeft.direction = .left
-        lightTable.addGestureRecognizer(swipeLeft)
+        cueTable.addGestureRecognizer(swipeLeft)
         UIView.animate(withDuration: 0.3, animations: {
-            lightTable.frame.origin.x = 0
+            cueTableShadowLayer.frame.origin.x = 0
         })
-        hideSettingsMenu()
-    }
-    
-    func showSoundTable() {
-        print("Sound Menu goes here!")
-        hideSettingsMenu()
+        hideCueMenu()
     }
     
     // MARK: Page View Controller Delegate Methods
     
     var modelController: ModelController {
-        // Return the model controller object, creating it if necessary.
-        // In more complex implementations, the model controller may be passed to the view controller.
         if _modelController == nil {
             _modelController = ModelController()
         }
@@ -493,10 +522,10 @@ class ProjectViewController: UIViewController, UIPageViewControllerDelegate, UIT
     
     func removeTableView(gesture: UISwipeGestureRecognizer) {
         UIView.animate(withDuration: 0.3, animations: {
-            gesture.view?.frame.origin.x -= self.view.frame.width/2
+            gesture.view?.superview?.frame.origin.x -= self.view.frame.width/2
         }, completion: {
             (value:Bool) in
-            gesture.view?.removeFromSuperview()
+            gesture.view?.superview?.removeFromSuperview()
         })
     }
 }

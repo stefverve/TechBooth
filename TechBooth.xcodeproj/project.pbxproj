@@ -13,6 +13,7 @@
 		A0CF076E1E13237F00A444AC /* Stage.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A0CF076D1E13237F00A444AC /* Stage.ttf */; };
 		A0CF07701E132C8200A444AC /* myDocCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CF076F1E132C8200A444AC /* myDocCell.swift */; };
 		D8FB54AF09F2D4C04BB1549E /* Pods_TechBooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E48B21ACBD0258E06E2958C7 /* Pods_TechBooth.framework */; };
+		E20960AD1E19A0E000AECD31 /* CueMenuShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20960AC1E19A0E000AECD31 /* CueMenuShadowView.swift */; };
 		E2140E001E0348BF008B91C9 /* EditMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2140DFE1E0348BF008B91C9 /* EditMenu.swift */; };
 		E2140E011E0348BF008B91C9 /* EditMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2140DFF1E0348BF008B91C9 /* EditMenu.xib */; };
 		E26229E71E084335007038A1 /* Annot.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26229E61E084335007038A1 /* Annot.swift */; };
@@ -43,6 +44,7 @@
 		A0A239FC1E01C49B00FC2588 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		A0CF076D1E13237F00A444AC /* Stage.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Stage.ttf; sourceTree = "<group>"; };
 		A0CF076F1E132C8200A444AC /* myDocCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = myDocCell.swift; sourceTree = "<group>"; };
+		E20960AC1E19A0E000AECD31 /* CueMenuShadowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CueMenuShadowView.swift; sourceTree = "<group>"; };
 		E2140DFE1E0348BF008B91C9 /* EditMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditMenu.swift; sourceTree = "<group>"; };
 		E2140DFF1E0348BF008B91C9 /* EditMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditMenu.xib; sourceTree = "<group>"; };
 		E26229E61E084335007038A1 /* Annot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Annot.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 				E281E9CB1E01BAD600CC8E74 /* ProjectViewController.swift */,
 				E281E9FD1E01FADE00CC8E74 /* ModelController.swift */,
 				E2140DFE1E0348BF008B91C9 /* EditMenu.swift */,
+				E20960AC1E19A0E000AECD31 /* CueMenuShadowView.swift */,
 				E2140DFF1E0348BF008B91C9 /* EditMenu.xib */,
 				E281E9D31E01DE8A00CC8E74 /* LightsViewController.swift */,
 				E26229E61E084335007038A1 /* Annot.swift */,
@@ -297,6 +300,7 @@
 				A0A239FD1E01C49B00FC2588 /* DataManager.swift in Sources */,
 				E281E9B01E01B32B00CC8E74 /* AppDelegate.swift in Sources */,
 				E281E9DA1E01E10A00CC8E74 /* SettingsViewController.swift in Sources */,
+				E20960AD1E19A0E000AECD31 /* CueMenuShadowView.swift in Sources */,
 				E281E9CC1E01BAD600CC8E74 /* ProjectViewController.swift in Sources */,
 				E281E9D81E01DFB100CC8E74 /* PresentationViewController.swift in Sources */,
 				E281E9D61E01DED600CC8E74 /* SoundViewController.swift in Sources */,

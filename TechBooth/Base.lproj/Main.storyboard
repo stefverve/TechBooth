@@ -281,44 +281,45 @@
             <point key="canvasLocation" x="1202" y="34"/>
         </scene>
         <!--Presentation View Controller-->
-        <scene sceneID="Tp6-uJ-beo">
+        <scene sceneID="BUd-Vy-0q1">
             <objects>
-                <viewController id="5IR-gC-vLL" customClass="PresentationViewController" customModule="TechBooth" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="24n-qi-ELF" customClass="PresentationViewController" customModule="TechBooth" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="kDb-sm-OOu"/>
-                        <viewControllerLayoutGuide type="bottom" id="ug8-BU-2ek"/>
+                        <viewControllerLayoutGuide type="top" id="c38-bC-ZIO"/>
+                        <viewControllerLayoutGuide type="bottom" id="GL1-sm-I2l"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Bar-mV-EhY">
+                    <view key="view" contentMode="scaleToFill" id="3Uc-gJ-HEU">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4wE-mn-gTz">
-                                <rect key="frame" x="0.0" y="-699" width="375" height="1002"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <connections>
-                                    <segue destination="6al-pK-sWG" kind="embed" id="pbA-Ge-p6h"/>
-                                </connections>
-                            </containerView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="udx-BQ-q08">
-                                <rect key="frame" x="392" y="1126" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qt7-MW-CRh">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="476.5"/>
+                            </scrollView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EcO-TP-z3S">
+                                <rect key="frame" x="0.0" y="476.5" width="375" height="190.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="qt7-MW-CRh" firstAttribute="top" secondItem="c38-bC-ZIO" secondAttribute="bottom" constant="-20" id="33D-Gw-kW3"/>
+                            <constraint firstItem="GL1-sm-I2l" firstAttribute="top" secondItem="EcO-TP-z3S" secondAttribute="bottom" id="5z2-Lj-SKq"/>
+                            <constraint firstItem="EcO-TP-z3S" firstAttribute="leading" secondItem="3Uc-gJ-HEU" secondAttribute="leading" id="7Ic-0X-fmg"/>
+                            <constraint firstItem="EcO-TP-z3S" firstAttribute="top" secondItem="qt7-MW-CRh" secondAttribute="bottom" id="FhJ-Za-jq9"/>
+                            <constraint firstAttribute="trailing" secondItem="qt7-MW-CRh" secondAttribute="trailing" id="K6h-H9-BbZ"/>
+                            <constraint firstItem="EcO-TP-z3S" firstAttribute="height" secondItem="qt7-MW-CRh" secondAttribute="height" multiplier="0.4" id="deY-pG-Mg9"/>
+                            <constraint firstItem="qt7-MW-CRh" firstAttribute="leading" secondItem="3Uc-gJ-HEU" secondAttribute="leading" id="eSv-v9-HAc"/>
+                            <constraint firstAttribute="trailing" secondItem="EcO-TP-z3S" secondAttribute="trailing" id="gnA-NU-CAW"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="dock" destination="EcO-TP-z3S" id="osT-WC-dgQ"/>
+                        <outlet property="pdfScrollView" destination="qt7-MW-CRh" id="O2K-dT-g6s"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="via-pK-z8f" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lry-8t-NxO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2201.953125" y="-86.090775988286964"/>
-        </scene>
-        <!--Page View Controller-->
-        <scene sceneID="Fm7-33-1qV">
-            <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="6al-pK-sWG" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Qsa-ag-mvd" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2835" y="-48"/>
+            <point key="canvasLocation" x="1991" y="-54"/>
         </scene>
         <!--Lights View Controller-->
         <scene sceneID="GVc-qp-PbI">
