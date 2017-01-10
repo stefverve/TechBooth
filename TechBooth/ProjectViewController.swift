@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProjectViewController: UIViewController, UIPageViewControllerDelegate, UITableViewDataSource {
+class ProjectViewController: UIViewController, UIPageViewControllerDelegate, UITableViewDataSource, CueMenuShadowDelegate {
     
     // MARK: Properties
     
@@ -67,9 +67,10 @@ class ProjectViewController: UIViewController, UIPageViewControllerDelegate, UIT
 		
         self.pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
         self.pageViewController?.delegate = self
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
+        
+//    }
+//
+//    override func viewWillAppear(_ animated: Bool) {
         
         self.layoutDevice(rect: self.view.bounds)
         self.modelController.pageViewRect = self.pageViewController?.view.bounds
@@ -242,14 +243,23 @@ class ProjectViewController: UIViewController, UIPageViewControllerDelegate, UIT
         noteTableButton.backgroundColor = UIColor.lightGray
         noteTableButton.addTarget(self, action: #selector(self.showCueTable(_:)), for: .touchUpInside)
         
+        
         currentPage = (self.pageViewController?.viewControllers?.first)! as! SinglePageViewController
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        cueMenuShadowLayer.delegate = self
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        expandedCueMenu = false
     }
     
     func presentationMode() {
         
         print("Showtime!")
-        
+        hideSettingsMenu()
         performSegue(withIdentifier: "showTime", sender: nil)
         
     }

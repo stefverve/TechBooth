@@ -97,7 +97,7 @@ class DataManager {
 				pageAnnotations.append(annotation)
 			}
 		}
-		return pageAnnotations
+		return sortAnnotations(annotArray: pageAnnotations)
 	}
 	
 	func fetchSortedAnnotationsOf(type: Int) -> [Annotation]{
