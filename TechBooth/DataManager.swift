@@ -252,7 +252,7 @@ class DataManager {
 	
 	
 	
-	func exportCSV() {
+	func exportCSV() -> URL? {
 //		if (GIDSignIn.sharedInstance().currentUser != nil) {
 //			let accessToken = GIDSignIn.sharedInstance().currentUser.authentication.accessToken
 //			
@@ -262,6 +262,7 @@ class DataManager {
 //		}
 		
 		var csvFile = ""
+		let filePath = "\(dir)/\(currentProject!.name!)/\(currentProject!.name!)"
 		
 		var annotationsArray = [Annotation]()
 		for index in 0 ..< 3 {
@@ -286,13 +287,16 @@ class DataManager {
 		
 		if let directory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
 			
-			let path = directory.appendingPathComponent("\(dir)/\(currentProject!.name!)/\(currentProject!.name!).csv")
+			let path = directory.appendingPathComponent("\(filePath).csv")
 			
 			do {
 				try csvFile.write(to: path, atomically: false, encoding: String.Encoding.utf8)
 			}
 			catch {}
+			
+			return path
 		}
+		return nil
 	}
 	
 	func imageFromPDF(pageNum: Int) -> UIImage? {
