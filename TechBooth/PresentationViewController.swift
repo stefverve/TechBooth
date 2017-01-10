@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftSocket
 
 class PresentationViewController: UIViewController {
 
@@ -65,6 +66,8 @@ class PresentationViewController: UIViewController {
         
         
         
+        
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -112,6 +115,41 @@ class PresentationViewController: UIViewController {
         } else {
             print("no more cues")
         }
+        
+        
+        
+        let client = UDPClient(address: "192.168.1.112", port: 53535)
+        
+        switch client.send(string: "/cue/selected/start") {
+        case .success:
+            print("yay")
+        case .failure(let error):
+            print(error)
+        }
+        
+//        UDP is messy, but it works.  Rather use TCP, but that requires port 53000,
+//        and OSC 1.1 spec, the formatting for which appears to be hosted at
+//        http://cnmat.berkeley.edu/publication/features_and_future_open_sound_control_version_1_1_nime
+//        site is down, if it ever comes back up, revisit this code!!
+//
+//        let client = TCPClient(address: "192.168.1.112", port: 53000)
+//        switch client.connect(timeout: 1) {
+//        case .success:
+//            switch client.send(string: "GO" ) {
+//            case .success:
+//                                guard let data = client.read(1024*10) else { return }
+//                
+//                                if let response = String(bytes: data, encoding: .utf8) {
+//                                    print(response)
+//                                }
+//                print("yay")
+//            case .failure(let error):
+//                print(error)
+//            }
+//        case .failure(let error):
+//            print(error)
+//        }
+        
         layoutCueOverlay()
         scrollToCue()
     }
