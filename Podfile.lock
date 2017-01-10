@@ -50,6 +50,7 @@ PODS:
   - GTMSessionFetcher/Core (1.1.7)
   - GTMSessionFetcher/Full (1.1.7):
     - GTMSessionFetcher/Core (= 1.1.7)
+  - SwiftSocket (2.0)
 
 DEPENDENCIES:
   - Alamofire (~> 4.2)
@@ -57,6 +58,7 @@ DEPENDENCIES:
   - GoogleAPIClientForREST/Drive (~> 1.0)
   - GoogleAPIClientForREST/Sheets (~> 1.0)
   - GTMOAuth2 (~> 1.1.0)
+  - SwiftSocket (~> 2.0)
 
 SPEC CHECKSUMS:
   Alamofire: aa2e09d871c9160ac53c90e83c68064a94e3dfbe
@@ -72,7 +74,8 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: 2b2596cbb7186865e98cadf2b1e262d851c2b168
   GTMOAuth2: 7fc9c10f5c745f4d9850419ea88889fe3baa6b7d
   GTMSessionFetcher: a1f8ed39e4fe21c68957daed472c7afbcdf29166
+  SwiftSocket: 279de0cc1629ccbf37a475f5d96be30024394d8d
 
-PODFILE CHECKSUM: 7f796c87a7cd3d1e9c582ca31d7149640c9b3d03
+PODFILE CHECKSUM: b5e91fa1db7edf1e135f50d924be60dc2c149dcd
 
 COCOAPODS: 1.1.1

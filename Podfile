@@ -11,5 +11,6 @@ target 'TechBooth' do
   pod 'GTMOAuth2', '~> 1.1.0'
   pod 'Google/SignIn'
   pod 'Alamofire', '~> 4.2'
+  pod 'SwiftSocket', '~> 2.0'
 
 end
