@@ -88,10 +88,10 @@ class Annot: UIView {
         self.createAnnotBox(rect: boxRect)
         
         if allowEdits {
-            self.setupGestures()
+            setupGestures()
         }
         
-        self.makeAnnotDesc()
+        makeAnnotDesc()
     }
     
     func makeAnnotDesc() {
@@ -99,7 +99,7 @@ class Annot: UIView {
         DataManager.share.saveContext()
     }
     
-    init(annotation: Annotation, rect: CGRect) {
+    init(annotation: Annotation, rect: CGRect, allowEdits: Bool) {
         
         super.init(frame: rect)
         self.pageSize = rect
@@ -112,9 +112,9 @@ class Annot: UIView {
         self.pageNum = Int(annotation.pageNumber)
         self.createAnnotDot(dotLocation: self.mapToPoint(x: annot!.dotX, y: annot!.dotY))
         self.createAnnotBox(rect: self.mapToRect(x: annot!.boxX, y: annot!.boxY, width: annot!.boxWidth, height: annot!.boxHeight))
-        
-        self.setupGestures()
-        
+        if allowEdits {
+            self.setupGestures()
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -142,7 +142,7 @@ class Annot: UIView {
         annotDot.backgroundColor = self.annotColor.withAlphaComponent(1)
         annotDot.layer.cornerRadius = 7.5
         
-        self.addSubview(annotDotContainer)
+        addSubview(annotDotContainer)
         annotDotContainer.addSubview(annotDot)
     }
     

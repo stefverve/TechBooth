@@ -76,6 +76,8 @@ class ProjectViewController: UIViewController, UIPageViewControllerDelegate, UIT
         let startingViewController: SinglePageViewController = self.modelController.viewControllerAtIndex(0, storyboard: self.storyboard!)!
         startingViewController.view.frame = (self.pageViewController?.view.bounds)!
         
+        startingViewController.allowEdits = true
+        
         let viewControllers = [startingViewController]
         self.pageViewController!.setViewControllers(viewControllers, direction: .forward, animated: false, completion: {done in })
         
@@ -245,7 +247,11 @@ class ProjectViewController: UIViewController, UIPageViewControllerDelegate, UIT
     }
     
     func presentationMode() {
+        
         print("Showtime!")
+        
+        performSegue(withIdentifier: "showTime", sender: nil)
+        
     }
     
     func dismissProjectView() {
@@ -262,6 +268,7 @@ class ProjectViewController: UIViewController, UIPageViewControllerDelegate, UIT
     
     func layoutIPad(rect: CGRect) {
         self.pageViewController!.view.frame = rect
+        
     }
     
     // MARK: Cue Menu functions
