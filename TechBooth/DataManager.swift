@@ -97,29 +97,23 @@ class DataManager {
 				pageAnnotations.append(annotation)
 			}
 		}
-		
-		return pageAnnotations
+		return sortAnnotations(annotArray: pageAnnotations)
 	}
 	
 	func fetchSortedAnnotationsOf(type: Int) -> [Annotation]{
 		
-		let projectAnnotations = currentProject!.pdfAnnotations?.allObjects as! [Annotation]
 		var typeArray: [Annotation] = []
-		
-		for annotation in projectAnnotations {
-			if Int(annotation.type) ==  type{
-				typeArray.append(annotation)
-			}
-		}
-		
-		return sortAnnotations(annotArray: typeArray)
+		for page in 0...pageCount {
+            typeArray.append(contentsOf: fetchSortedAnnotationsOf(type: type, page: page))
+        }
+		return typeArray
 	}
 	
 	func fetchSortedAnnotationsOf(type: Int, page: Int) -> [Annotation]{
 		
 		let pageAnnotations = fetchPageAnnotations(page: page)
 		var typeArray: [Annotation] = []
-		
+        
 		for annotation in pageAnnotations {
 			if Int(annotation.type) ==  type{
 				typeArray.append(annotation)
@@ -209,7 +203,6 @@ class DataManager {
 		}
 		return sortedArray
 	}
-	
 	
 	func reorderCuesOn(page: Int, type: Int){
 		let annotationsOfType = fetchSortedAnnotationsOf(type: type, page: page)

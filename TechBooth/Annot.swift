@@ -88,10 +88,10 @@ class Annot: UIView {
         self.createAnnotBox(rect: boxRect)
         
         if allowEdits {
-            self.setupGestures()
+            setupGestures()
         }
         
-        self.makeAnnotDesc()
+        makeAnnotDesc()
     }
     
     func makeAnnotDesc() {
@@ -99,7 +99,7 @@ class Annot: UIView {
         DataManager.share.saveContext()
     }
     
-    init(annotation: Annotation, rect: CGRect) {
+    init(annotation: Annotation, rect: CGRect, allowEdits: Bool) {
         
         super.init(frame: rect)
         self.pageSize = rect
@@ -112,9 +112,9 @@ class Annot: UIView {
         self.pageNum = Int(annotation.pageNumber)
         self.createAnnotDot(dotLocation: self.mapToPoint(x: annot!.dotX, y: annot!.dotY))
         self.createAnnotBox(rect: self.mapToRect(x: annot!.boxX, y: annot!.boxY, width: annot!.boxWidth, height: annot!.boxHeight))
-        
-        self.setupGestures()
-        
+        if allowEdits {
+            self.setupGestures()
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -142,7 +142,7 @@ class Annot: UIView {
         annotDot.backgroundColor = self.annotColor.withAlphaComponent(1)
         annotDot.layer.cornerRadius = 7.5
         
-        self.addSubview(annotDotContainer)
+        addSubview(annotDotContainer)
         annotDotContainer.addSubview(annotDot)
     }
     
@@ -151,10 +151,10 @@ class Annot: UIView {
         annotBox.frame = rect
         
         annotBox.backgroundColor = self.annotColor.withAlphaComponent(0.2)
-        annotBox.layer.cornerRadius = 20
+        annotBox.layer.cornerRadius = 10
         annotBox.layer.borderColor = self.annotColor.withAlphaComponent(0.5).cgColor
-        annotBox.layer.borderWidth = 4
-        annotBox.clipsToBounds = true
+        annotBox.layer.borderWidth = 1
+        //annotBox.clipsToBounds = true
         
         self.addSubview(annotBox)
         
@@ -304,6 +304,7 @@ class Annot: UIView {
     func layoutInstructionOverlay() {
         self.instructionOverlay.frame = self.annotBox.bounds
         self.instructionOverlay.backgroundColor = UIColor.gray
+        instructionOverlay.layer.cornerRadius = 10
         self.tapToEditLabel.frame = CGRect(x: 30, y: 9, width: 120, height: 20)
         self.tapToEditLabel.text = "Tap to Edit"
         self.dragToMoveLabel.frame = CGRect(x: 30, y: self.annotBox.frame.size.height - 28, width: 120, height: 20)
@@ -314,13 +315,17 @@ class Annot: UIView {
     
     func layoutResizeHandle() {
         self.resizeHandle.frame = CGRect(x: 0, y: 0, width: 40, height:40)
+        
         self.resizeHandle.backgroundColor = UIColor.white
         self.resizeHandle.layer.borderColor = UIColor.black.cgColor
         self.resizeHandle.layer.borderWidth = 1
+        
         if annotBox.frame.origin.x > 0 {
             self.resizeHandle.center = CGPoint(x: self.annotBox.frame.origin.x + 4, y: self.annotBox.frame.origin.y + self.annotBox.frame.size.height - 4)
+//            resizeHandle.image = UIImage(named: "RightArrow")
         } else {
             self.resizeHandle.center = CGPoint(x: self.annotBox.frame.size.width - boxOffset - 4, y: self.annotBox.frame.origin.y + self.annotBox.frame.size.height - 4)
+//            resizeHandle.image = UIImage(named: "LeftArrow")
         }
         
         self.resizeHandle.isUserInteractionEnabled = true

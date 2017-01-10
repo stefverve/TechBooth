@@ -8,13 +8,15 @@
 
 import UIKit
 
-class ProjectViewController: UIViewController, UIPageViewControllerDelegate {
+class ProjectViewController: UIViewController, UIPageViewControllerDelegate, UITableViewDataSource, CueMenuShadowDelegate {
+    
+    // MARK: Properties
     
     var pageViewController: UIPageViewController?
     var lightCueButton = UIButton()
     var soundCueButton = UIButton()
     var textCueButton = UIButton()
-    var cueMenuShadowLayer = UIView()
+    var cueMenuShadowLayer = CueMenuShadowView()
     var cueMenuShapeLayer = UIView()
     var cueMenuShadowHeightConstraint: NSLayoutConstraint!
     
@@ -33,18 +35,25 @@ class ProjectViewController: UIViewController, UIPageViewControllerDelegate {
     var settingsMenuShapeLayer = UIView()
     var settingsMenuShadowHeightConstraint: NSLayoutConstraint!
     
+    var settingsMenuButton = UIButton()
     var mainMenuButton = UIButton()
-    var lightTableButton = UIButton()
+    var presentationButton = UIButton()
+    
     var soundTableButton = UIButton()
+    var lightTableButton = UIButton()
+    var noteTableButton = UIButton()
     
     var menuWidth: CGFloat!
-    var expandedMenu = false
+    var expandedCueMenu = false
     var annotType: AnnotType = .light
+    var cueArray: Array<Annotation>!
     
     var currentPage: SinglePageViewController!
     
     
     @IBOutlet weak var stackView: UIStackView!
+    
+    // MARK: UIViewController Overrides
     
     override var prefersStatusBarHidden: Bool {
         return true
@@ -58,14 +67,17 @@ class ProjectViewController: UIViewController, UIPageViewControllerDelegate {
 		
         self.pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
         self.pageViewController?.delegate = self
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
+        
+//    }
+//
+//    override func viewWillAppear(_ animated: Bool) {
         
         self.layoutDevice(rect: self.view.bounds)
         self.modelController.pageViewRect = self.pageViewController?.view.bounds
         let startingViewController: SinglePageViewController = self.modelController.viewControllerAtIndex(0, storyboard: self.storyboard!)!
         startingViewController.view.frame = (self.pageViewController?.view.bounds)!
+        
+        startingViewController.allowEdits = true
         
         let viewControllers = [startingViewController]
         self.pageViewController!.setViewControllers(viewControllers, direction: .forward, animated: false, completion: {done in })
@@ -142,16 +154,16 @@ class ProjectViewController: UIViewController, UIPageViewControllerDelegate {
         lightCueButtonCenterY.isActive=false
         
         soundCueButtonBottom = soundCueButton.bottomAnchor.constraint(equalTo: cueMenuShapeLayer.bottomAnchor, constant: 0)
-            soundCueButtonBottom.isActive=false
+        soundCueButtonBottom.isActive=false
         soundCueButtonTop = soundCueButton.topAnchor.constraint(equalTo: cueMenuShapeLayer.topAnchor, constant: 0)
-            soundCueButtonTop.isActive=false
+        soundCueButtonTop.isActive=false
         soundCueButtonCenterY = soundCueButton.centerYAnchor.constraint(equalTo: cueMenuShapeLayer.centerYAnchor, constant: 0)
         soundCueButtonCenterY.isActive=true
         
         textCueButtonBottom = textCueButton.bottomAnchor.constraint(equalTo: cueMenuShapeLayer.bottomAnchor, constant: 0)
-            textCueButtonBottom.isActive=false
+        textCueButtonBottom.isActive=false
         textCueButtonTop = textCueButton.topAnchor.constraint(equalTo: cueMenuShapeLayer.topAnchor, constant: 0)
-            textCueButtonTop.isActive=true
+        textCueButtonTop.isActive=true
         
         lightCueButton.backgroundColor = UIColor.blue
         soundCueButton.backgroundColor = UIColor.orange
@@ -166,55 +178,97 @@ class ProjectViewController: UIViewController, UIPageViewControllerDelegate {
         settingsMenuShadowLayer.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
         settingsMenuShadowLayer.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         
-        
-        //settingsMenuShadowLayer.frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.size.height - menuWidth, width: menuWidth, height: menuWidth)
         settingsMenuShadowLayer.layer.shadowRadius = 3
         settingsMenuShadowLayer.layer.shadowColor = UIColor.black.cgColor
         settingsMenuShadowLayer.layer.shadowOpacity = 0.8
         settingsMenuShadowLayer.layer.shadowOffset = CGSize.zero
-        
-        //settingsMenuShapeLayer.frame = settingsMenuShadowLayer.bounds
         
         settingsMenuShapeLayer.bottomAnchor.constraint(equalTo: settingsMenuShadowLayer.bottomAnchor).isActive = true
         settingsMenuShapeLayer.trailingAnchor.constraint(equalTo: settingsMenuShadowLayer.trailingAnchor).isActive = true
         settingsMenuShapeLayer.widthAnchor.constraint(equalTo: settingsMenuShadowLayer.widthAnchor).isActive = true
         settingsMenuShapeLayer.heightAnchor.constraint(equalTo: settingsMenuShadowLayer.heightAnchor).isActive = true
         
-//        let settingsPath = UIBezierPath(roundedRect: settingsMenuShapeLayer.bounds, byRoundingCorners: UIRectCorner.topRight, cornerRadii: CGSize(width: menuWidth/10, height: menuWidth/10))
-//        let settingsMask = CAShapeLayer()
-//        settingsMask.path = settingsPath.cgPath
-//        settingsMenuShapeLayer.layer.mask = settingsMask
-        
         path = UIBezierPath(roundedRect: cueMenuShapeLayer.bounds, byRoundingCorners: UIRectCorner.topRight, cornerRadii: CGSize(width: menuWidth/10, height: menuWidth/10))
         mask = CAShapeLayer()
         mask.path = path.cgPath
         settingsMenuShapeLayer.layer.mask = mask
-//        
+
         settingsMenuShapeLayer.backgroundColor = UIColor(white: 0.85, alpha: 1)
-        
-        mainMenuButton.addTarget(self, action: #selector(self.showSettingsMenu), for: .touchUpInside)
-        
-        mainMenuButton.backgroundColor = UIColor.red
+        settingsMenuButton.addTarget(self, action: #selector(self.showSettingsMenu), for: .touchUpInside)
+        settingsMenuButton.backgroundColor = UIColor.red
         
         settingsMenuShadowLayer.translatesAutoresizingMaskIntoConstraints = false
         settingsMenuShapeLayer.translatesAutoresizingMaskIntoConstraints = false
+        settingsMenuButton.translatesAutoresizingMaskIntoConstraints = false
         mainMenuButton.translatesAutoresizingMaskIntoConstraints = false
+        presentationButton.translatesAutoresizingMaskIntoConstraints = false
         
+        settingsMenuShapeLayer.addSubview(presentationButton)
         settingsMenuShapeLayer.addSubview(mainMenuButton)
+        settingsMenuShapeLayer.addSubview(settingsMenuButton)
         
-        mainMenuButton.centerXAnchor.constraint(equalTo: settingsMenuShapeLayer.centerXAnchor).isActive = true
+        settingsMenuButton.centerXAnchor.constraint(equalTo: settingsMenuShapeLayer.centerXAnchor).isActive = true
+        settingsMenuButton.widthAnchor.constraint(equalTo: settingsMenuShapeLayer.widthAnchor).isActive = true
+        settingsMenuButton.bottomAnchor.constraint(equalTo: settingsMenuShapeLayer.bottomAnchor).isActive = true
+        settingsMenuButton.heightAnchor.constraint(equalTo: settingsMenuShapeLayer.widthAnchor, multiplier: 1).isActive = true
+        
+        settingsMenuButton.addTarget(self, action: #selector(self.showSettingsMenu), for: .touchUpInside)
+        settingsMenuButton.backgroundColor = UIColor.red
+        
+        mainMenuButton.centerYAnchor.constraint(equalTo: settingsMenuShapeLayer.centerYAnchor).isActive = true
         mainMenuButton.widthAnchor.constraint(equalTo: settingsMenuShapeLayer.widthAnchor).isActive = true
-        mainMenuButton.bottomAnchor.constraint(equalTo: settingsMenuShapeLayer.bottomAnchor).isActive = true
+        mainMenuButton.centerXAnchor.constraint(equalTo: settingsMenuShapeLayer.centerXAnchor).isActive = true
         mainMenuButton.heightAnchor.constraint(equalTo: settingsMenuShapeLayer.widthAnchor, multiplier: 1).isActive = true
         
-        mainMenuButton.addTarget(self, action: #selector(self.showSettingsMenu), for: .touchUpInside)
+        mainMenuButton.backgroundColor = UIColor.blue
+        mainMenuButton.addTarget(self, action: #selector(dismissProjectView), for: .touchUpInside)
         
-        mainMenuButton.backgroundColor = UIColor.red
+        presentationButton.centerXAnchor.constraint(equalTo: settingsMenuShapeLayer.centerXAnchor).isActive = true
+        presentationButton.widthAnchor.constraint(equalTo: settingsMenuShapeLayer.widthAnchor).isActive = true
+        presentationButton.topAnchor.constraint(equalTo: settingsMenuShapeLayer.topAnchor).isActive = true
+        presentationButton.heightAnchor.constraint(equalTo: settingsMenuShapeLayer.widthAnchor, multiplier: 1).isActive = true
+        
+        presentationButton.backgroundColor = UIColor.orange
+        presentationButton.addTarget(self, action: #selector(presentationMode), for: .touchUpInside)
+        
+        lightTableButton.frame = CGRect(x: 0, y: 0, width: menuWidth * 0.8, height: menuWidth * 0.8)
+        lightTableButton.backgroundColor = UIColor.lightGray
+        lightTableButton.addTarget(self, action: #selector(self.showCueTable(_:)), for: .touchUpInside)
+        
+        soundTableButton.frame = CGRect(x: 0, y: 0, width: menuWidth * 0.8, height: menuWidth * 0.8)
+        soundTableButton.backgroundColor = UIColor.lightGray
+        soundTableButton.addTarget(self, action: #selector(self.showCueTable(_:)), for: .touchUpInside)
+        
+        noteTableButton.frame = CGRect(x: 0, y: 0, width: menuWidth * 0.8, height: menuWidth * 0.8)
+        noteTableButton.backgroundColor = UIColor.lightGray
+        noteTableButton.addTarget(self, action: #selector(self.showCueTable(_:)), for: .touchUpInside)
         
         
         currentPage = (self.pageViewController?.viewControllers?.first)! as! SinglePageViewController
         
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        cueMenuShadowLayer.delegate = self
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        expandedCueMenu = false
+    }
+    
+    func presentationMode() {
+        
+        print("Showtime!")
+        hideSettingsMenu()
+        performSegue(withIdentifier: "showTime", sender: nil)
+        
+    }
+    
+    func dismissProjectView() {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    // MARK: Layout functions
     
     func layoutDevice(rect: CGRect) {
   //      if UIDevice.current.userInterfaceIdiom == .pad {
@@ -224,67 +278,13 @@ class ProjectViewController: UIViewController, UIPageViewControllerDelegate {
     
     func layoutIPad(rect: CGRect) {
         self.pageViewController!.view.frame = rect
-    }
-
-    func toggleLightButton() {
-        lightCueButton.isSelected = true
-        soundCueButton.isSelected = false
-        textCueButton.isSelected = false
-        if expandedMenu {
-            
-            annotType = .light
-            currentPage.annotType = annotType
-            
-            cueMenuShapeLayer.bringSubview(toFront: soundCueButton)
-            cueMenuShapeLayer.bringSubview(toFront: lightCueButton)
-            
-            hideCueMenu()
-            
-        } else {
-            showCueMenu()
-        }
+        
     }
     
-    func toggleSoundButton() {
-        lightCueButton.isSelected = false
-        soundCueButton.isSelected = true
-        textCueButton.isSelected = false
-        if expandedMenu {
-            
-            annotType = .sound
-            currentPage.annotType = annotType
-            
-            cueMenuShapeLayer.bringSubview(toFront: lightCueButton)
-            cueMenuShapeLayer.bringSubview(toFront: soundCueButton)
-            
-            hideCueMenu()
-            
-        } else {
-            showCueMenu()
-        }
-    }
-    
-    func toggleTextButton() {
-        lightCueButton.isSelected = false
-        soundCueButton.isSelected = false
-        textCueButton.isSelected = true
-        if expandedMenu {
-            
-            annotType = .note
-            currentPage.annotType = annotType
-            
-            cueMenuShapeLayer.bringSubview(toFront: soundCueButton)
-            cueMenuShapeLayer.bringSubview(toFront: textCueButton)
-            
-            hideCueMenu()
-            
-        } else {
-            showCueMenu()
-        }
-    }
+    // MARK: Cue Menu functions
     
     func showCueMenu() {
-        expandedMenu = true
+        expandedCueMenu = true
         UIView.animate(withDuration: 0.2, animations: {
             let newHeight = self.menuWidth * 3
             self.cueMenuShadowHeightConstraint.constant = newHeight
@@ -294,11 +294,40 @@ class ProjectViewController: UIViewController, UIPageViewControllerDelegate {
             mask.path = path.cgPath
             self.cueMenuShapeLayer.layer.mask = mask
             self.view.layoutIfNeeded()
+        }, completion: {
+            (value: Bool) in
+            
+            let lightSubMenu = UIView(frame: CGRect(x: 0, y: self.lightCueButton.frame.origin.y + (self.menuWidth * 0.1), width: self.menuWidth * 2.1, height: self.menuWidth * 0.8))
+            lightSubMenu.backgroundColor = UIColor.red
+            lightSubMenu.tag = 1
+            lightSubMenu.addSubview(self.lightTableButton)
+            
+            let soundSubMenu = UIView(frame: CGRect(x: 0, y: self.soundCueButton.frame.origin.y + (self.menuWidth * 0.1), width: self.menuWidth * 2.1, height: self.menuWidth * 0.8))
+            soundSubMenu.backgroundColor = UIColor.red
+            soundSubMenu.tag = 1
+            soundSubMenu.addSubview(self.soundTableButton)
+            
+            let textSubMenu = UIView(frame: CGRect(x: 0, y: self.textCueButton.frame.origin.y + (self.menuWidth * 0.1), width: self.menuWidth * 2.1, height: self.menuWidth * 0.8))
+            textSubMenu.backgroundColor = UIColor.red
+            textSubMenu.tag = 1
+            textSubMenu.addSubview(self.noteTableButton)
+            
+            self.cueMenuShadowLayer.insertSubview(lightSubMenu, belowSubview: self.cueMenuShapeLayer)
+            self.cueMenuShadowLayer.insertSubview(soundSubMenu, belowSubview: self.cueMenuShapeLayer)
+            self.cueMenuShadowLayer.insertSubview(textSubMenu, belowSubview: self.cueMenuShapeLayer)
+            
+            UIView.animate(withDuration: 0.2, animations: {
+                lightSubMenu.frame.origin.x -= self.menuWidth * 1.6
+                soundSubMenu.frame.origin.x -= self.menuWidth * 1.6
+                textSubMenu.frame.origin.x -= self.menuWidth * 1.6
+            }, completion: {
+                (value: Bool) in
+            })
         })
     }
     
     func hideCueMenu() {
-        expandedMenu = false
+        expandedCueMenu = false
         UIView.animate(withDuration: 0.2, animations: {
             self.cueMenuShadowHeightConstraint.constant = self.menuWidth
             let maskRect = CGRect(x: 0, y: 0, width: self.cueMenuShadowLayer.frame.width, height: self.cueMenuShadowLayer.frame.height)
@@ -307,6 +336,7 @@ class ProjectViewController: UIViewController, UIPageViewControllerDelegate {
             mask.path = path.cgPath
             self.cueMenuShapeLayer.layer.mask = mask
             self.view.layoutIfNeeded()
+            self.cueMenuShadowLayer.subviews.filter({$0.tag == 1}).forEach({$0.frame.origin.x += self.menuWidth * 1.6})
         }, completion: {
             (value: Bool) in
             
@@ -347,11 +377,71 @@ class ProjectViewController: UIViewController, UIPageViewControllerDelegate {
                 self.textCueButtonTop.isActive=false
                 
             }
+            self.cueMenuShadowLayer.subviews.filter({$0.tag == 1}).forEach({$0.removeFromSuperview()})
         })
     }
     
+    
+    func toggleLightButton() {
+        lightCueButton.isSelected = true
+        soundCueButton.isSelected = false
+        textCueButton.isSelected = false
+        if expandedCueMenu {
+            
+            annotType = .light
+            currentPage.annotType = annotType
+            
+            cueMenuShapeLayer.bringSubview(toFront: soundCueButton)
+            cueMenuShapeLayer.bringSubview(toFront: lightCueButton)
+            
+            hideCueMenu()
+            
+        } else {
+            showCueMenu()
+        }
+    }
+    
+    func toggleSoundButton() {
+        lightCueButton.isSelected = false
+        soundCueButton.isSelected = true
+        textCueButton.isSelected = false
+        if expandedCueMenu {
+            
+            annotType = .sound
+            currentPage.annotType = annotType
+            
+            cueMenuShapeLayer.bringSubview(toFront: lightCueButton)
+            cueMenuShapeLayer.bringSubview(toFront: soundCueButton)
+            
+            hideCueMenu()
+            
+        } else {
+            showCueMenu()
+        }
+    }
+    
+    func toggleTextButton() {
+        lightCueButton.isSelected = false
+        soundCueButton.isSelected = false
+        textCueButton.isSelected = true
+        if expandedCueMenu {
+            
+            annotType = .note
+            currentPage.annotType = annotType
+            
+            cueMenuShapeLayer.bringSubview(toFront: soundCueButton)
+            cueMenuShapeLayer.bringSubview(toFront: textCueButton)
+            
+            hideCueMenu()
+            
+        } else {
+            showCueMenu()
+        }
+    }
+    
+    // MARK: Settings Menu functions
+    
     func showSettingsMenu() {
-        print ("show settings menu here")
         UIView.animate(withDuration: 0.2, animations: {
             let newHeight = self.menuWidth * 3
             self.settingsMenuShadowHeightConstraint.constant = newHeight
@@ -362,12 +452,11 @@ class ProjectViewController: UIViewController, UIPageViewControllerDelegate {
             self.settingsMenuShapeLayer.layer.mask = mask
             self.view.layoutIfNeeded()
         })
-        mainMenuButton.removeTarget(self, action: nil, for: .touchUpInside)
-        mainMenuButton.addTarget(self, action: #selector(self.hideSettingsMenu), for: .touchUpInside)
+        settingsMenuButton.removeTarget(self, action: nil, for: .touchUpInside)
+        settingsMenuButton.addTarget(self, action: #selector(self.hideSettingsMenu), for: .touchUpInside)
     }
     
     func hideSettingsMenu() {
-        print("hide settings here")
         UIView.animate(withDuration: 0.2, animations: {
             self.settingsMenuShadowHeightConstraint.constant = self.menuWidth
             let maskRect = CGRect(x: 0, y: 0, width: self.settingsMenuShadowLayer.frame.width, height: self.settingsMenuShadowLayer.frame.height)
@@ -377,13 +466,43 @@ class ProjectViewController: UIViewController, UIPageViewControllerDelegate {
             self.settingsMenuShapeLayer.layer.mask = mask
             self.view.layoutIfNeeded()
         })
-        mainMenuButton.removeTarget(self, action: nil, for: .touchUpInside)
-        mainMenuButton.addTarget(self, action: #selector(self.showSettingsMenu), for: .touchUpInside)
+        settingsMenuButton.removeTarget(self, action: nil, for: .touchUpInside)
+        settingsMenuButton.addTarget(self, action: #selector(self.showSettingsMenu), for: .touchUpInside)
     }
     
+    func showCueTable(_ sender: UIButton) {
+        print("Light Table goes here!")
+        if sender == lightTableButton {
+            cueArray = DataManager.share.fetchSortedAnnotationsOf(type: AnnotType.light.rawValue)
+        } else if sender == soundTableButton {
+            cueArray = DataManager.share.fetchSortedAnnotationsOf(type: AnnotType.sound.rawValue)
+        } else if sender == noteTableButton {
+            cueArray = DataManager.share.fetchSortedAnnotationsOf(type: AnnotType.note.rawValue)
+        }
+        let tableWidth = view.frame.width/2
+        let cueTableShadowLayer = UIView(frame: CGRect(x: -tableWidth, y: view.frame.height*0.2, width: tableWidth, height: view.frame.height*0.6))
+        let cueTable = UITableView(frame: cueTableShadowLayer.bounds)
+        cueTable.dataSource = self
+        view.addSubview(cueTableShadowLayer)
+        cueTableShadowLayer.addSubview(cueTable)
+        cueTable.layer.cornerRadius = 10
+        cueTableShadowLayer.layer.shadowRadius = 3
+        cueTableShadowLayer.layer.shadowColor = UIColor.black.cgColor
+        cueTableShadowLayer.layer.shadowOpacity = 0.8
+        cueTableShadowLayer.layer.shadowOffset = CGSize.zero
+        
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.removeTableView(gesture:)))
+        swipeLeft.direction = .left
+        cueTable.addGestureRecognizer(swipeLeft)
+        UIView.animate(withDuration: 0.3, animations: {
+            cueTableShadowLayer.frame.origin.x = 0
+        })
+        hideCueMenu()
+    }
+    
+    // MARK: Page View Controller Delegate Methods
+    
     var modelController: ModelController {
-        // Return the model controller object, creating it if necessary.
-        // In more complex implementations, the model controller may be passed to the view controller.
         if _modelController == nil {
             _modelController = ModelController()
         }
@@ -392,13 +511,38 @@ class ProjectViewController: UIViewController, UIPageViewControllerDelegate {
     
     var _modelController: ModelController? = nil
     
-    // MARK: Page View Controller Delegate Methods
-    
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         if finished {
             guard let index = (pageViewController.viewControllers?.first as! SinglePageViewController).pageNum else { return }
             print(index)
             currentPage = (pageViewController.viewControllers?.first)! as! SinglePageViewController
         }
+    }
+    
+    // MARK: Table View Data Source Methods
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return cueArray.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        //var cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath)
+        let cell = UITableViewCell.init(style: .default, reuseIdentifier: "myCell")
+        cell.textLabel?.text = "\(cueArray[indexPath.row].pageNumber).\(cueArray[indexPath.row].cueNum) - \(cueArray[indexPath.row].cueDescription!)"
+        
+        return cell
+    }
+    
+    func removeTableView(gesture: UISwipeGestureRecognizer) {
+        UIView.animate(withDuration: 0.3, animations: {
+            gesture.view?.superview?.frame.origin.x -= self.view.frame.width/2
+        }, completion: {
+            (value:Bool) in
+            gesture.view?.superview?.removeFromSuperview()
+        })
     }
 }

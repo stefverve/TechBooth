@@ -29,6 +29,7 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
     //    singlePageViewController.pageViewRect = self.pageViewRect
         singlePageViewController.page = DataManager.share.document.page(at: index+1)
         singlePageViewController.pageNum = index
+        singlePageViewController.allowEdits = true
         return singlePageViewController
     }
     
