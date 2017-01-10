@@ -5,12 +5,28 @@
 //  Created by Stefan Verveniotis on 2016-12-14.
 //
 //
-
+import MessageUI
 import UIKit
 
-class MainMenuView: UIViewController, GIDSignInUIDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
+class MainMenuView: UIViewController, GIDSignInUIDelegate, UICollectionViewDelegate, UICollectionViewDataSource, MFMailComposeViewControllerDelegate {
 
 	@IBOutlet weak var googleUsernameLabel: UILabel!
+	
+	
+	
+	func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?){
+		self.dismiss(animated: true, completion: nil)
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -40,9 +56,6 @@ class MainMenuView: UIViewController, GIDSignInUIDelegate, UICollectionViewDeleg
 		}
 		
 		DataManager.share.loadPDF(project:loadProject)
-		
-		
-		
 	}
 
 	func sign(inWillDispatch signIn: GIDSignIn!, error: Error!) {
@@ -59,9 +72,27 @@ class MainMenuView: UIViewController, GIDSignInUIDelegate, UICollectionViewDeleg
   		self.dismiss(animated: true, completion: nil)
 	}
 	
-	
 	@IBAction func exportRecent(_ sender: UIButton) {
-		DataManager.share.exportCSV()
+		let path = DataManager.share.exportCSV()
+		
+		if( MFMailComposeViewController.canSendMail() ) {
+			
+			let mailComposer = MFMailComposeViewController()
+			mailComposer.mailComposeDelegate = self
+			
+			mailComposer.setSubject("Light Cues, Sound Cues and Notes for \(DataManager.share.currentProject!.name!)")
+			
+			//if let filePath = Bundle.main.path(forResource: "\(path)", ofType: "csv") {
+			if let fileData = NSData(contentsOf: path!) {
+					mailComposer.addAttachmentData(fileData as Data, mimeType: "text/csv", fileName: "\(DataManager.share.currentProject!.name!)")
+				if fileData.length == 0 {
+					mailComposer.setMessageBody("No annotations to export!", isHTML: false)
+				}
+			}
+			
+			//}
+			self.present(mailComposer, animated: true, completion: nil)
+		}
 	}
 	
 	
