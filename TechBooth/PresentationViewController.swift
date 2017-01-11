@@ -13,13 +13,17 @@ class PresentationViewController: UIViewController {
 
     @IBOutlet weak var pdfScrollView: UIScrollView!
     @IBOutlet weak var dock: UIView!
+    @IBOutlet weak var goButton: UIButton!
     
+    @IBOutlet weak var previousCueButton: UIButton!
+    @IBOutlet weak var nextCueButton: UIButton!
     @IBOutlet weak var backButton: UIButton!
     
     var annots = [Annot]()
     var annotIndex = 0
     var cueOverlayTop = UIView()
     var cueOverlayBottom = UIView()
+    var client: UDPClient!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,26 +68,59 @@ class PresentationViewController: UIViewController {
         pdfScrollView.addSubview(cueOverlayBottom)
         layoutCueOverlay()
         
+        goButton.layer.cornerRadius = goButton.frame.height/2
+        goButton.layer.borderWidth = 4
+        goButton.layer.borderColor = UIColor.green.cgColor
         
+        let nextPath = UIBezierPath()
+        nextPath.move(to: CGPoint(x: 0, y: 5))
+        nextPath.addArc(withCenter: CGPoint(x: 5, y: 5) , radius: 5, startAngle: CGFloat(M_PI), endAngle: 3*CGFloat(M_PI_2), clockwise: true)
+        nextPath.addLine(to: CGPoint(x: 60, y: 0))
+        nextPath.addLine(to: CGPoint(x: 90, y: 30))
+        nextPath.addLine(to: CGPoint(x: 60, y: 60))
+        nextPath.addLine(to: CGPoint(x: 5, y: 60))
+        nextPath.addArc(withCenter: CGPoint(x: 5, y: 55), radius: 5, startAngle: CGFloat(M_PI_2), endAngle: CGFloat(M_PI), clockwise: true)
+        let nextMask = CAShapeLayer()
+        nextMask.path = nextPath.cgPath
+        nextCueButton.layer.mask = nextMask
         
-        
+        let backPath = UIBezierPath()
+        backPath.move(to: CGPoint(x: 90, y: 5))
+        backPath.addLine(to: CGPoint(x: 90, y: 55))
+        backPath.addArc(withCenter: CGPoint(x: 85, y: 55), radius: 5, startAngle: 0, endAngle: CGFloat(M_PI_2), clockwise: true)
+        backPath.addLine(to: CGPoint(x: 30, y: 60))
+        backPath.addLine(to: CGPoint(x: 0, y: 30))
+        backPath.addLine(to: CGPoint(x: 30, y: 0))
+        backPath.addLine(to: CGPoint(x: 85, y: 0))
+        backPath.addArc(withCenter: CGPoint(x: 85, y: 5), radius: 5, startAngle: 3*CGFloat(M_PI_2), endAngle: 2*CGFloat(M_PI), clockwise: true)
+        let backMask = CAShapeLayer()
+        backMask.path = backPath.cgPath
+        previousCueButton.layer.mask = backMask
         
     }
     
     override func viewDidAppear(_ animated: Bool) {
         
         scrollToCue()
+        
+        client = UDPClient(address: "10.187.15.139", port: 53535)
+        
+        let _ = client.send(string: "/workspace/2A8E5202-98F1-4A45-8AC7-0BC365522087/select/1")
+        let _ = client.send(string: "/workspace/7AC16D43-DBEB-43AB-A0C2-6D2CA7989F1D/select/1")
+        let _ = client.send(string: "/workspace/2A8E5202-98F1-4A45-8AC7-0BC365522087/showMode 1")
+        let _ = client.send(string: "/workspace/7AC16D43-DBEB-43AB-A0C2-6D2CA7989F1D/showMode 1")
+        
     }
     
     func layoutCueOverlay() {
         let locationInScroll = pdfScrollView.convert(annots[annotIndex].annotDotContainer.center, from: annots[annotIndex])
         
-        cueOverlayTop.frame = CGRect(x: -20, y: 0, width: view.frame.width + 20, height: locationInScroll.y - 100)
+        cueOverlayTop.frame = CGRect(x: -20, y: 0, width: view.frame.width + 40, height: locationInScroll.y - 100)
         let topPath = CGMutablePath()
         topPath.addRect(cueOverlayTop.bounds)
         cueOverlayTop.layer.shadowPath = topPath
         
-        cueOverlayBottom.frame = CGRect(x: -20, y: locationInScroll.y + 100, width: view.frame.width + 20, height: pdfScrollView.contentSize.height - locationInScroll.y - 100)
+        cueOverlayBottom.frame = CGRect(x: -20, y: locationInScroll.y + 100, width: view.frame.width + 40, height: pdfScrollView.contentSize.height - locationInScroll.y - 100)
         let bottomPath = CGMutablePath()
         bottomPath.addRect(cueOverlayBottom.bounds)
         cueOverlayBottom.layer.shadowPath = bottomPath
@@ -99,7 +136,6 @@ class PresentationViewController: UIViewController {
             let diff = (view.frame.height - newRectHeight) / 2
             rectToDisplay = CGRect(x: rectToDisplay.origin.x, y: rectToDisplay.origin.y - diff, width: rectToDisplay.size.width, height: newRectHeight + (diff * 2))
             
-           // rectToDisplay = CGRect(x: rectToDisplay.origin.x, y: rectToDisplay.origin.y, width: rectToDisplay.size.width, height: rectToDisplay.size.height + dock.frame.height + 70)
         } else {
             // redraw floating annotBox
             let dotRect = pdfScrollView.convert(annots[annotIndex].annotDotContainer.center, from: annots[annotIndex])
@@ -110,23 +146,31 @@ class PresentationViewController: UIViewController {
     }
     
     @IBAction func goButton(_ sender: UIButton) {
+        
+        if annots[annotIndex].annotType == .sound {
+            let _ = client.send(string: "/workspace/2A8E5202-98F1-4A45-8AC7-0BC365522087/go")
+        } else if annots[annotIndex].annotType == .light {
+            let _ = client.send(string: "/workspace/7AC16D43-DBEB-43AB-A0C2-6D2CA7989F1D/go")
+        }
+        
+        repeat {
         if annotIndex < annots.count - 1 {
             annotIndex += 1
         } else {
             print("no more cues")
+            break
         }
+        } while (annots[annotIndex].annotType == .note)
         
         
         
-        let client = UDPClient(address: "192.168.1.112", port: 53535)
         
-        switch client.send(string: "/cue/selected/start") {
-        case .success:
-            print("yay")
-        case .failure(let error):
-            print(error)
-        }
-        
+//        switch client.send(string: "/cue/next") {
+//        case .success:
+//            print("yay")
+//        case .failure(let error):
+//            print(error)
+//        }
 //        UDP is messy, but it works.  Rather use TCP, but that requires port 53000,
 //        and OSC 1.1 spec, the formatting for which appears to be hosted at
 //        http://cnmat.berkeley.edu/publication/features_and_future_open_sound_control_version_1_1_nime
@@ -153,6 +197,51 @@ class PresentationViewController: UIViewController {
         layoutCueOverlay()
         scrollToCue()
     }
+    
+    @IBAction func previousCue(_ sender: UIButton) {
+        
+        repeat {
+            if annotIndex > 0 {
+                annotIndex -= 1
+            } else {
+                print("no more cues")
+                break
+            }
+        } while (annots[annotIndex].annotType == .note)
+        
+        if annots[annotIndex].annotType == .sound {
+            let _ = client.send(string: "/workspace/2A8E5202-98F1-4A45-8AC7-0BC365522087/select/previous")
+        } else if annots[annotIndex].annotType == .light {
+            let _ = client.send(string: "/workspace/7AC16D43-DBEB-43AB-A0C2-6D2CA7989F1D/select/previous")
+        }
+        
+        layoutCueOverlay()
+        scrollToCue()
+        
+    }
+    
+    @IBAction func skipCue(_ sender: UIButton) {
+        
+        repeat {
+            if annotIndex < annots.count - 1 {
+                annotIndex += 1
+            } else {
+                print("no more cues")
+                break
+            }
+        } while (annots[annotIndex].annotType == .note)
+        
+        if annots[annotIndex].annotType == .sound {
+            let _ = client.send(string: "/workspace/2A8E5202-98F1-4A45-8AC7-0BC365522087/select/next")
+        } else if annots[annotIndex].annotType == .light {
+            let _ = client.send(string: "/workspace/7AC16D43-DBEB-43AB-A0C2-6D2CA7989F1D/select/next")
+        }
+        
+        layoutCueOverlay()
+        scrollToCue()
+        
+    }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
