@@ -165,9 +165,12 @@ class ProjectViewController: UIViewController, UIPageViewControllerDelegate, UIT
         textCueButtonTop = textCueButton.topAnchor.constraint(equalTo: cueMenuShapeLayer.topAnchor, constant: 0)
         textCueButtonTop.isActive=true
         
-        lightCueButton.backgroundColor = UIColor.blue
-        soundCueButton.backgroundColor = UIColor.orange
-        textCueButton.backgroundColor = UIColor.brown
+        lightCueButton.backgroundColor = UIColor.darkGray
+        lightCueButton.imageView?.tintColor = UIColor.init(red: 0.5, green: 0.5, blue: 1, alpha: 1)
+        soundCueButton.backgroundColor = UIColor.darkGray
+        soundCueButton.imageView?.tintColor = UIColor.orange
+        textCueButton.backgroundColor = UIColor.darkGray
+        textCueButton.imageView?.tintColor = UIColor.lightGray
         
         self.view.addSubview(settingsMenuShadowLayer)
         settingsMenuShadowLayer.addSubview(settingsMenuShapeLayer)
@@ -213,15 +216,19 @@ class ProjectViewController: UIViewController, UIPageViewControllerDelegate, UIT
         settingsMenuButton.heightAnchor.constraint(equalTo: settingsMenuShapeLayer.widthAnchor, multiplier: 1).isActive = true
         
         settingsMenuButton.addTarget(self, action: #selector(self.showSettingsMenu), for: .touchUpInside)
-        settingsMenuButton.backgroundColor = UIColor.red
+        settingsMenuButton.backgroundColor = UIColor.darkGray
+//        settingsMenuButton.setImage(UIImage(named: "menu-button"), for: .normal)
+//        settingsMenuButton.imageView?.tintColor = UIColor.lightGray
         
         mainMenuButton.centerYAnchor.constraint(equalTo: settingsMenuShapeLayer.centerYAnchor).isActive = true
         mainMenuButton.widthAnchor.constraint(equalTo: settingsMenuShapeLayer.widthAnchor).isActive = true
         mainMenuButton.centerXAnchor.constraint(equalTo: settingsMenuShapeLayer.centerXAnchor).isActive = true
         mainMenuButton.heightAnchor.constraint(equalTo: settingsMenuShapeLayer.widthAnchor, multiplier: 1).isActive = true
         
-        mainMenuButton.backgroundColor = UIColor.blue
+        mainMenuButton.backgroundColor = UIColor(red: 0.9, green: 0.95, blue: 1, alpha: 1)
         mainMenuButton.addTarget(self, action: #selector(dismissProjectView), for: .touchUpInside)
+//        mainMenuButton.setImage(UIImage(named: "back-button"), for: .normal)
+//        mainMenuButton.imageView?.tintColor = UIColor.darkGray
         
         presentationButton.centerXAnchor.constraint(equalTo: settingsMenuShapeLayer.centerXAnchor).isActive = true
         presentationButton.widthAnchor.constraint(equalTo: settingsMenuShapeLayer.widthAnchor).isActive = true
@@ -230,16 +237,17 @@ class ProjectViewController: UIViewController, UIPageViewControllerDelegate, UIT
         
         presentationButton.backgroundColor = UIColor.orange
         presentationButton.addTarget(self, action: #selector(presentationMode), for: .touchUpInside)
+        presentationButton.setImage(UIImage(named: "PDFIcon"), for: .normal)
         
-        lightTableButton.frame = CGRect(x: 0, y: 0, width: menuWidth * 0.8, height: menuWidth * 0.8)
+        lightTableButton.frame = CGRect(x: 0, y: 0, width: menuWidth * 0.8, height: menuWidth * 0.6)
         lightTableButton.backgroundColor = UIColor.lightGray
         lightTableButton.addTarget(self, action: #selector(self.showCueTable(_:)), for: .touchUpInside)
         
-        soundTableButton.frame = CGRect(x: 0, y: 0, width: menuWidth * 0.8, height: menuWidth * 0.8)
+        soundTableButton.frame = CGRect(x: 0, y: 0, width: menuWidth * 0.8, height: menuWidth * 0.6)
         soundTableButton.backgroundColor = UIColor.lightGray
         soundTableButton.addTarget(self, action: #selector(self.showCueTable(_:)), for: .touchUpInside)
         
-        noteTableButton.frame = CGRect(x: 0, y: 0, width: menuWidth * 0.8, height: menuWidth * 0.8)
+        noteTableButton.frame = CGRect(x: 0, y: 0, width: menuWidth * 0.8, height: menuWidth * 0.6)
         noteTableButton.backgroundColor = UIColor.lightGray
         noteTableButton.addTarget(self, action: #selector(self.showCueTable(_:)), for: .touchUpInside)
         
@@ -297,18 +305,15 @@ class ProjectViewController: UIViewController, UIPageViewControllerDelegate, UIT
         }, completion: {
             (value: Bool) in
             
-            let lightSubMenu = UIView(frame: CGRect(x: 0, y: self.lightCueButton.frame.origin.y + (self.menuWidth * 0.1), width: self.menuWidth * 2.1, height: self.menuWidth * 0.8))
-            lightSubMenu.backgroundColor = UIColor.red
+            let lightSubMenu = UIView(frame: CGRect(x: 0, y: self.lightCueButton.frame.origin.y + (self.menuWidth * 0.2), width: self.menuWidth * 2.1, height: self.menuWidth * 0.6))
             lightSubMenu.tag = 1
             lightSubMenu.addSubview(self.lightTableButton)
             
-            let soundSubMenu = UIView(frame: CGRect(x: 0, y: self.soundCueButton.frame.origin.y + (self.menuWidth * 0.1), width: self.menuWidth * 2.1, height: self.menuWidth * 0.8))
-            soundSubMenu.backgroundColor = UIColor.red
+            let soundSubMenu = UIView(frame: CGRect(x: 0, y: self.soundCueButton.frame.origin.y + (self.menuWidth * 0.2), width: self.menuWidth * 2.1, height: self.menuWidth * 0.6))
             soundSubMenu.tag = 1
             soundSubMenu.addSubview(self.soundTableButton)
             
-            let textSubMenu = UIView(frame: CGRect(x: 0, y: self.textCueButton.frame.origin.y + (self.menuWidth * 0.1), width: self.menuWidth * 2.1, height: self.menuWidth * 0.8))
-            textSubMenu.backgroundColor = UIColor.red
+            let textSubMenu = UIView(frame: CGRect(x: 0, y: self.textCueButton.frame.origin.y + (self.menuWidth * 0.2), width: self.menuWidth * 2.1, height: self.menuWidth * 0.6))
             textSubMenu.tag = 1
             textSubMenu.addSubview(self.noteTableButton)
             
@@ -317,9 +322,9 @@ class ProjectViewController: UIViewController, UIPageViewControllerDelegate, UIT
             self.cueMenuShadowLayer.insertSubview(textSubMenu, belowSubview: self.cueMenuShapeLayer)
             
             UIView.animate(withDuration: 0.2, animations: {
-                lightSubMenu.frame.origin.x -= self.menuWidth * 1.6
-                soundSubMenu.frame.origin.x -= self.menuWidth * 1.6
-                textSubMenu.frame.origin.x -= self.menuWidth * 1.6
+                lightSubMenu.frame.origin.x -= self.menuWidth * 0.8
+                soundSubMenu.frame.origin.x -= self.menuWidth * 0.8
+                textSubMenu.frame.origin.x -= self.menuWidth * 0.8
             }, completion: {
                 (value: Bool) in
             })

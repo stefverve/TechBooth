@@ -248,9 +248,41 @@ class DataManager {
 	}
 	
 	
-	
-	
-	
+    func exportPDF() {
+        let fileName = "Script.PDF"
+        let writePath = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName).path
+        
+        let pageSize = document.page(at: 1)?.getBoxRect(CGPDFBox.mediaBox)
+        
+        UIGraphicsBeginPDFContextToFile(writePath, CGRect.zero, nil)
+        
+        let currentContext = UIGraphicsGetCurrentContext()
+        //currentContext!.textMatrix = CGAffineTransform .identity
+        
+        for page in 1...document.numberOfPages {
+            
+            let renderView = UIView(frame: pageSize!)
+            
+            for annotation in DataManager.share.fetchPageAnnotations(page: page) {
+                let annot = Annot.init(annotation: annotation, rect: renderView.bounds, allowEdits: false)
+                renderView.addSubview(annot)
+            }
+            
+            UIGraphicsBeginPDFPageWithInfo(CGRect(x: 0, y: 0, width: (pageSize?.size.width)!, height: (pageSize?.size.height)!), nil)
+            currentContext!.scaleBy(x: 1.0, y: -1.0)
+            currentContext!.translateBy(x: 0, y: -(pageSize?.size.height)!)
+            let pageToDraw = document.page(at: page)
+            
+            currentContext!.drawPDFPage(pageToDraw!)
+            
+            currentContext!.scaleBy(x: 1.0, y: -1.0)
+            currentContext!.translateBy(x: 0, y: -(pageSize?.size.height)!)
+            
+            renderView.layer.render(in: currentContext!) 
+            
+        }
+        UIGraphicsEndPDFContext()
+    }
 	
 	func exportCSV() -> URL? {
 //		if (GIDSignIn.sharedInstance().currentUser != nil) {

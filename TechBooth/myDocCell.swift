@@ -10,5 +10,6 @@ import UIKit
 
 class myDocCell: UICollectionViewCell {
     
-	@IBOutlet weak var pdfPreview: UIImageView!
+    @IBOutlet weak var pdfView: PDFView!
+	
 }

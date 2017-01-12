@@ -72,6 +72,10 @@ class MainMenuView: UIViewController, GIDSignInUIDelegate, UICollectionViewDeleg
   		self.dismiss(animated: true, completion: nil)
 	}
 	
+    @IBAction func makePDF(_ sender: UIButton) {
+        
+    }
+    
 	@IBAction func exportRecent(_ sender: UIButton) {
 		let path = DataManager.share.exportCSV()
 		
@@ -84,7 +88,13 @@ class MainMenuView: UIViewController, GIDSignInUIDelegate, UICollectionViewDeleg
 			
 			//if let filePath = Bundle.main.path(forResource: "\(path)", ofType: "csv") {
 			if let fileData = NSData(contentsOf: path!) {
-					mailComposer.addAttachmentData(fileData as Data, mimeType: "text/csv", fileName: "\(DataManager.share.currentProject!.name!)")
+                mailComposer.addAttachmentData(fileData as Data, mimeType: "text/csv", fileName: "\(DataManager.share.currentProject!.name!)")
+                DataManager.share.exportPDF()
+                let pdfPath = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("Script.PDF").path
+                let url = NSURL .fileURL(withPath: pdfPath)
+                let pdfData = NSData(contentsOf: url)
+                mailComposer.addAttachmentData(pdfData as! Data, mimeType: "application/pdf", fileName: "\(DataManager.share.currentProject!.name!) - PDF")
+                
 				if fileData.length == 0 {
 					mailComposer.setMessageBody("No annotations to export!", isHTML: false)
 				}
@@ -120,7 +130,7 @@ class MainMenuView: UIViewController, GIDSignInUIDelegate, UICollectionViewDeleg
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		return 0
+		return 1
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -131,7 +141,7 @@ class MainMenuView: UIViewController, GIDSignInUIDelegate, UICollectionViewDeleg
 		
 		
 		
-		cell.pdfPreview.image = DataManager.share.imageFromPDF(pageNum: 1)
+		cell.pdfView.page = DataManager.share.document.page(at: 1)
 		
 		return cell
 	}
