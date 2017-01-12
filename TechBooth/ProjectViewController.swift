@@ -120,6 +120,7 @@ class ProjectViewController: UIViewController, UIPageViewControllerDelegate, UIT
         cueMenuShapeLayer.addSubview(lightCueButton)
         
         lightCueButton.setImage(UIImage(named: "Light"), for: .normal)
+        lightCueButton.imageEdgeInsets = UIEdgeInsetsMake(menuWidth/12, menuWidth/12, menuWidth/12, menuWidth/12)
         soundCueButton.setImage(UIImage(named: "Speakers"), for: .normal)
         textCueButton.setImage(UIImage(named: "Notes"), for: .normal)
         
@@ -217,27 +218,35 @@ class ProjectViewController: UIViewController, UIPageViewControllerDelegate, UIT
         
         settingsMenuButton.addTarget(self, action: #selector(self.showSettingsMenu), for: .touchUpInside)
         settingsMenuButton.backgroundColor = UIColor.darkGray
-//        settingsMenuButton.setImage(UIImage(named: "menu-button"), for: .normal)
-//        settingsMenuButton.imageView?.tintColor = UIColor.lightGray
+        settingsMenuButton.setImage(UIImage(named: "menu-button"), for: .normal)
+        settingsMenuButton.imageView?.tintColor = UIColor.lightGray
+        settingsMenuButton.imageEdgeInsets = UIEdgeInsetsMake(menuWidth/4, menuWidth/4, menuWidth/4, menuWidth/4)
         
         mainMenuButton.centerYAnchor.constraint(equalTo: settingsMenuShapeLayer.centerYAnchor).isActive = true
         mainMenuButton.widthAnchor.constraint(equalTo: settingsMenuShapeLayer.widthAnchor).isActive = true
         mainMenuButton.centerXAnchor.constraint(equalTo: settingsMenuShapeLayer.centerXAnchor).isActive = true
         mainMenuButton.heightAnchor.constraint(equalTo: settingsMenuShapeLayer.widthAnchor, multiplier: 1).isActive = true
         
-        mainMenuButton.backgroundColor = UIColor(red: 0.9, green: 0.95, blue: 1, alpha: 1)
+        mainMenuButton.backgroundColor = UIColor.darkGray
         mainMenuButton.addTarget(self, action: #selector(dismissProjectView), for: .touchUpInside)
-//        mainMenuButton.setImage(UIImage(named: "back-button"), for: .normal)
-//        mainMenuButton.imageView?.tintColor = UIColor.darkGray
+        mainMenuButton.setImage(UIImage(named: "back-button"), for: .normal)
+        mainMenuButton.imageView?.tintColor = UIColor.lightGray
+        mainMenuButton.imageEdgeInsets = UIEdgeInsetsMake(menuWidth*0.2, menuWidth*0.15, menuWidth*0.1, menuWidth*0.15)
         
         presentationButton.centerXAnchor.constraint(equalTo: settingsMenuShapeLayer.centerXAnchor).isActive = true
         presentationButton.widthAnchor.constraint(equalTo: settingsMenuShapeLayer.widthAnchor).isActive = true
         presentationButton.topAnchor.constraint(equalTo: settingsMenuShapeLayer.topAnchor).isActive = true
         presentationButton.heightAnchor.constraint(equalTo: settingsMenuShapeLayer.widthAnchor, multiplier: 1).isActive = true
         
-        presentationButton.backgroundColor = UIColor.orange
+        presentationButton.backgroundColor = UIColor.darkGray
         presentationButton.addTarget(self, action: #selector(presentationMode), for: .touchUpInside)
-        presentationButton.setImage(UIImage(named: "PDFIcon"), for: .normal)
+        presentationButton.setImage(UIImage(named: "spotlight"), for: .normal)
+        presentationButton.imageView?.tintColor = UIColor.lightGray
+//        presentationButton.imageEdgeInsets = UIEdgeInsetsMake(menuWidth*0.9, menuWidth*0.9, menuWidth*0.9, menuWidth*0.9)
+        presentationButton.imageView?.translatesAutoresizingMaskIntoConstraints = false
+        let presentationButtonScaleFactor = (menuWidth*0.8)/(presentationButton.imageView?.frame.width)!
+        presentationButton.imageView?.transform = CGAffineTransform(scaleX: presentationButtonScaleFactor, y: -presentationButtonScaleFactor)
+        
         
         lightTableButton.frame = CGRect(x: 0, y: 0, width: menuWidth * 0.8, height: menuWidth * 0.6)
         lightTableButton.backgroundColor = UIColor.lightGray
