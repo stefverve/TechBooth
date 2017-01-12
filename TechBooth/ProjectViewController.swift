@@ -220,7 +220,7 @@ class ProjectViewController: UIViewController, UIPageViewControllerDelegate, UIT
         settingsMenuButton.backgroundColor = UIColor.darkGray
         settingsMenuButton.setImage(UIImage(named: "menu-button"), for: .normal)
         settingsMenuButton.imageView?.tintColor = UIColor.lightGray
-        settingsMenuButton.imageEdgeInsets = UIEdgeInsetsMake(menuWidth/4, menuWidth/4, menuWidth/4, menuWidth/4)
+        settingsMenuButton.imageEdgeInsets = UIEdgeInsetsMake(menuWidth*0.25, menuWidth*0.25, menuWidth*0.25, menuWidth*0.25)
         
         mainMenuButton.centerYAnchor.constraint(equalTo: settingsMenuShapeLayer.centerYAnchor).isActive = true
         mainMenuButton.widthAnchor.constraint(equalTo: settingsMenuShapeLayer.widthAnchor).isActive = true
@@ -229,9 +229,9 @@ class ProjectViewController: UIViewController, UIPageViewControllerDelegate, UIT
         
         mainMenuButton.backgroundColor = UIColor.darkGray
         mainMenuButton.addTarget(self, action: #selector(dismissProjectView), for: .touchUpInside)
-        mainMenuButton.setImage(UIImage(named: "back-button"), for: .normal)
+        mainMenuButton.setImage(UIImage(named: "return"), for: .normal)
         mainMenuButton.imageView?.tintColor = UIColor.lightGray
-        mainMenuButton.imageEdgeInsets = UIEdgeInsetsMake(menuWidth*0.2, menuWidth*0.15, menuWidth*0.1, menuWidth*0.15)
+        mainMenuButton.imageEdgeInsets = UIEdgeInsetsMake(menuWidth*0.15, menuWidth*0.1, menuWidth*0.05, menuWidth*0.1)
         
         presentationButton.centerXAnchor.constraint(equalTo: settingsMenuShapeLayer.centerXAnchor).isActive = true
         presentationButton.widthAnchor.constraint(equalTo: settingsMenuShapeLayer.widthAnchor).isActive = true
