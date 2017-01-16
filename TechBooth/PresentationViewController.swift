@@ -24,6 +24,7 @@ class PresentationViewController: UIViewController {
     var cueOverlayTop = UIView()
     var cueOverlayBottom = UIView()
     var client: UDPClient!
+    var markerPDFPage: UIView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,8 +65,8 @@ class PresentationViewController: UIViewController {
         cueOverlayTop.layer.shadowOpacity = 0.2
         cueOverlayTop.layer.shadowRadius = 10
         
-        pdfScrollView.addSubview(cueOverlayTop)
         pdfScrollView.addSubview(cueOverlayBottom)
+        pdfScrollView.addSubview(cueOverlayTop)
         layoutCueOverlay()
         
         goButton.layer.cornerRadius = goButton.frame.height/2
@@ -103,7 +104,7 @@ class PresentationViewController: UIViewController {
         
         scrollToCue()
         
-        client = UDPClient(address: "192.168.2.39", port: 53535)
+        client = UDPClient(address: "172.46.0.224", port: 53535)
         
         let _ = client.send(string: "/workspace/2A8E5202-98F1-4A45-8AC7-0BC365522087/showMode 1")
         let _ = client.send(string: "/workspace/7AC16D43-DBEB-43AB-A0C2-6D2CA7989F1D/showMode 1")
@@ -124,11 +125,16 @@ class PresentationViewController: UIViewController {
         let bottomPath = CGMutablePath()
         bottomPath.addRect(cueOverlayBottom.bounds)
         cueOverlayBottom.layer.shadowPath = bottomPath
-        
+            
         
     }
     
     func scrollToCue() {
+        
+        if annotIndex > 0 {
+            removeShadow(annot: annots[annotIndex - 1])
+        }
+        
         var rectToDisplay = pdfScrollView.convert(annots[annotIndex].annotBox.frame.union(annots[annotIndex].annotDotContainer.frame), from: annots[annotIndex])
         
         if rectToDisplay.height <= view.frame.height - dock.frame.height - 100 {
@@ -143,9 +149,15 @@ class PresentationViewController: UIViewController {
         }
         
         pdfScrollView.scrollRectToVisible(rectToDisplay, animated: true)
+        
+        
+        addShadow(annot: annots[annotIndex])
+        
     }
     
     @IBAction func goButton(_ sender: UIButton) {
+        
+        
         
         if annots[annotIndex].annotType == .sound {
             let _ = client.send(string: "/workspace/2A8E5202-98F1-4A45-8AC7-0BC365522087/go")
@@ -242,7 +254,31 @@ class PresentationViewController: UIViewController {
         
     }
     
-
+    func addShadow(annot: Annot) {
+      /*  let newRect = pdfScrollView.convert(annot.frame, from: annot.superview)
+        
+        
+        annot.layer.shadowColor = UIColor.white.cgColor
+        annot.layer.shadowRadius = 5
+        annot.layer.shadowOpacity = 0.5
+        
+        annot.frame = newRect.offsetBy(dx: 20, dy: 0)
+        markerPDFPage = annot.superview
+        cueOverlayTop.addSubview(annot) */
+    }
+    
+    func removeShadow(annot: Annot) {
+     /*
+        let newRect = pdfScrollView.subviews[annot.pageNum - 1].convert(annot.frame, from: annot.superview)
+        
+        
+        annot.layer.shadowOpacity = 0
+        
+        annot.frame = newRect.offsetBy(dx: 0, dy: 0)
+        markerPDFPage?.addSubview(annot)   
+ */
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

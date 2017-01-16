@@ -31,6 +31,7 @@
 		E281E9D41E01DE8A00CC8E74 /* LightsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E281E9D31E01DE8A00CC8E74 /* LightsViewController.swift */; };
 		E281E9D81E01DFB100CC8E74 /* PresentationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E281E9D71E01DFB100CC8E74 /* PresentationViewController.swift */; };
 		E281E9FE1E01FADE00CC8E74 /* ModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E281E9FD1E01FADE00CC8E74 /* ModelController.swift */; };
+		E28273241E27E51B00FF16C1 /* TextShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28273231E27E51B00FF16C1 /* TextShadowView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +63,7 @@
 		E281E9D31E01DE8A00CC8E74 /* LightsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LightsViewController.swift; sourceTree = "<group>"; };
 		E281E9D71E01DFB100CC8E74 /* PresentationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentationViewController.swift; sourceTree = "<group>"; };
 		E281E9FD1E01FADE00CC8E74 /* ModelController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelController.swift; sourceTree = "<group>"; };
+		E28273231E27E51B00FF16C1 /* TextShadowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextShadowView.swift; sourceTree = "<group>"; };
 		E48B21ACBD0258E06E2958C7 /* Pods_TechBooth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TechBooth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6426A3E4C1D083B327A0D1A /* Pods-TechBooth.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TechBooth.release.xcconfig"; path = "Pods/Target Support Files/Pods-TechBooth/Pods-TechBooth.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -134,6 +136,7 @@
 				E281E9FD1E01FADE00CC8E74 /* ModelController.swift */,
 				E2140DFE1E0348BF008B91C9 /* EditMenu.swift */,
 				E20960AC1E19A0E000AECD31 /* CueMenuShadowView.swift */,
+				E28273231E27E51B00FF16C1 /* TextShadowView.swift */,
 				E2140DFF1E0348BF008B91C9 /* EditMenu.xib */,
 				E281E9D31E01DE8A00CC8E74 /* LightsViewController.swift */,
 				E26229E61E084335007038A1 /* Annot.swift */,
@@ -297,6 +300,7 @@
 				E281E9CC1E01BAD600CC8E74 /* ProjectViewController.swift in Sources */,
 				E281E9D81E01DFB100CC8E74 /* PresentationViewController.swift in Sources */,
 				E281E9D01E01D8A000CC8E74 /* pdfView.swift in Sources */,
+				E28273241E27E51B00FF16C1 /* TextShadowView.swift in Sources */,
 				E281E9FE1E01FADE00CC8E74 /* ModelController.swift in Sources */,
 				A0CF07701E132C8200A444AC /* myDocCell.swift in Sources */,
 				E281E9D41E01DE8A00CC8E74 /* LightsViewController.swift in Sources */,
