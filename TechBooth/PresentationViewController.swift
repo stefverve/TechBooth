@@ -131,10 +131,6 @@ class PresentationViewController: UIViewController {
     
     func scrollToCue() {
         
-        if annotIndex > 0 {
-            removeShadow(annot: annots[annotIndex - 1])
-        }
-        
         var rectToDisplay = pdfScrollView.convert(annots[annotIndex].annotBox.frame.union(annots[annotIndex].annotDotContainer.frame), from: annots[annotIndex])
         
         if rectToDisplay.height <= view.frame.height - dock.frame.height - 100 {
@@ -150,14 +146,11 @@ class PresentationViewController: UIViewController {
         
         pdfScrollView.scrollRectToVisible(rectToDisplay, animated: true)
         
-        
-        addShadow(annot: annots[annotIndex])
-        
     }
     
     @IBAction func goButton(_ sender: UIButton) {
         
-        
+        removeShadow(annot: annots[annotIndex])
         
         if annots[annotIndex].annotType == .sound {
             let _ = client.send(string: "/workspace/2A8E5202-98F1-4A45-8AC7-0BC365522087/go")
@@ -174,7 +167,7 @@ class PresentationViewController: UIViewController {
         }
         } while (annots[annotIndex].annotType == .note)
         
-        
+        addShadow(annot: annots[annotIndex])
         
         
 //        switch client.send(string: "/cue/next") {
@@ -212,9 +205,13 @@ class PresentationViewController: UIViewController {
     
     @IBAction func previousCue(_ sender: UIButton) {
         
+        removeShadow(annot: annots[annotIndex])
+        
         repeat {
             if annotIndex > 0 {
+                
                 annotIndex -= 1
+                
             } else {
                 print("no more cues")
                 break
@@ -227,12 +224,16 @@ class PresentationViewController: UIViewController {
             let _ = client.send(string: "/workspace/7AC16D43-DBEB-43AB-A0C2-6D2CA7989F1D/select/previous")
         }
         
+        addShadow(annot: annots[annotIndex])
+        
         layoutCueOverlay()
         scrollToCue()
         
     }
     
     @IBAction func skipCue(_ sender: UIButton) {
+        
+        removeShadow(annot: annots[annotIndex])
         
         repeat {
             if annotIndex < annots.count - 1 {
@@ -249,34 +250,36 @@ class PresentationViewController: UIViewController {
             let _ = client.send(string: "/workspace/7AC16D43-DBEB-43AB-A0C2-6D2CA7989F1D/select/next")
         }
         
+        addShadow(annot: annots[annotIndex])
+        
         layoutCueOverlay()
         scrollToCue()
         
     }
     
     func addShadow(annot: Annot) {
-      /*  let newRect = pdfScrollView.convert(annot.frame, from: annot.superview)
+        let newRect = pdfScrollView.convert(annot.frame, from: annot.superview)
         
         
-        annot.layer.shadowColor = UIColor.white.cgColor
-        annot.layer.shadowRadius = 5
-        annot.layer.shadowOpacity = 0.5
+//        annot.layer.shadowColor = UIColor.white.cgColor
+//        annot.layer.shadowRadius = 15
+//        annot.layer.shadowOpacity = 0.8
         
         annot.frame = newRect.offsetBy(dx: 20, dy: 0)
         markerPDFPage = annot.superview
-        cueOverlayTop.addSubview(annot) */
+        cueOverlayTop.addSubview(annot)
     }
     
     func removeShadow(annot: Annot) {
-     /*
+     
         let newRect = pdfScrollView.subviews[annot.pageNum - 1].convert(annot.frame, from: annot.superview)
         
         
-        annot.layer.shadowOpacity = 0
+//        annot.layer.shadowOpacity = 0
         
         annot.frame = newRect.offsetBy(dx: 0, dy: 0)
         markerPDFPage?.addSubview(annot)   
- */
+ 
     }
     
     override func didReceiveMemoryWarning() {
