@@ -46,16 +46,16 @@ class Annot: UIView {
     
     init(pageNum: Int, dotLocation: CGPoint, rect: CGRect, type: AnnotType, allowEdits: Bool) {
         super.init(frame: rect)
-        self.isUserInteractionEnabled = true
-        self.backgroundColor = UIColor.clear
-        self.boxWidth = self.bounds.size.width * 0.2 + boxOffset
-        self.pageSize = rect
-        self.annotType = type
+        isUserInteractionEnabled = true
+        backgroundColor = UIColor.clear
+        boxWidth = self.bounds.size.width * 0.2 + boxOffset
+        pageSize = rect
+        annotType = type
         self.pageNum = pageNum + 1
         
-        self.colorFromEnum(type: type)
+        colorFromEnum(type: type)
         
-        self.createAnnotDot(dotLocation: dotLocation)
+        createAnnotDot(dotLocation: dotLocation)
         
         // set up Annotation Box frame
         
@@ -80,12 +80,12 @@ class Annot: UIView {
         
         
         // Core Data
-        self.annot = DataManager.share.makeAnnotation(page: pageNum + 1,
+        annot = DataManager.share.makeAnnotation(page: pageNum + 1,
                                                       type: type.rawValue,
-                                                      inRect: self.pageSize,
+                                                      inRect: pageSize,
                                                       box: boxRect,
-                                                      point: self.annotDotContainer.center)
-        self.createAnnotBox(rect: boxRect)
+                                                      point: annotDotContainer.center)
+        createAnnotBox(rect: boxRect)
         
         if allowEdits {
             setupGestures()
@@ -95,25 +95,25 @@ class Annot: UIView {
     }
     
     func makeAnnotDesc() {
-        self.annot?.cueDescription = "HAHAHAHAHAHAHA"
+        annot?.cueDescription = "HAHAHAHAHAHAHA"
         DataManager.share.saveContext()
     }
     
     init(annotation: Annotation, rect: CGRect, allowEdits: Bool) {
         
         super.init(frame: rect)
-        self.pageSize = rect
-        self.annot = annotation
-        self.annotType = AnnotType(rawValue: Int(annotation.type))!
-        self.colorFromEnum(type: self.annotType)
-        self.boxWidth = self.bounds.size.width * 0.2 + boxOffset
-        self.isUserInteractionEnabled = true
-        self.backgroundColor = UIColor.clear
-        self.pageNum = Int(annotation.pageNumber)
-        self.createAnnotDot(dotLocation: self.mapToPoint(x: annot!.dotX, y: annot!.dotY))
-        self.createAnnotBox(rect: self.mapToRect(x: annot!.boxX, y: annot!.boxY, width: annot!.boxWidth, height: annot!.boxHeight))
+        pageSize = rect
+        annot = annotation
+        annotType = AnnotType(rawValue: Int(annotation.type))!
+        colorFromEnum(type: annotType)
+        boxWidth = bounds.size.width * 0.2 + boxOffset
+        isUserInteractionEnabled = true
+        backgroundColor = UIColor.clear
+        pageNum = Int(annotation.pageNumber)
+        createAnnotDot(dotLocation: mapToPoint(x: annot!.dotX, y: annot!.dotY))
+        createAnnotBox(rect: mapToRect(x: annot!.boxX, y: annot!.boxY, width: annot!.boxWidth, height: annot!.boxHeight))
         if allowEdits {
-            self.setupGestures()
+            setupGestures()
         }
     }
     
@@ -125,11 +125,11 @@ class Annot: UIView {
     
     func colorFromEnum(type: AnnotType) {
         if type == AnnotType.light {
-            self.annotColor = .blue
+            annotColor = .blue
         } else if type == AnnotType.sound {
-            self.annotColor = .orange
+            annotColor = .orange
         } else {
-            self.annotColor = .gray
+            annotColor = .gray
         }
     }
     

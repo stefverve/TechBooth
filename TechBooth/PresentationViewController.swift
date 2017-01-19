@@ -25,6 +25,7 @@ class PresentationViewController: UIViewController {
     var cueOverlayBottom = UIView()
     var client: UDPClient!
     var markerPDFPage: UIView?
+    var annotBoxShadow = UIView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,6 +74,8 @@ class PresentationViewController: UIViewController {
         goButton.layer.borderWidth = 4
         goButton.layer.borderColor = UIColor.green.cgColor
         
+        annotBoxShadow.backgroundColor = UIColor.white
+        
         let nextPath = UIBezierPath()
         nextPath.move(to: CGPoint(x: 0, y: 5))
         nextPath.addArc(withCenter: CGPoint(x: 5, y: 5) , radius: 5, startAngle: CGFloat(M_PI), endAngle: 3*CGFloat(M_PI_2), clockwise: true)
@@ -102,9 +105,11 @@ class PresentationViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         
+        addShadow(annot: annots[annotIndex])
+        
         scrollToCue()
         
-        client = UDPClient(address: "172.46.0.224", port: 53535)
+        client = UDPClient(address: "192.168.0.114", port: 53535)
         
         let _ = client.send(string: "/workspace/2A8E5202-98F1-4A45-8AC7-0BC365522087/showMode 1")
         let _ = client.send(string: "/workspace/7AC16D43-DBEB-43AB-A0C2-6D2CA7989F1D/showMode 1")
@@ -167,7 +172,7 @@ class PresentationViewController: UIViewController {
         }
         } while (annots[annotIndex].annotType == .note)
         
-        addShadow(annot: annots[annotIndex])
+        
         
         
 //        switch client.send(string: "/cue/next") {
@@ -201,6 +206,7 @@ class PresentationViewController: UIViewController {
         
         layoutCueOverlay()
         scrollToCue()
+        addShadow(annot: annots[annotIndex])
     }
     
     @IBAction func previousCue(_ sender: UIButton) {
@@ -224,10 +230,11 @@ class PresentationViewController: UIViewController {
             let _ = client.send(string: "/workspace/7AC16D43-DBEB-43AB-A0C2-6D2CA7989F1D/select/previous")
         }
         
-        addShadow(annot: annots[annotIndex])
+        
         
         layoutCueOverlay()
         scrollToCue()
+        addShadow(annot: annots[annotIndex])
         
     }
     
@@ -250,23 +257,27 @@ class PresentationViewController: UIViewController {
             let _ = client.send(string: "/workspace/7AC16D43-DBEB-43AB-A0C2-6D2CA7989F1D/select/next")
         }
         
-        addShadow(annot: annots[annotIndex])
         
         layoutCueOverlay()
         scrollToCue()
+        addShadow(annot: annots[annotIndex])
         
     }
     
     func addShadow(annot: Annot) {
         let newRect = pdfScrollView.convert(annot.frame, from: annot.superview)
         
+        annotBoxShadow.frame = annot.annotBox.frame
+        annotBoxShadow.layer.cornerRadius = annot.annotBox.layer.cornerRadius
         
-//        annot.layer.shadowColor = UIColor.white.cgColor
-//        annot.layer.shadowRadius = 15
-//        annot.layer.shadowOpacity = 0.8
+        annot.annotBox.layer.borderWidth = 4
+        annot.annotDotContainer.layer.borderWidth = 0.5
+        annot.annotDotContainer.layer.borderColor = annot.annotColor.cgColor
         
         annot.frame = newRect.offsetBy(dx: 20, dy: 0)
         markerPDFPage = annot.superview
+        
+        annot.insertSubview(annotBoxShadow, belowSubview: annot.annotBox)
         cueOverlayTop.addSubview(annot)
     }
     
@@ -274,10 +285,11 @@ class PresentationViewController: UIViewController {
      
         let newRect = pdfScrollView.subviews[annot.pageNum - 1].convert(annot.frame, from: annot.superview)
         
-        
-//        annot.layer.shadowOpacity = 0
+        annot.annotBox.layer.borderWidth = 1
+        annot.annotDotContainer.layer.borderWidth = 0
         
         annot.frame = newRect.offsetBy(dx: 0, dy: 0)
+        annotBoxShadow.removeFromSuperview()
         markerPDFPage?.addSubview(annot)   
  
     }
