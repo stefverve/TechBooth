@@ -230,8 +230,6 @@ class PresentationViewController: UIViewController {
             let _ = client.send(string: "/workspace/7AC16D43-DBEB-43AB-A0C2-6D2CA7989F1D/select/previous")
         }
         
-        
-        
         layoutCueOverlay()
         scrollToCue()
         addShadow(annot: annots[annotIndex])
@@ -273,6 +271,7 @@ class PresentationViewController: UIViewController {
         annot.annotBox.layer.borderWidth = 4
         annot.annotDotContainer.layer.borderWidth = 0.5
         annot.annotDotContainer.layer.borderColor = annot.annotColor.cgColor
+        annot.annotDotContainer.layer.cornerRadius = annot.annotDotContainer.bounds.height/2
         
         annot.frame = newRect.offsetBy(dx: 20, dy: 0)
         markerPDFPage = annot.superview
@@ -287,6 +286,7 @@ class PresentationViewController: UIViewController {
         
         annot.annotBox.layer.borderWidth = 1
         annot.annotDotContainer.layer.borderWidth = 0
+        annot.annotDotContainer.layer.cornerRadius = 0
         
         annot.frame = newRect.offsetBy(dx: 0, dy: 0)
         annotBoxShadow.removeFromSuperview()
