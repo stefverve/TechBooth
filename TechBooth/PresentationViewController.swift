@@ -257,7 +257,6 @@ class PresentationViewController: UIViewController {
             let _ = client.send(string: "/workspace/7AC16D43-DBEB-43AB-A0C2-6D2CA7989F1D/select/next")
         }
         
-        
         layoutCueOverlay()
         scrollToCue()
         addShadow(annot: annots[annotIndex])
@@ -265,6 +264,7 @@ class PresentationViewController: UIViewController {
     }
     
     func addShadow(annot: Annot) {
+        
         let newRect = pdfScrollView.convert(annot.frame, from: annot.superview)
         
         annotBoxShadow.frame = annot.annotBox.frame
