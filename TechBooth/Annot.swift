@@ -18,7 +18,7 @@ protocol AnnotDelegate {
     func relabelAnnots()
 }
 
-class Annot: UIView {
+class Annot: UIView, UITextFieldDelegate {
     
     // MARK: Properties
     
@@ -41,6 +41,7 @@ class Annot: UIView {
     var cueLabel = UILabel()
     var descriptionLabel = UILabel()
     var delegate: AnnotDelegate?
+    var annotDescTextField = UITextField()
     
     // MARK: Inits
     
@@ -52,6 +53,9 @@ class Annot: UIView {
         pageSize = rect
         annotType = type
         self.pageNum = pageNum + 1
+        
+        descriptionLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
+        descriptionLabel.numberOfLines = 0
         
         colorFromEnum(type: type)
         
@@ -80,6 +84,7 @@ class Annot: UIView {
         
         
         // Core Data
+        
         annot = DataManager.share.makeAnnotation(page: pageNum + 1,
                                                       type: type.rawValue,
                                                       inRect: pageSize,
@@ -95,8 +100,9 @@ class Annot: UIView {
     }
     
     func makeAnnotDesc() {
-        annot?.cueDescription = "HAHAHAHAHAHAHA"
-        DataManager.share.saveContext()
+        if !subviews.contains(annotDescTextField) {
+            showKeyboard()
+        }
     }
     
     init(annotation: Annotation, rect: CGRect, allowEdits: Bool) {
@@ -112,6 +118,11 @@ class Annot: UIView {
         pageNum = Int(annotation.pageNumber)
         createAnnotDot(dotLocation: mapToPoint(x: annot!.dotX, y: annot!.dotY))
         createAnnotBox(rect: mapToRect(x: annot!.boxX, y: annot!.boxY, width: annot!.boxWidth, height: annot!.boxHeight))
+        descriptionLabel.text = annot?.cueDescription
+        
+        descriptionLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
+        descriptionLabel.numberOfLines = 0
+        
         if allowEdits {
             setupGestures()
         }
@@ -173,6 +184,10 @@ class Annot: UIView {
         let boxTap = UITapGestureRecognizer(target: self, action: #selector(self.editAnnotBox(_:)))
         self.annotBox.addGestureRecognizer(boxTap)
         self.annotDotContainer.isUserInteractionEnabled = true
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(Annot.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(Annot.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        self.annotDescTextField.delegate = self
     }
     
     func moveAnnotDot(_ sender: UIPanGestureRecognizer) {
@@ -271,8 +286,7 @@ class Annot: UIView {
     }
     
     func editText(_ sender: UITapGestureRecognizer) {
-      //  let typeDescriptionView = UIView(frame: self.frame)
-        
+        makeAnnotDesc()
     }
     
     func endEdit(_ sender: UITapGestureRecognizer) {
@@ -284,19 +298,23 @@ class Annot: UIView {
         self.gestureRecognizers = []
         self.resizeHandle.gestureRecognizers = []
         self.instructionOverlay.gestureRecognizers = []
+        if subviews.contains(annotDescTextField) {
+            removeTextField()
+        }
     }
     
     // MARK: AnnotBox Subview Layouts
     
     func layoutAnnotBoxLabels() {
         let annotBoxLabelInset = CGFloat(8)
+        let annotBoxLabelLineHeight = CGFloat(24)
         
         if annotBox.frame.origin.x > 0 {
-            cueLabel.frame = CGRect(x: annotBoxLabelInset, y: annotBoxLabelInset, width: annotBox.frame.size.width - annotBoxLabelInset*2 - boxOffset, height: 24)
-            descriptionLabel.frame = CGRect(x: annotBoxLabelInset, y: annotBoxLabelInset*2 + 24, width: annotBox.frame.size.width - annotBoxLabelInset*2 - boxOffset, height: 24)
+            cueLabel.frame = CGRect(x: annotBoxLabelInset, y: annotBoxLabelInset, width: annotBox.frame.size.width - annotBoxLabelInset*2 - boxOffset, height: annotBoxLabelLineHeight)
+            descriptionLabel.frame = CGRect(x: annotBoxLabelInset, y: annotBoxLabelInset*2 + annotBoxLabelLineHeight, width: annotBox.frame.size.width - annotBoxLabelInset*2 - boxOffset, height: annotBox.frame.height - (annotBoxLabelInset * 3) - cueLabel.frame.height)
         } else {
             cueLabel.frame = CGRect(x: annotBoxLabelInset + boxOffset, y: annotBoxLabelInset, width: annotBox.frame.size.width - annotBoxLabelInset*2 - boxOffset, height: 24)
-            descriptionLabel.frame = CGRect(x: annotBoxLabelInset + boxOffset, y: annotBoxLabelInset*2 + 24, width: annotBox.frame.size.width - annotBoxLabelInset*2 - boxOffset, height: 24)
+            descriptionLabel.frame = CGRect(x: annotBoxLabelInset + boxOffset, y: annotBoxLabelInset*2 + annotBoxLabelLineHeight, width: annotBox.frame.size.width - annotBoxLabelInset*2 - boxOffset, height: annotBox.frame.height - (annotBoxLabelInset * 3) - cueLabel.frame.height)
         }
         cueLabel.text = String("\(self.pageNum).\(self.annot!.cueNum) - \(String(describing: self.annotType).capitalized)")
     }
@@ -399,6 +417,50 @@ class Annot: UIView {
         }
         ctx!.strokePath()
         
+    }
+    
+    // MARK: Text Field Functions
+    
+    func showKeyboard() {
+        annotDescTextField.frame = CGRect(x: 0, y: frame.height - 45, width: frame.width, height: 45)
+        annotDescTextField.backgroundColor = UIColor.white
+        annotDescTextField.borderStyle = UITextBorderStyle.roundedRect
+        annotDescTextField.layer.borderWidth = 0.5
+        annotDescTextField.layer.borderColor = UIColor.darkGray.cgColor
+        annotDescTextField.text = descriptionLabel.text
+        addSubview(annotDescTextField)
+        annotDescTextField.becomeFirstResponder()
+    }
+    
+    func keyboardWillShow(notification: NSNotification) {
+        
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if annotDescTextField.frame.origin.y == frame.height - annotDescTextField.frame.height {
+                annotDescTextField.frame.origin.y -= keyboardSize.height
+            }
+        }
+    }
+    
+    func keyboardWillHide(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if annotDescTextField.frame.origin.y != frame.height - annotDescTextField.frame.height {
+                annotDescTextField.frame.origin.y += keyboardSize.height
+            }
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        removeTextField()
+        endEdit(UITapGestureRecognizer())
+        return false
+    }
+    
+    func removeTextField() {
+        annotDescTextField.endEditing(true)
+        descriptionLabel.text = annotDescTextField.text
+        annot?.cueDescription = descriptionLabel.text
+        DataManager.share.saveContext()
+        annotDescTextField.removeFromSuperview()
     }
 
 }

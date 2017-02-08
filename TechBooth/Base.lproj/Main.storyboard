@@ -9,11 +9,6 @@
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="Stage.ttf">
-            <string>Stage</string>
-        </array>
-    </customFonts>
     <scenes>
         <!--Main Menu View-->
         <scene sceneID="5Oo-Jo-CiQ">
@@ -27,9 +22,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="Zmt-oC-eud">
-                                <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
-                            </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Nzw-9I-TQy">
                                 <rect key="frame" x="392" y="1032" width="240" height="190"/>
                                 <subviews>
@@ -72,38 +64,40 @@
                                 </subviews>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tech Booth" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZVY-Pl-q9t">
-                                <rect key="frame" x="378.5" y="154" width="268.5" height="102"/>
-                                <fontDescription key="fontDescription" name="Stage" family="Stage" pointSize="90"/>
-                                <color key="textColor" red="0.087765803916421567" green="0.00028749079698279963" blue="0.37373798076923082" alpha="1" colorSpace="calibratedRGB"/>
+                                <rect key="frame" x="291" y="151.5" width="442" height="107.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="90"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" prefetchingEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wF1-hL-Aoj">
-                                <rect key="frame" x="103" y="623" width="819" height="120"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" dataMode="prototypes" prefetchingEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wF1-hL-Aoj">
+                                <rect key="frame" x="103" y="512.5" width="819" height="341.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="120" id="ZXQ-jI-ly6"/>
-                                </constraints>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="9Rv-qV-7wW">
-                                    <size key="itemSize" width="109" height="116"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="9Rv-qV-7wW">
+                                    <size key="itemSize" width="235" height="338"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="docCell" id="E7M-3p-V1r" customClass="myDocCell" customModule="TechBooth" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="109" height="116"/>
+                                        <rect key="frame" x="0.0" y="2" width="235" height="338"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="109" height="116"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="235" height="338"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="usf-sF-hd7" customClass="PDFView" customModule="TechBooth" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="109" height="116"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="usf-sF-hd7" customClass="PDFView" customModule="TechBooth" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="235" height="338"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
                                             </subviews>
                                         </view>
+                                        <constraints>
+                                            <constraint firstItem="usf-sF-hd7" firstAttribute="centerX" secondItem="E7M-3p-V1r" secondAttribute="centerX" id="ON4-7q-6xm"/>
+                                            <constraint firstItem="usf-sF-hd7" firstAttribute="height" secondItem="E7M-3p-V1r" secondAttribute="height" id="VMA-s5-UDt"/>
+                                            <constraint firstItem="usf-sF-hd7" firstAttribute="centerY" secondItem="E7M-3p-V1r" secondAttribute="centerY" id="rxp-c5-Svo"/>
+                                            <constraint firstItem="usf-sF-hd7" firstAttribute="width" secondItem="E7M-3p-V1r" secondAttribute="width" id="sTS-yp-kJB"/>
+                                        </constraints>
                                         <connections>
                                             <outlet property="pdfView" destination="usf-sF-hd7" id="MaT-Yz-Cem"/>
                                         </connections>
@@ -115,19 +109,14 @@
                                 </connections>
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PCO-rF-kE6">
-                                <rect key="frame" x="103" y="598" width="89" height="30"/>
-                                <state key="normal" title="Open Recent"/>
+                                <rect key="frame" x="103" y="464.5" width="174" height="48"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="Open Recent">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="openRecent:" destination="lWp-5R-be8" eventType="touchUpInside" id="qdC-MX-wH7"/>
                                     <segue destination="vp0-B0-Il7" kind="show" id="GCh-By-SOt"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YoG-Cp-g0G">
-                                <rect key="frame" x="495" y="596" width="34" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <state key="normal" title="PDF"/>
-                                <connections>
-                                    <action selector="makePDF:" destination="lWp-5R-be8" eventType="touchUpInside" id="8sO-t7-GJc"/>
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="8Em-z6-DmV">
@@ -173,24 +162,19 @@
                                 <variation key="heightClass=compact" axis="horizontal" spacing="10"/>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" red="0.90322093395783087" green="1" blue="0.96052082925520632" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.15686274509803921" green="0.15686274509803921" blue="0.15686274509803921" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="8Em-z6-DmV" firstAttribute="centerY" secondItem="W6w-9r-EoF" secondAttribute="centerY" multiplier="1.7" id="8c5-y0-Xmg"/>
-                            <constraint firstItem="PCO-rF-kE6" firstAttribute="leading" secondItem="wF1-hL-Aoj" secondAttribute="leading" id="F1p-bw-9d1"/>
-                            <constraint firstItem="YoG-Cp-g0G" firstAttribute="centerX" secondItem="Zmt-oC-eud" secondAttribute="centerX" id="K4W-ob-Rok"/>
-                            <constraint firstItem="Zmt-oC-eud" firstAttribute="leading" secondItem="W6w-9r-EoF" secondAttribute="leading" id="Rmw-vn-QHB"/>
+                            <constraint firstItem="PCO-rF-kE6" firstAttribute="leading" secondItem="wF1-hL-Aoj" secondAttribute="leading" id="Ad6-gC-y8n"/>
+                            <constraint firstItem="wF1-hL-Aoj" firstAttribute="width" secondItem="W6w-9r-EoF" secondAttribute="width" multiplier="0.8" id="Dxi-3g-lhx"/>
+                            <constraint firstItem="wF1-hL-Aoj" firstAttribute="top" secondItem="PCO-rF-kE6" secondAttribute="bottom" id="GK5-nP-37a"/>
+                            <constraint firstItem="wF1-hL-Aoj" firstAttribute="height" secondItem="W6w-9r-EoF" secondAttribute="height" multiplier="0.25" id="Rfg-tU-qdw"/>
                             <constraint firstItem="ZVY-Pl-q9t" firstAttribute="centerX" secondItem="W6w-9r-EoF" secondAttribute="centerX" id="V5h-zg-XFQ"/>
-                            <constraint firstItem="wF1-hL-Aoj" firstAttribute="width" secondItem="Zmt-oC-eud" secondAttribute="width" multiplier="0.8" id="VYW-LB-cfz"/>
-                            <constraint firstAttribute="trailing" secondItem="Zmt-oC-eud" secondAttribute="trailing" id="WXI-cH-Bj3"/>
-                            <constraint firstItem="VLh-a4-kLS" firstAttribute="top" secondItem="Zmt-oC-eud" secondAttribute="bottom" id="aLs-sr-Ukr"/>
-                            <constraint firstItem="wF1-hL-Aoj" firstAttribute="centerX" secondItem="Zmt-oC-eud" secondAttribute="centerX" id="alp-Q7-v0n"/>
                             <constraint firstItem="Nzw-9I-TQy" firstAttribute="centerX" secondItem="W6w-9r-EoF" secondAttribute="centerX" id="bBt-pb-l7l"/>
-                            <constraint firstItem="YoG-Cp-g0G" firstAttribute="centerY" secondItem="PCO-rF-kE6" secondAttribute="centerY" id="d5M-c7-Cp3"/>
                             <constraint firstItem="Nzw-9I-TQy" firstAttribute="centerY" secondItem="W6w-9r-EoF" secondAttribute="centerY" multiplier="1.65" id="gmq-WF-3dt"/>
-                            <constraint firstItem="Zmt-oC-eud" firstAttribute="top" secondItem="W6w-9r-EoF" secondAttribute="top" id="nKg-AG-lTq"/>
-                            <constraint firstItem="wF1-hL-Aoj" firstAttribute="centerY" secondItem="Zmt-oC-eud" secondAttribute="centerY" id="ns1-RS-imV"/>
+                            <constraint firstItem="wF1-hL-Aoj" firstAttribute="centerX" secondItem="W6w-9r-EoF" secondAttribute="centerX" id="h4C-0q-YLY"/>
+                            <constraint firstItem="wF1-hL-Aoj" firstAttribute="centerY" secondItem="W6w-9r-EoF" secondAttribute="centerY" id="nUM-vR-dGl"/>
                             <constraint firstItem="8Em-z6-DmV" firstAttribute="centerX" secondItem="W6w-9r-EoF" secondAttribute="centerX" id="u57-lO-V0w"/>
-                            <constraint firstItem="PCO-rF-kE6" firstAttribute="top" secondItem="wF1-hL-Aoj" secondAttribute="top" constant="-25" id="u5E-Go-9gs"/>
                             <constraint firstItem="ZVY-Pl-q9t" firstAttribute="centerY" secondItem="W6w-9r-EoF" secondAttribute="centerY" multiplier="0.3" id="xFC-s3-aqD"/>
                         </constraints>
                         <variation key="default">
@@ -405,7 +389,6 @@
         <image name="SmallDrive" width="180" height="50"/>
         <image name="SmallSheets" width="180" height="50"/>
         <image name="SmallSignin" width="180" height="50"/>
-        <image name="background" width="1023" height="1366"/>
         <image name="return" width="410" height="410"/>
     </resources>
 </document>

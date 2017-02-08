@@ -68,10 +68,6 @@ class ProjectViewController: UIViewController, UIPageViewControllerDelegate, UIT
         self.pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
         self.pageViewController?.delegate = self
         
-//    }
-//
-//    override func viewWillAppear(_ animated: Bool) {
-        
         self.layoutDevice(rect: self.view.bounds)
         self.modelController.pageViewRect = self.pageViewController?.view.bounds
         let startingViewController: SinglePageViewController = self.modelController.viewControllerAtIndex(0, storyboard: self.storyboard!)!
@@ -242,7 +238,6 @@ class ProjectViewController: UIViewController, UIPageViewControllerDelegate, UIT
         presentationButton.addTarget(self, action: #selector(presentationMode), for: .touchUpInside)
         presentationButton.setImage(UIImage(named: "spotlight"), for: .normal)
         presentationButton.imageView?.tintColor = UIColor.lightGray
-//        presentationButton.imageEdgeInsets = UIEdgeInsetsMake(menuWidth*0.9, menuWidth*0.9, menuWidth*0.9, menuWidth*0.9)
         presentationButton.imageView?.translatesAutoresizingMaskIntoConstraints = false
         let presentationButtonScaleFactor = (menuWidth*0.8)/(presentationButton.imageView?.frame.width)!
         presentationButton.imageView?.transform = CGAffineTransform(scaleX: presentationButtonScaleFactor, y: -presentationButtonScaleFactor)

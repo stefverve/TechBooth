@@ -138,12 +138,10 @@ class MainMenuView: UIViewController, GIDSignInUIDelegate, UICollectionViewDeleg
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "docCell", for: indexPath) as! myDocCell
 		
 		
-		
-		
-		
-		
 		cell.pdfView.page = DataManager.share.document.page(at: 1)
 		
+        cell.frame = CGRect(x: 0, y: 0, width: collectionView.bounds.height * (8.5/11), height: collectionView.bounds.height)
+        
 		return cell
 	}
 }

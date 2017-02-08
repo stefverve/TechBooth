@@ -11,8 +11,5 @@ import UIKit
 class TextShadowView: UIView {
 
     var delegate: Annot?
-    
-    
-
 
 }
