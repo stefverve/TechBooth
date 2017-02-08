@@ -18,6 +18,7 @@ class PresentationViewController: UIViewController {
     @IBOutlet weak var previousCueButton: UIButton!
     @IBOutlet weak var nextCueButton: UIButton!
     @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var menuButton: UIButton!
     
     var annots = [Annot]()
     var annotIndex = 0
@@ -53,6 +54,9 @@ class PresentationViewController: UIViewController {
             pdfScrollView.addSubview(pdfView)
             
         }
+        
+        let inset = menuButton.frame.width * 0.25
+        menuButton.contentEdgeInsets = UIEdgeInsetsMake(inset, inset, inset, inset)
 
         // Do any additional setup after loading the view.
     }
@@ -130,7 +134,6 @@ class PresentationViewController: UIViewController {
         let bottomPath = CGMutablePath()
         bottomPath.addRect(cueOverlayBottom.bounds)
         cueOverlayBottom.layer.shadowPath = bottomPath
-            
         
     }
     

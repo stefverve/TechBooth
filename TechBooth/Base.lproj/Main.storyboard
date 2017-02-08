@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -235,10 +236,9 @@
                                 <rect key="frame" x="0.0" y="991" width="1024" height="375"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0W1-qv-cyM">
-                                        <rect key="frame" x="20" y="269" width="100" height="100"/>
+                                        <rect key="frame" x="20" y="275.5" width="93.5" height="93.5"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="100" id="Mrd-Jm-Rld"/>
-                                            <constraint firstAttribute="width" constant="100" id="v2D-ls-Iwi"/>
+                                            <constraint firstAttribute="width" secondItem="0W1-qv-cyM" secondAttribute="height" multiplier="1:1" id="jig-Wv-dOS"/>
                                         </constraints>
                                         <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <state key="normal" image="return"/>
@@ -291,16 +291,26 @@
                                             <action selector="previousCue:" destination="24n-qi-ELF" eventType="touchUpInside" id="FTQ-cJ-SYH"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="35j-GQ-tEY">
+                                        <rect key="frame" x="924.5" y="275.5" width="93.5" height="93.5"/>
+                                        <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal" image="menu-button"/>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.15686274509803921" green="0.15686274509803921" blue="0.15686274509803921" alpha="0.80096098542944782" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="HfI-5k-nSv" firstAttribute="centerY" secondItem="NhI-Ed-xed" secondAttribute="centerY" id="2EZ-3e-sIe"/>
+                                    <constraint firstItem="0W1-qv-cyM" firstAttribute="height" secondItem="EcO-TP-z3S" secondAttribute="height" multiplier="0.25" id="BUT-Mc-ggv"/>
                                     <constraint firstItem="cNU-70-sDI" firstAttribute="centerY" secondItem="NhI-Ed-xed" secondAttribute="centerY" id="D2m-om-YQ4"/>
                                     <constraint firstItem="NhI-Ed-xed" firstAttribute="leading" secondItem="cNU-70-sDI" secondAttribute="trailing" constant="10" id="EAN-4n-wLH"/>
                                     <constraint firstItem="NhI-Ed-xed" firstAttribute="centerY" secondItem="EcO-TP-z3S" secondAttribute="centerY" id="HxF-HR-Rqs"/>
                                     <constraint firstItem="0W1-qv-cyM" firstAttribute="leading" secondItem="EcO-TP-z3S" secondAttribute="leading" constant="20" id="KKu-lR-fhc"/>
+                                    <constraint firstItem="35j-GQ-tEY" firstAttribute="height" secondItem="0W1-qv-cyM" secondAttribute="height" id="SW0-KF-KwD"/>
                                     <constraint firstItem="NhI-Ed-xed" firstAttribute="centerX" secondItem="EcO-TP-z3S" secondAttribute="centerX" id="U9B-Ek-Piz"/>
                                     <constraint firstAttribute="bottom" secondItem="0W1-qv-cyM" secondAttribute="bottom" constant="6" id="dhH-ZB-SsN"/>
+                                    <constraint firstAttribute="trailing" secondItem="35j-GQ-tEY" secondAttribute="trailing" constant="6" id="gwu-Kz-pgY"/>
+                                    <constraint firstAttribute="bottom" secondItem="35j-GQ-tEY" secondAttribute="bottom" constant="6" id="pSn-5X-dBO"/>
+                                    <constraint firstItem="35j-GQ-tEY" firstAttribute="width" secondItem="0W1-qv-cyM" secondAttribute="width" id="pw3-WZ-P9g"/>
                                     <constraint firstItem="HfI-5k-nSv" firstAttribute="leading" secondItem="NhI-Ed-xed" secondAttribute="trailing" constant="10" id="sc8-Bi-unI"/>
                                 </constraints>
                             </view>
@@ -321,6 +331,7 @@
                         <outlet property="backButton" destination="0W1-qv-cyM" id="OhS-do-XJc"/>
                         <outlet property="dock" destination="EcO-TP-z3S" id="osT-WC-dgQ"/>
                         <outlet property="goButton" destination="NhI-Ed-xed" id="RD6-X2-Vee"/>
+                        <outlet property="menuButton" destination="35j-GQ-tEY" id="QQ6-An-Pdu"/>
                         <outlet property="nextCueButton" destination="HfI-5k-nSv" id="f0U-m7-kYg"/>
                         <outlet property="pdfScrollView" destination="qt7-MW-CRh" id="O2K-dT-g6s"/>
                         <outlet property="previousCueButton" destination="cNU-70-sDI" id="CBt-E4-Sf8"/>
@@ -389,6 +400,7 @@
         <image name="SmallDrive" width="180" height="50"/>
         <image name="SmallSheets" width="180" height="50"/>
         <image name="SmallSignin" width="180" height="50"/>
+        <image name="menu-button" width="100" height="100"/>
         <image name="return" width="410" height="410"/>
     </resources>
 </document>
