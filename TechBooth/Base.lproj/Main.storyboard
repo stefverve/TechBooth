@@ -122,6 +122,7 @@
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="8Em-z6-DmV">
                                 <rect key="frame" x="56" y="294" width="554" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s0T-PM-sMa">
                                         <rect key="frame" x="0.0" y="0.0" width="180" height="50"/>
@@ -165,7 +166,6 @@
                         </subviews>
                         <color key="backgroundColor" red="0.15686274509803921" green="0.15686274509803921" blue="0.15686274509803921" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="8Em-z6-DmV" firstAttribute="centerY" secondItem="W6w-9r-EoF" secondAttribute="centerY" multiplier="1.7" id="8c5-y0-Xmg"/>
                             <constraint firstItem="PCO-rF-kE6" firstAttribute="leading" secondItem="wF1-hL-Aoj" secondAttribute="leading" id="Ad6-gC-y8n"/>
                             <constraint firstItem="wF1-hL-Aoj" firstAttribute="width" secondItem="W6w-9r-EoF" secondAttribute="width" multiplier="0.8" id="Dxi-3g-lhx"/>
                             <constraint firstItem="wF1-hL-Aoj" firstAttribute="top" secondItem="PCO-rF-kE6" secondAttribute="bottom" id="GK5-nP-37a"/>
@@ -175,7 +175,6 @@
                             <constraint firstItem="Nzw-9I-TQy" firstAttribute="centerY" secondItem="W6w-9r-EoF" secondAttribute="centerY" multiplier="1.65" id="gmq-WF-3dt"/>
                             <constraint firstItem="wF1-hL-Aoj" firstAttribute="centerX" secondItem="W6w-9r-EoF" secondAttribute="centerX" id="h4C-0q-YLY"/>
                             <constraint firstItem="wF1-hL-Aoj" firstAttribute="centerY" secondItem="W6w-9r-EoF" secondAttribute="centerY" id="nUM-vR-dGl"/>
-                            <constraint firstItem="8Em-z6-DmV" firstAttribute="centerX" secondItem="W6w-9r-EoF" secondAttribute="centerX" id="u57-lO-V0w"/>
                             <constraint firstItem="ZVY-Pl-q9t" firstAttribute="centerY" secondItem="W6w-9r-EoF" secondAttribute="centerY" multiplier="0.3" id="xFC-s3-aqD"/>
                         </constraints>
                         <variation key="default">
@@ -193,7 +192,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l6X-6I-32J" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-535.546875" y="-747.14494875549042"/>
+            <point key="canvasLocation" x="637" y="-909"/>
         </scene>
         <!--Project View Controller-->
         <scene sceneID="hXz-aA-6No">
@@ -339,7 +338,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lry-8t-NxO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1990.4296874999998" y="-54.026354319180086"/>
+            <point key="canvasLocation" x="1536" y="-130"/>
         </scene>
         <!--Single Page View Controller-->
         <scene sceneID="qXm-WE-OQo">
@@ -390,7 +389,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="637" y="620"/>
+            <point key="canvasLocation" x="-343" y="-130"/>
         </scene>
     </scenes>
     <resources>
