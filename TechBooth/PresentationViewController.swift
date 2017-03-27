@@ -55,9 +55,7 @@ class PresentationViewController: UIViewController {
             
         }
         
-        let inset = menuButton.frame.width * 0.25
-        menuButton.contentEdgeInsets = UIEdgeInsetsMake(inset, inset, inset, inset)
-
+        
         // Do any additional setup after loading the view.
     }
     
@@ -105,6 +103,17 @@ class PresentationViewController: UIViewController {
         backMask.path = backPath.cgPath
         previousCueButton.layer.mask = backMask
         
+        let inset = menuButton.frame.width * 0.25
+        print(menuButton.frame)
+        print(backButton.frame)
+        print(inset)
+        menuButton.contentEdgeInsets = UIEdgeInsetsMake(inset, inset, inset, inset)
+        print(menuButton.contentEdgeInsets)
+        
+        backButton.imageView?.tintColor = UIColor.lightGray
+        menuButton.imageView?.tintColor = UIColor.lightGray
+
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -113,7 +122,7 @@ class PresentationViewController: UIViewController {
         
         scrollToCue()
         
-        client = UDPClient(address: "192.168.0.114", port: 53535)
+        client = UDPClient(address: "172.46.1.35", port: 53535)
         
         let _ = client.send(string: "/workspace/2A8E5202-98F1-4A45-8AC7-0BC365522087/showMode 1")
         let _ = client.send(string: "/workspace/7AC16D43-DBEB-43AB-A0C2-6D2CA7989F1D/showMode 1")
