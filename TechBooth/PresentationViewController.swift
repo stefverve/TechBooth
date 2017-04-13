@@ -122,7 +122,7 @@ class PresentationViewController: UIViewController {
         addShadow(annot: annots[annotIndex])
         
         scrollToCue()
-        let ipString = "10.84.66.197"
+        let ipString = "10.84.66.198"
         client = UDPClient(address: ipString, port: 53535)
         ipAddress.text = ipString
         
