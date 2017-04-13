@@ -124,7 +124,7 @@ class MainMenuView: UIViewController, GIDSignInUIDelegate, UICollectionViewDeleg
 		UIApplication.shared.open(driveURL, options: [:], completionHandler: nil)
 	}
 	
-	//MARK: Open Recent CollectionView
+    //MARK: Open Recent CollectionView
 	func numberOfSections(in collectionView: UICollectionView) -> Int {
 		return 1
 	}
