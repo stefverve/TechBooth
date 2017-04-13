@@ -10,6 +10,8 @@ import UIKit
 
 class MainMenuView: UIViewController, GIDSignInUIDelegate, UICollectionViewDelegate, UICollectionViewDataSource, MFMailComposeViewControllerDelegate {
 
+    var dataManager = DataManager.share
+    let projectManager = ProjectManager.share
 	@IBOutlet weak var googleUsernameLabel: UILabel!
 	
 	
@@ -130,15 +132,14 @@ class MainMenuView: UIViewController, GIDSignInUIDelegate, UICollectionViewDeleg
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let projectArray = DataManager.share.fetchEntityArray(name: "Project")
-		return projectArray.count
+		return projectManager.projectArray.count
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "docCell", for: indexPath) as! myDocCell
-		
-		
-		cell.pdfView.page = DataManager.share.document.page(at: 1)
+        let project = projectManager.projectArray[indexPath.row]
+        let pdf = projectManager.openProject(project: project)
+		cell.pdfView.page = pdf.page(at: 1)
 		
         cell.frame = CGRect(x: 0, y: 0, width: collectionView.bounds.height * (8.5/11), height: collectionView.bounds.height)
         

@@ -57,7 +57,19 @@ class DataManager {
 		return persistentContainer.viewContext
 	}
 	
-	
+    func getProjects() -> [Project] {
+        let request = NSFetchRequest<Project>(entityName: "Projet")
+        let sort = NSSortDescriptor(key: "name", ascending: true)
+        request.sortDescriptors = [sort]
+        do {
+            let projectArray = try self.context().fetch(request)
+            return projectArray
+        } catch {
+            return [Project]()
+        }
+    }
+    
+
 	func saveContext () {
 		let context = persistentContainer.viewContext
 		if context.hasChanges {

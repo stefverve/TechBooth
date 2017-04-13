@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		89362AAE1EA00D0A0062F638 /* ProjectManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89362AAD1EA00D0A0062F638 /* ProjectManager.swift */; };
 		A061064C1E03369000442324 /* techboothPDF.png in Resources */ = {isa = PBXBuildFile; fileRef = A061064B1E03369000442324 /* techboothPDF.png */; };
 		A07720661E0480CD00B32EA0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A07720651E0480CD00B32EA0 /* GoogleService-Info.plist */; };
 		A0A239FD1E01C49B00FC2588 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A239FC1E01C49B00FC2588 /* DataManager.swift */; };
@@ -36,6 +37,7 @@
 
 /* Begin PBXFileReference section */
 		6D95031D90F6CE161C5F62F7 /* Pods-TechBooth.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TechBooth.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TechBooth/Pods-TechBooth.debug.xcconfig"; sourceTree = "<group>"; };
+		89362AAD1EA00D0A0062F638 /* ProjectManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectManager.swift; sourceTree = "<group>"; };
 		A05506451E08A8AF00B55F30 /* TechBooth.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TechBooth.entitlements; sourceTree = "<group>"; };
 		A061064B1E03369000442324 /* techboothPDF.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = techboothPDF.png; path = ../techboothPDF.png; sourceTree = "<group>"; };
 		A07720611E04610400B32EA0 /* TechBooth-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TechBooth-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 				E281E9B31E01B32B00CC8E74 /* Main.storyboard */,
 				E281E9AF1E01B32B00CC8E74 /* AppDelegate.swift */,
 				A0A239FC1E01C49B00FC2588 /* DataManager.swift */,
+				89362AAD1EA00D0A0062F638 /* ProjectManager.swift */,
 				E281E9D11E01DDA900CC8E74 /* MainMenuView.swift */,
 				E281E9CB1E01BAD600CC8E74 /* ProjectViewController.swift */,
 				E281E9FD1E01FADE00CC8E74 /* ModelController.swift */,
@@ -267,7 +270,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		ABD87D8F84982ACE9990EDE3 /* [CP] Embed Pods Frameworks */ = {
@@ -293,6 +296,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E281E9D21E01DDA900CC8E74 /* MainMenuView.swift in Sources */,
+				89362AAE1EA00D0A0062F638 /* ProjectManager.swift in Sources */,
 				E281E9B81E01B32B00CC8E74 /* TechBooth.xcdatamodeld in Sources */,
 				A0A239FD1E01C49B00FC2588 /* DataManager.swift in Sources */,
 				E281E9B01E01B32B00CC8E74 /* AppDelegate.swift in Sources */,
