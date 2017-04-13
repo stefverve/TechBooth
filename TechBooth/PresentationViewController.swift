@@ -14,6 +14,7 @@ class PresentationViewController: UIViewController {
     @IBOutlet weak var pdfScrollView: UIScrollView!
     @IBOutlet weak var dock: UIView!
     @IBOutlet weak var goButton: UIButton!
+    @IBOutlet weak var ipAddress: UILabel!
     
     @IBOutlet weak var previousCueButton: UIButton!
     @IBOutlet weak var nextCueButton: UIButton!
@@ -121,8 +122,9 @@ class PresentationViewController: UIViewController {
         addShadow(annot: annots[annotIndex])
         
         scrollToCue()
-        
-        client = UDPClient(address: "172.46.1.35", port: 53535)
+        let ipString = "10.84.66.197"
+        client = UDPClient(address: ipString, port: 53535)
+        ipAddress.text = ipString
         
         let _ = client.send(string: "/workspace/2A8E5202-98F1-4A45-8AC7-0BC365522087/showMode 1")
         let _ = client.send(string: "/workspace/7AC16D43-DBEB-43AB-A0C2-6D2CA7989F1D/showMode 1")

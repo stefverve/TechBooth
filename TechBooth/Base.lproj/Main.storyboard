@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="lWp-5R-be8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="lWp-5R-be8">
     <device id="ipad9_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -295,6 +295,12 @@
                                         <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <state key="normal" image="menu-button"/>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y0s-OU-0X3">
+                                        <rect key="frame" x="363" y="8" width="42" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.15686274509803921" green="0.15686274509803921" blue="0.15686274509803921" alpha="0.80096098542944782" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -307,7 +313,9 @@
                                     <constraint firstItem="35j-GQ-tEY" firstAttribute="height" secondItem="0W1-qv-cyM" secondAttribute="height" id="SW0-KF-KwD"/>
                                     <constraint firstItem="NhI-Ed-xed" firstAttribute="centerX" secondItem="EcO-TP-z3S" secondAttribute="centerX" id="U9B-Ek-Piz"/>
                                     <constraint firstAttribute="bottom" secondItem="0W1-qv-cyM" secondAttribute="bottom" constant="6" id="dhH-ZB-SsN"/>
+                                    <constraint firstItem="Y0s-OU-0X3" firstAttribute="centerX" secondItem="EcO-TP-z3S" secondAttribute="centerX" id="ghV-fb-mpW"/>
                                     <constraint firstAttribute="trailing" secondItem="35j-GQ-tEY" secondAttribute="trailing" constant="6" id="gwu-Kz-pgY"/>
+                                    <constraint firstItem="Y0s-OU-0X3" firstAttribute="top" secondItem="EcO-TP-z3S" secondAttribute="top" constant="8" id="iVy-zF-zQU"/>
                                     <constraint firstAttribute="bottom" secondItem="35j-GQ-tEY" secondAttribute="bottom" constant="6" id="pSn-5X-dBO"/>
                                     <constraint firstItem="35j-GQ-tEY" firstAttribute="width" secondItem="0W1-qv-cyM" secondAttribute="width" id="pw3-WZ-P9g"/>
                                     <constraint firstItem="HfI-5k-nSv" firstAttribute="leading" secondItem="NhI-Ed-xed" secondAttribute="trailing" constant="10" id="sc8-Bi-unI"/>
@@ -330,6 +338,7 @@
                         <outlet property="backButton" destination="0W1-qv-cyM" id="OhS-do-XJc"/>
                         <outlet property="dock" destination="EcO-TP-z3S" id="osT-WC-dgQ"/>
                         <outlet property="goButton" destination="NhI-Ed-xed" id="RD6-X2-Vee"/>
+                        <outlet property="ipAddress" destination="Y0s-OU-0X3" id="DhG-3v-f0m"/>
                         <outlet property="menuButton" destination="35j-GQ-tEY" id="QQ6-An-Pdu"/>
                         <outlet property="nextCueButton" destination="HfI-5k-nSv" id="f0U-m7-kYg"/>
                         <outlet property="pdfScrollView" destination="qt7-MW-CRh" id="O2K-dT-g6s"/>
