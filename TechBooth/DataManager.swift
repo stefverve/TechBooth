@@ -58,7 +58,7 @@ class DataManager {
 	}
 	
     func getProjects() -> [Project] {
-        let request = NSFetchRequest<Project>(entityName: "Projet")
+        let request = NSFetchRequest<Project>(entityName: "Project")
         let sort = NSSortDescriptor(key: "name", ascending: true)
         request.sortDescriptors = [sort]
         do {

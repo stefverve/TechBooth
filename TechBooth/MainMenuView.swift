@@ -34,7 +34,7 @@ class MainMenuView: UIViewController, GIDSignInUIDelegate, UICollectionViewDeleg
 		GIDSignIn.sharedInstance().signInSilently()
 		//googleUsernameLabel.text = GIDSignIn.sharedInstance().currentUser
 		
-//		projectManager.fetchProjects()
+		projectManager.fetchProjects()
 		let projectArray = DataManager.share.fetchEntityArray(name: "Project")
 		var loadProject : Project? = nil
 		
@@ -130,4 +130,9 @@ class MainMenuView: UIViewController, GIDSignInUIDelegate, UICollectionViewDeleg
         
 		return cell
 	}
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+    }
+    
 }
