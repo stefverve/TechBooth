@@ -20,21 +20,6 @@ class MainMenuView: UIViewController, GIDSignInUIDelegate, UICollectionViewDeleg
 		self.dismiss(animated: true, completion: nil)
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-	
 	//MARK: - Google Sign In
 	// Stop the UIActivityIndicatorView animation that was started when the user
 	// pressed the Sign In button
@@ -49,7 +34,7 @@ class MainMenuView: UIViewController, GIDSignInUIDelegate, UICollectionViewDeleg
 		GIDSignIn.sharedInstance().signInSilently()
 		//googleUsernameLabel.text = GIDSignIn.sharedInstance().currentUser
 		
-		
+//		projectManager.fetchProjects()
 		let projectArray = DataManager.share.fetchEntityArray(name: "Project")
 		var loadProject : Project? = nil
 		
@@ -138,7 +123,7 @@ class MainMenuView: UIViewController, GIDSignInUIDelegate, UICollectionViewDeleg
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "docCell", for: indexPath) as! myDocCell
         let project = projectManager.projectArray[indexPath.row]
-        let pdf = projectManager.openProject(project: project)
+        let pdf = projectManager.getPDFForProject(project)
 		cell.pdfView.page = pdf.page(at: 1)
 		
         cell.frame = CGRect(x: 0, y: 0, width: collectionView.bounds.height * (8.5/11), height: collectionView.bounds.height)

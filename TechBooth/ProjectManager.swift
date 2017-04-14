@@ -11,7 +11,7 @@ import UIKit
 class ProjectManager: NSObject {
     static let share = ProjectManager()
     let dir = "Project"
-    var session = Session()
+//    var session = Session()
     var projectArray = [Project]()
     let dataManager = DataManager.share
 
@@ -19,11 +19,11 @@ class ProjectManager: NSObject {
         projectArray = dataManager.getProjects()
     }
     
-    func openProject(project: Project?) -> CGPDFDocument {
+    func getPDFForProject(_ project: Project) -> CGPDFDocument {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         let documentsDirectory = paths[0]
         
-        let path = documentsDirectory.appendingPathComponent("\(dir)/\(project!.name!)/\(project!.pdf!)")
+        let path = documentsDirectory.appendingPathComponent("\(dir)/\(project.name!)/\(project.pdf!)")
         let newDoc = CGPDFDocument(path as CFURL)!
         return newDoc
     }
