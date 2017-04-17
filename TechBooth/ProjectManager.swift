@@ -11,10 +11,9 @@ import UIKit
 class ProjectManager: NSObject {
     static let share = ProjectManager()
     let dir = "Project"
-//    var session = Session()
     var projectArray = [Project]()
     let dataManager = DataManager.share
-
+    var session = Session()
     func fetchProjects() {
         projectArray = dataManager.getProjects()
     }
@@ -22,7 +21,6 @@ class ProjectManager: NSObject {
     func getPDFForProject(_ project: Project) -> CGPDFDocument {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         let documentsDirectory = paths[0]
-        
         let path = documentsDirectory.appendingPathComponent("\(dir)/\(project.name!)/\(project.pdf!)")
         let newDoc = CGPDFDocument(path as CFURL)!
         return newDoc
@@ -41,17 +39,9 @@ extension ProjectManager {
         var pageRect = CGRect()
     }
 
-//    func openProject(project: Project?) {
-//        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-//        let documentsDirectory = paths[0]
-//        
-//        let path = documentsDirectory.appendingPathComponent("\(dir)/\(project!.name!)/\(project!.pdf!)")
-//        let newDoc = CGPDFDocument(path as CFURL)!
-//        session.document = newDoc
-//        session.pageCount = newDoc.numberOfPages
-//        session.pageRect = (newDoc.page(at: 1)?.getBoxRect(CGPDFBox.mediaBox))!
-//        session.project = project!
-//    }
-    
-
+    func beginSession(index: Int) {
+        session.project = projectArray[index]
+        session.project.lastOpened = NSDate()
+        session.document = getPDFForProject(session.project)
+    }
 }

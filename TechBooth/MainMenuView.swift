@@ -132,7 +132,6 @@ class MainMenuView: UIViewController, GIDSignInUIDelegate, UICollectionViewDeleg
 	}
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-    }
-    
+        projectManager.beginSession(index: indexPath.row)
+    }    
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11542" systemVersion="15G1108" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11759" systemVersion="15G1421" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Annotation" representedClassName="Annotation" syncable="YES" codeGenerationType="class">
         <attribute name="boxHeight" optional="YES" attributeType="Float" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="boxWidth" optional="YES" attributeType="Float" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
@@ -15,12 +15,13 @@
         <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Project" inverseName="pdfAnnotations" inverseEntity="Project" syncable="YES"/>
     </entity>
     <entity name="Project" representedClassName="Project" syncable="YES" codeGenerationType="class">
+        <attribute name="lastOpened" attributeType="Date" defaultDateTimeInterval="513909540" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="pdf" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="pdfAnnotations" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Annotation" inverseName="project" inverseEntity="Annotation" syncable="YES"/>
     </entity>
     <elements>
         <element name="Annotation" positionX="-54" positionY="-9" width="128" height="225"/>
-        <element name="Project" positionX="-279" positionY="81" width="128" height="88"/>
+        <element name="Project" positionX="-279" positionY="81" width="128" height="105"/>
     </elements>
 </model>
