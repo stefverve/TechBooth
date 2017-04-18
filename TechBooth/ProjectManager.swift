@@ -42,6 +42,7 @@ extension ProjectManager {
     func beginSession(index: Int) {
         session.project = projectArray[index]
         session.project.lastOpened = NSDate()
+        dataManager.saveContext()
         session.document = getPDFForProject(session.project)
     }
 }

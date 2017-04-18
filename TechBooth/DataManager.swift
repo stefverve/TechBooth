@@ -172,7 +172,6 @@ class DataManager {
 			} catch let error {
 				print("Error: \(error.localizedDescription)")
 			}
-			
 			openProject(project: project)
 		}
 	}
