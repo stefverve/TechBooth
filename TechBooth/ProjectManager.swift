@@ -13,7 +13,7 @@ class ProjectManager: NSObject {
     let dir = "Project"
     var projectArray = [Project]()
     let dataManager = DataManager.share
-    var session = Session()
+
     func fetchProjects() {
         projectArray = dataManager.getProjects()
     }
@@ -25,24 +25,16 @@ class ProjectManager: NSObject {
         let newDoc = CGPDFDocument(path as CFURL)!
         return newDoc
     }
-}
-
-
-
-//MARK: Session extension
-
-extension ProjectManager {
-    struct Session {
-        var project: Project!
-        var document: CGPDFDocument!
-        var pageCount = 0
-        var pageRect = CGRect()
+    
+    func openRecent() {
+        if projectArray.count > 0 {
+            dataManager.loadPDF(project: projectArray[0])
+            return
+        }
+        dataManager.loadPDF(project: nil)
     }
-
-    func beginSession(index: Int) {
-        session.project = projectArray[index]
-        session.project.lastOpened = NSDate()
-        dataManager.saveContext()
-        session.document = getPDFForProject(session.project)
+    
+    func loadPDFAtIndex(_ index: Int) {
+        dataManager.loadPDF(project: projectArray[index])
     }
 }

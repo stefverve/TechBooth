@@ -145,7 +145,7 @@ class DataManager {
 			
 			let newProject = Project(context: context())
 			newProject.pdf = "Fyi.pdf"
-			newProject.name = "FYI"
+			newProject.name = "FYI2"
 			saveContext()
 
 			let bundlePath = Bundle.main.url(forResource: "Fyi", withExtension: "pdf")
@@ -182,10 +182,10 @@ class DataManager {
 		
 		let path = documentsDirectory.appendingPathComponent("\(dir)/\(project!.name!)/\(project!.pdf!)")
 		let newDoc = CGPDFDocument(path as CFURL)!
-		self.document = newDoc
-		self.pageCount = newDoc.numberOfPages
-		self.pageRect = (newDoc.page(at: 1)?.getBoxRect(CGPDFBox.mediaBox))!
-		self.currentProject = project!
+		document = newDoc
+		pageCount = newDoc.numberOfPages
+		pageRect = (newDoc.page(at: 1)?.getBoxRect(CGPDFBox.mediaBox))!
+		currentProject = project!
 	}
 
 	func makeAnnotation(page:Int, type:Int, inRect: CGRect, box:CGRect, point:CGPoint) -> Annotation{

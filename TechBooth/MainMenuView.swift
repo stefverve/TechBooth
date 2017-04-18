@@ -35,6 +35,7 @@ class MainMenuView: UIViewController, GIDSignInUIDelegate, UICollectionViewDeleg
 		//googleUsernameLabel.text = GIDSignIn.sharedInstance().currentUser
 		
 		projectManager.fetchProjects()
+        print("\(projectManager.projectArray.count)")
 		let projectArray = DataManager.share.fetchEntityArray(name: "Project")
 		var loadProject : Project? = nil
 		
@@ -95,13 +96,11 @@ class MainMenuView: UIViewController, GIDSignInUIDelegate, UICollectionViewDeleg
 	
 	//MARK: - Open Files
 	@IBAction func openRecent(_ sender: UIButton) {
-		let projectArray = DataManager.share.fetchEntityArray(name: "Project")
 		var loadProject : Project? = nil
 		
-		if projectArray.count != 0 {
-			loadProject = projectArray.last as? Project
+		if projectManager.projectArray.count > 0 {
+			loadProject = projectManager.projectArray[0]
 		}
-		
 		DataManager.share.loadPDF(project:loadProject)
 	}
 	
@@ -125,13 +124,12 @@ class MainMenuView: UIViewController, GIDSignInUIDelegate, UICollectionViewDeleg
         let project = projectManager.projectArray[indexPath.row]
         let pdf = projectManager.getPDFForProject(project)
 		cell.pdfView.page = pdf.page(at: 1)
-		
         cell.frame = CGRect(x: 0, y: 0, width: collectionView.bounds.height * (8.5/11), height: collectionView.bounds.height)
-        
 		return cell
 	}
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        projectManager.beginSession(index: indexPath.row)
-    }    
+       projectManager.loadPDFAtIndex(indexPath.row)
+        print("\(projectManager.projectArray.count)")
+    }
 }

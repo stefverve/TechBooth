@@ -195,7 +195,6 @@
 				TargetAttributes = {
 					E281E9AB1E01B32B00CC8E74 = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = 66G6NMH864;
 						LastSwiftMigration = 0810;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -439,7 +438,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = TechBooth/TechBooth.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 66G6NMH864;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = TechBooth/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.DMSV.TechBooth;
@@ -458,7 +457,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = TechBooth/TechBooth.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 66G6NMH864;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = TechBooth/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.DMSV.TechBooth;
