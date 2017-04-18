@@ -35,7 +35,7 @@ class MainMenuView: UIViewController, GIDSignInUIDelegate, UICollectionViewDeleg
 		//googleUsernameLabel.text = GIDSignIn.sharedInstance().currentUser
 		
 		projectManager.fetchProjects()
-        print("\(projectManager.projectArray.count)")
+        print("numberofdocuments\(projectManager.projectArray.count)")
 		let projectArray = DataManager.share.fetchEntityArray(name: "Project")
 		var loadProject : Project? = nil
 		
