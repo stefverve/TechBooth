@@ -145,8 +145,7 @@ class DataManager {
 			
 			let newProject = Project(context: context())
 			newProject.pdf = "Fyi.pdf"
-			newProject.name = "FYI2"
-			saveContext()
+			newProject.name = "FYI"
 
 			let bundlePath = Bundle.main.url(forResource: "Fyi", withExtension: "pdf")
 			
@@ -177,6 +176,8 @@ class DataManager {
 	}
 	
 	func openProject(project: Project?) {
+        project?.lastOpened = NSDate()
+        saveContext()
 		let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
 		let documentsDirectory = paths[0]
 		

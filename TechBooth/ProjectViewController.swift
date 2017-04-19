@@ -12,6 +12,8 @@ class ProjectViewController: UIViewController, UIPageViewControllerDelegate, UIT
     
     // MARK: Properties
     
+    var modelController = ModelController()
+    
     var pageViewController: UIPageViewController?
     var lightCueButton = UIButton()
     var soundCueButton = UIButton()
@@ -511,15 +513,15 @@ class ProjectViewController: UIViewController, UIPageViewControllerDelegate, UIT
     
     // MARK: Page View Controller Delegate Methods
     
-    var modelController: ModelController {
-        if _modelController == nil {
-            _modelController = ModelController()
-        }
-        return _modelController!
-    }
-    
-    var _modelController: ModelController? = nil
-    
+//    var modelController: ModelController {
+//        if _modelController == nil {
+//            _modelController = ModelController()
+//        }
+//        return _modelController!
+//    }
+//    
+//    var _modelController: ModelController? = nil
+//    
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         if finished {
             guard let index = (pageViewController.viewControllers?.first as! SinglePageViewController).pageNum else { return }

@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -80,7 +81,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="docCell" id="E7M-3p-V1r" customClass="myDocCell" customModule="TechBooth" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" contentMode="center" reuseIdentifier="docCell" id="E7M-3p-V1r" customClass="myDocCell" customModule="TechBooth" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="-41" width="235" height="338"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -88,7 +89,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="usf-sF-hd7" customClass="PDFView" customModule="TechBooth" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="235" height="338"/>
+                                                    <rect key="frame" x="27" y="0.0" width="181" height="338"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
                                             </subviews>
@@ -97,11 +98,11 @@
                                             <constraint firstItem="usf-sF-hd7" firstAttribute="centerX" secondItem="E7M-3p-V1r" secondAttribute="centerX" id="ON4-7q-6xm"/>
                                             <constraint firstItem="usf-sF-hd7" firstAttribute="height" secondItem="E7M-3p-V1r" secondAttribute="height" id="VMA-s5-UDt"/>
                                             <constraint firstItem="usf-sF-hd7" firstAttribute="centerY" secondItem="E7M-3p-V1r" secondAttribute="centerY" id="rxp-c5-Svo"/>
-                                            <constraint firstItem="usf-sF-hd7" firstAttribute="width" secondItem="E7M-3p-V1r" secondAttribute="width" id="sTS-yp-kJB"/>
+                                            <constraint firstItem="usf-sF-hd7" firstAttribute="width" secondItem="E7M-3p-V1r" secondAttribute="width" multiplier="0.77" id="sTS-yp-kJB"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="pdfView" destination="usf-sF-hd7" id="MaT-Yz-Cem"/>
-                                            <segue destination="vp0-B0-Il7" kind="show" identifier="ProjectViewController" id="2mX-eQ-JIJ"/>
+                                            <segue destination="vp0-B0-Il7" kind="show" identifier="ProjectViewController" id="dMW-37-D6S"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -118,7 +119,17 @@
                                 </state>
                                 <connections>
                                     <action selector="openRecent:" destination="lWp-5R-be8" eventType="touchUpInside" id="qdC-MX-wH7"/>
-                                    <segue destination="vp0-B0-Il7" kind="show" identifier="ProjectViewController" id="GCh-By-SOt"/>
+                                    <segue destination="vp0-B0-Il7" kind="show" identifier="" id="GCh-By-SOt"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zqx-Sl-QdR">
+                                <rect key="frame" x="560" y="215" width="152" height="48"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="Test Button">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="testButton:" destination="lWp-5R-be8" eventType="touchUpInside" id="7TB-mQ-ips"/>
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="8Em-z6-DmV">
@@ -173,8 +184,10 @@
                             <constraint firstItem="wF1-hL-Aoj" firstAttribute="height" secondItem="W6w-9r-EoF" secondAttribute="height" multiplier="0.25" id="Rfg-tU-qdw"/>
                             <constraint firstItem="ZVY-Pl-q9t" firstAttribute="centerX" secondItem="W6w-9r-EoF" secondAttribute="centerX" id="V5h-zg-XFQ"/>
                             <constraint firstItem="Nzw-9I-TQy" firstAttribute="centerX" secondItem="W6w-9r-EoF" secondAttribute="centerX" id="bBt-pb-l7l"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="zqx-Sl-QdR" secondAttribute="trailing" constant="36" id="cFe-VN-Bja"/>
                             <constraint firstItem="Nzw-9I-TQy" firstAttribute="centerY" secondItem="W6w-9r-EoF" secondAttribute="centerY" multiplier="1.65" id="gmq-WF-3dt"/>
                             <constraint firstItem="wF1-hL-Aoj" firstAttribute="centerX" secondItem="W6w-9r-EoF" secondAttribute="centerX" id="h4C-0q-YLY"/>
+                            <constraint firstItem="zqx-Sl-QdR" firstAttribute="top" secondItem="cPi-SU-Pa6" secondAttribute="bottom" constant="195" id="iyf-qy-Xjl"/>
                             <constraint firstItem="wF1-hL-Aoj" firstAttribute="centerY" secondItem="W6w-9r-EoF" secondAttribute="centerY" id="nUM-vR-dGl"/>
                             <constraint firstItem="ZVY-Pl-q9t" firstAttribute="centerY" secondItem="W6w-9r-EoF" secondAttribute="centerY" multiplier="0.3" id="xFC-s3-aqD"/>
                         </constraints>
@@ -190,6 +203,9 @@
                             </mask>
                         </variation>
                     </view>
+                    <connections>
+                        <outlet property="projectCollectionView" destination="wF1-hL-Aoj" id="huD-eb-wXU"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l6X-6I-32J" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -413,6 +429,6 @@
         <image name="return" width="410" height="410"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="2mX-eQ-JIJ"/>
+        <segue reference="dMW-37-D6S"/>
     </inferredMetricsTieBreakers>
 </document>
