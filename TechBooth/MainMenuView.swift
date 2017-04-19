@@ -38,7 +38,8 @@ class MainMenuView: UIViewController, GIDSignInUIDelegate, UICollectionViewDeleg
         let width = projectCollectionView.bounds.height * 8.5 / 11
         let size = CGSize(width: width, height: projectCollectionView.bounds.height)
         layout.itemSize = size
-        
+        projectManager.fetchProjects()
+
         GIDSignIn.sharedInstance().uiDelegate = self
         //Uncomment to automatically sign in the user.
         GIDSignIn.sharedInstance().signInSilently()
@@ -56,8 +57,8 @@ class MainMenuView: UIViewController, GIDSignInUIDelegate, UICollectionViewDeleg
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        projectManager.fetchProjects()
-        projectCollectionView.reloadData()
+//        projectManager.fetchProjects()
+//        projectCollectionView.reloadData()
     }
     
     func sign(inWillDispatch signIn: GIDSignIn!, error: Error!) {
