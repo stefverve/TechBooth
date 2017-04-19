@@ -81,12 +81,12 @@ class PresentationViewController: UIViewController {
         
         let nextPath = UIBezierPath()
         nextPath.move(to: CGPoint(x: 0, y: 5))
-        nextPath.addArc(withCenter: CGPoint(x: 5, y: 5) , radius: 5, startAngle: CGFloat(M_PI), endAngle: 3*CGFloat(M_PI_2), clockwise: true)
+        nextPath.addArc(withCenter: CGPoint(x: 5, y: 5) , radius: 5, startAngle: CGFloat.pi, endAngle: 3*CGFloat.pi/2, clockwise: true)
         nextPath.addLine(to: CGPoint(x: 60, y: 0))
         nextPath.addLine(to: CGPoint(x: 90, y: 30))
         nextPath.addLine(to: CGPoint(x: 60, y: 60))
         nextPath.addLine(to: CGPoint(x: 5, y: 60))
-        nextPath.addArc(withCenter: CGPoint(x: 5, y: 55), radius: 5, startAngle: CGFloat(M_PI_2), endAngle: CGFloat(M_PI), clockwise: true)
+        nextPath.addArc(withCenter: CGPoint(x: 5, y: 55), radius: 5, startAngle: CGFloat.pi/2, endAngle: CGFloat.pi, clockwise: true)
         let nextMask = CAShapeLayer()
         nextMask.path = nextPath.cgPath
         nextCueButton.layer.mask = nextMask
@@ -94,12 +94,12 @@ class PresentationViewController: UIViewController {
         let backPath = UIBezierPath()
         backPath.move(to: CGPoint(x: 90, y: 5))
         backPath.addLine(to: CGPoint(x: 90, y: 55))
-        backPath.addArc(withCenter: CGPoint(x: 85, y: 55), radius: 5, startAngle: 0, endAngle: CGFloat(M_PI_2), clockwise: true)
+        backPath.addArc(withCenter: CGPoint(x: 85, y: 55), radius: 5, startAngle: 0, endAngle: CGFloat.pi/2, clockwise: true)
         backPath.addLine(to: CGPoint(x: 30, y: 60))
         backPath.addLine(to: CGPoint(x: 0, y: 30))
         backPath.addLine(to: CGPoint(x: 30, y: 0))
         backPath.addLine(to: CGPoint(x: 85, y: 0))
-        backPath.addArc(withCenter: CGPoint(x: 85, y: 5), radius: 5, startAngle: 3*CGFloat(M_PI_2), endAngle: 2*CGFloat(M_PI), clockwise: true)
+        backPath.addArc(withCenter: CGPoint(x: 85, y: 5), radius: 5, startAngle: 3*CGFloat.pi/2, endAngle: 2*CGFloat.pi, clockwise: true)
         let backMask = CAShapeLayer()
         backMask.path = backPath.cgPath
         previousCueButton.layer.mask = backMask

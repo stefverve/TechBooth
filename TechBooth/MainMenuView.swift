@@ -88,7 +88,7 @@ class MainMenuView: UIViewController, GIDSignInUIDelegate, UICollectionViewDeleg
                 let pdfPath = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("Script.PDF").path
                 let url = NSURL .fileURL(withPath: pdfPath)
                 let pdfData = NSData(contentsOf: url)
-                mailComposer.addAttachmentData(pdfData as! Data, mimeType: "application/pdf", fileName: "\(DataManager.share.currentProject!.name!) - PDF")
+                mailComposer.addAttachmentData(pdfData! as Data, mimeType: "application/pdf", fileName: "\(DataManager.share.currentProject!.name!) - PDF")
                 
                 if fileData.length == 0 {
                     mailComposer.setMessageBody("No annotations to export!", isHTML: false)
