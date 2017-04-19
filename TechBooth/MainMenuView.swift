@@ -28,10 +28,6 @@ class MainMenuView: UIViewController, GIDSignInUIDelegate, UICollectionViewDeleg
         GIDSignIn.sharedInstance().signIn()
     }
     
-    @IBAction func testButton(_ sender: UIButton) {
-        projectCollectionView.reloadData()
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         let layout = projectCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
